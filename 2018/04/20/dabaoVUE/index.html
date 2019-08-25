@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>dabaoVUE | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="打包vue项目 1.找到vue项目中找到config下面的index.js 2.在index.js下找到第39行 将原来的 “../dist/index.html”     改成下方代码所示  需两处修改。 build: { ​    // Template for index.html ​    index: path.resolve(__dirname, ‘./dist/index.html’">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dabaoVUE">
+<meta property="og:url" content="http://yoursite.com/2018/04/20/dabaoVUE/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="打包vue项目 1.找到vue项目中找到config下面的index.js 2.在index.js下找到第39行 将原来的 “../dist/index.html”     改成下方代码所示  需两处修改。 build: { ​    // Template for index.html ​    index: path.resolve(__dirname, ‘./dist/index.html’">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-25T11:31:27.057Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="dabaoVUE">
+<meta name="twitter:description" content="打包vue项目 1.找到vue项目中找到config下面的index.js 2.在index.js下找到第39行 将原来的 “../dist/index.html”     改成下方代码所示  需两处修改。 build: { ​    // Template for index.html ​    index: path.resolve(__dirname, ‘./dist/index.html’">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,175 +154,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-JWT" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-dabaoVUE" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/22/JWT/">JWT</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/22/JWT/" class="archive-article-date">
-  	<time datetime="2019-08-22T07:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/918127ddb04349fc94bc1b37d94d597f/5137b04b869c4bc5b2b58b1853fce8d2.jpg" alt="img"></p>
-<p>JWT是基于token的身份认证的方案。</p>
-<p>json web token全称。可以保证安全传输的前提下传送一些基本的信息，以减轻对外部存储的依赖，减少了分布式组件的依赖，减少了硬件的资源。</p>
-<p>JWT 特点 体积小，因而传输速度快（通过URL/POST参数/HTTP头部等方式传输）</p>
-<p>由 . 分为三段：</p>
-<p>1.头部（Header）</p>
-<p>jwt的头部包含两部分信息：</p>
-<p>声明类型，这里是jwt</p>
-<p>声明加密的算法 通常直接使用 HMAC SHA256</p>
-<p>2.载荷（payload）</p>
-<p>就是存放有效信息的地方。</p>
-<p>3.签名（signature)</p>
-<p>签名的目的签名实际上是对头部以及载荷内容进行签名。</p>
-<p>本质上是一个独立的身份验证令牌，可以包含用户标识、用户角色和权限等信息，以及您可以存储任何其他信息（自包含）。任何人都可以轻松读取和解析，并使用密钥来验证真实性。</p>
-<p>使用JSON Web Token的好处？ </p>
-<p>1.性能问题。 JWT方式将用户状态分散到了客户端中，相比于session，可以明显减轻服务端的内存压力。分布式应用需session，是存储在服务器端的，需要占用大量服务器内存。</p>
-<p>2.单点登录。 JWT能轻松的实现单点登录，因为用户的状态已经被传送到了客户端。 token 可保存自定义信息（用户信息），每个服务不需要与授权服务交互才能授权用户。 </p>
-<p>3.前后端分离。后台对应的客户端是浏览器，使用session+cookies的方式实现登录，页面的渲染、路由都由前端完成，后端只负责RestApi提供数据。</p>
-<p>4.兼容性。 支持移动设备，支持跨程序调用，Cookie 是不允许垮域访问的，而 Token 则不存在这个问题。 </p>
-<p>5.可拓展性。 jwt是无状态的，用于分布式站点的单点登录（SSO）场景。 </p>
-<p>6.安全性。因为有签名，，jwt的安全特性保证了token的不可伪造和不可篡改。</p>
-<p>缺陷： 1）JWT在生成token的时候支持失效时间，支持的失效时间是固定的，比如说一天。jwt token做失效是不可行的，因为jwt在初始化的时候已经定死在什么时候过期了。 在redis中存储token，设置token的过期时间，每次鉴权的时候都会去延长时间 2）jwt不适合存放大量信息，信息越多token越长</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/22/JWT/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/22/hello-world/" class="archive-article-date">
-  	<time datetime="2019-08-22T00:45:41.330Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/22/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-dabaoVUE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/20/dabaoVUE/">dabaoVUE</a>
+    <h1 class="article-title" itemprop="name">
+      dabaoVUE
     </h1>
   
 
@@ -364,6 +207,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -371,16 +235,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/20/dabaoVUE/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/04/20/dabaoVUE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/08/22/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/10/Docker/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Docker</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -400,464 +332,14 @@
 
 
 
-
   
-    <article id="post-Docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/Docker/">Docker</a>
-    </h1>
   
 
-        
-        <a href="/2018/04/10/Docker/" class="archive-article-date">
-  	<time datetime="2018-04-10T07:15:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="在Centos7-6上部署Docker环境以及安装docker-compose"><a href="#在Centos7-6上部署Docker环境以及安装docker-compose" class="headerlink" title="在Centos7.6上部署Docker环境以及安装docker-compose"></a>在Centos7.6上部署Docker环境以及安装docker-compose</h1><p>​    毫无疑问，Docker目前是现阶段最为火爆的容器技术了，它在业务解耦和拆分业务层面有着不可忽视的作用，而使用 Docker Compose 可以轻松、高效的管理容器，它是一个用于定义和运行多容器 Docker 的应用程序工具，这里记录一下如何在centos7.6上部署Docker以及docker-compose。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#升级yum</span><br><span class="line">sudo yum update</span><br><span class="line">#卸载旧版本docker</span><br><span class="line">sudo yum remove docker  docker-common docker-selinux docker-engine</span><br><span class="line">#安装依赖</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">#设置源</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">#安装docker</span><br><span class="line">sudo yum install docker-ce</span><br><span class="line">#启动服务</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">#查看版本</span><br><span class="line">docker version</span><br><span class="line">#拉取镜像</span><br><span class="line">docker pull hello-world</span><br><span class="line">#启动容器</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<p>启动容器后，如果出现下面的输出则表示安装成功</p>
-<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190821/20190821094924_49629.png" alt="img"></p>
-<p>下面安装docker-compose，运行下面的脚本可以自动安装，并且授权</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
-
-<p>安装成功后，检查版本号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -v</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/Docker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SessionCookie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/03/SessionCookie/">SessionCookie</a>
-    </h1>
   
 
-        
-        <a href="/2018/03/03/SessionCookie/" class="archive-article-date">
-  	<time datetime="2018-03-03T07:08:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="彻底弄清楚session-cookie-sessionStorage-localStorage的区别及应用场景（面试向）"><a href="#彻底弄清楚session-cookie-sessionStorage-localStorage的区别及应用场景（面试向）" class="headerlink" title="彻底弄清楚session,cookie,sessionStorage,localStorage的区别及应用场景（面试向）"></a>彻底弄清楚session,cookie,sessionStorage,localStorage的区别及应用场景（面试向）</h1><p>​    客户端状态保持是一个老生常谈的问题了，归根结底追踪浏览器的用户身份及其相关数据无非就是以下四种方式：session,cookie,sessionStorage,localStorage</p>
-<p>​    首先cookie和session:</p>
-<p>​    Cookie机制：如果不在浏览器中设置过期时间，cookie被保存在内存中，生命周期随浏览器的关闭而结束，这种cookie简称会话cookie。如果在浏览器中设置了cookie的过期时间，cookie被保存在硬盘中，关闭浏览器后，cookie数据仍然存在，直到过期时间结束才消失。<br>    Cookie是服务器发给客户端的特殊信息，cookie是以文本的方式保存在客户端，每次请求时都带上它<br>    Session机制：当服务器收到请求需要创建session对象时，首先会检查客户端请求中是否包含sessionid。如果有sessionid，服务器将根据该id返回对应session对象。如果客户端请求中没有sessionid，服务器会创建新的session对象，并把sessionid在本次响应中返回给客户端。通常使用cookie方式存储sessionid到客户端，在交互中浏览器按照规则将sessionid发送给服务器。如果用户禁用cookie，则要使用URL重写，可以通过response.encodeURL(url) 进行实现；API对encodeURL的结束为，当浏览器支持Cookie时，url不做任何处理；当浏览器不支持Cookie的时候，将会重写URL将SessionID拼接到访问地址后。<br>    3、存储内容：cookie只能保存字符串类型，以文本的方式；session通过类似与Hashtable的数据结构来保存，能支持任何类型的对象(session中可含有多个对象)<br>    4、存储的大小：cookie：单个cookie保存的数据不能超过4kb；session大小没有限制。<br>    5、安全性：cookie：针对cookie所存在的攻击：Cookie欺骗，Cookie截获；session的安全性大于cookie。<br>    原因如下：<br>    （1）sessionID存储在cookie中，若要攻破session首先要攻破cookie；<br>    （2）sessionID是要有人登录，或者启动session_start才会有，所以攻破cookie也不一定能得到sessionID；<br>    （3）第二次启动session_start后，前一次的sessionID就是失效了，session过期后，sessionID也随之失效。<br>    （4）sessionID是加密的<br>    （5）综上所述，攻击者必须在短时间内攻破加密的sessionID，并非易事。<br>    6、应用场景：<br>    cookie：<br>    （1）判断用户是否登陆过网站，以便下次登录时能够实现自动登录（或者记住密码）。如果我们删除cookie，则每次登录必须从新填写登录的相关信息。<br>    （2）保存上次登录的时间等信息。<br>    （3）保存上次查看的页面<br>    （4）浏览计数<br>    session：Session用于保存每个用户的专用信息，变量的值保存在服务器端，通过SessionID来区分不同的客户。<br>    （1）网上商城中的购物车<br>    （2）保存用户登录信息<br>    （3）将某些数据放入session中，供同一用户的不同页面使用<br>    （4）防止用户非法登录<br>    7、缺点：cookie：<br>    （1）大小受限<br>    （2）用户可以操作（禁用）cookie，使功能受限<br>    （3）安全性较低<br>    （4）有些状态不可能保存在客户端。<br>    （5）每次访问都要传送cookie给服务器，浪费带宽。<br>    （6）cookie数据有路径（path）的概念，可以限制cookie只属于某个路径下。<br>    session：<br>    （1）Session保存的东西越多，就越占用服务器内存，对于用户在线人数较多的网站，服务器的内存压力会比较大。<br>    （2）依赖于cookie（sessionID保存在cookie），如果禁用cookie，则要使用URL重写，不安全<br>    （3）创建Session变量有很大的随意性，可随时调用，不需要开发者做精确地处理，所以，过度使用session变量将会导致代码不可读而且不好维护。</p>
-<p>​    说白了，这两种状态保持方式都差强人意，于是webStroage应运而生</p>
-<p>​    WebStorage的目的是克服由cookie所带来的一些限制，当数据需要被严格控制在客户端时，不需要持续的将数据发回服务器。<br>    WebStorage两个主要目标：（1）提供一种在cookie之外存储会话数据的路径。（2）提供一种存储大量可以跨会话存在的数据的机制。<br>    HTML5的WebStorage提供了两种API：localStorage（本地存储）和sessionStorage（会话存储）。<br>    1、生命周期：localStorage:localStorage的生命周期是永久的，关闭页面或浏览器之后localStorage中的数据也不会消失。localStorage除非主动删除数据，否则数据永远不会消失。<br>    sessionStorage的生命周期是在仅在当前会话下有效。sessionStorage引入了一个“浏览器窗口”的概念，sessionStorage是在同源的窗口中始终存在的数据。只要这个浏览器窗口没有关闭，即使刷新页面或者进入同源另一个页面，数据依然存在。但是sessionStorage在关闭了浏览器窗口后就会被销毁。同时独立的打开同一个窗口同一个页面，sessionStorage也是不一样的。<br>    2、存储大小：localStorage和sessionStorage的存储数据大小一般都是：5MB<br>    3、存储位置：localStorage和sessionStorage都保存在客户端，不与服务器进行交互通信。<br>    4、存储内容类型：localStorage和sessionStorage只能存储字符串类型，对于复杂的对象可以使用ECMAScript提供的JSON对象的stringify和parse来处理<br>    5、获取方式：localStorage：window.localStorage;；sessionStorage：window.sessionStorage;。<br>    6、应用场景：localStoragese：常用于长期登录（+判断用户是否已登录），适合长期保存在本地的数据（令牌）。sessionStorage：敏感账号一次性登录；<br>    WebStorage的优点：<br>    （1）存储空间更大：cookie为4KB，而WebStorage是5MB；<br>    （2）节省网络流量：WebStorage不会传送到服务器，存储在本地的数据可以直接获取，也不会像cookie一样美词请求都会传送到服务器，所以减少了客户端和服务器端的交互，节省了网络流量；<br>    （3）对于那种只需要在用户浏览一组页面期间保存而关闭浏览器后就可以丢弃的数据，sessionStorage会非常方便；<br>    （4）快速显示：有的数据存储在WebStorage上，再加上浏览器本身的缓存。获取数据时可以从本地获取会比从服务器端获取快得多，所以速度更快；<br>    （5）安全性：WebStorage不会随着HTTP header发送到服务器端，所以安全性相对于cookie来说比较高一些，不会担心截获，但是仍然存在伪造问题；<br>    （6）WebStorage提供了一些方法，数据操作比cookie方便；<br>            setItem (key, value) —— 保存数据，以键值对的方式储存信息。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/03/SessionCookie/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ALiYun1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/11/ALiYun1/">ALiYun1</a>
-    </h1>
   
 
-        
-        <a href="/2018/02/11/ALiYun1/" class="archive-article-date">
-  	<time datetime="2018-02-11T01:53:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="在centos7-6上部署前后端分离项目Nginx反向代理vue-js2-6-Tornado5-1-1，使用supervisor统一管理服务"><a href="#在centos7-6上部署前后端分离项目Nginx反向代理vue-js2-6-Tornado5-1-1，使用supervisor统一管理服务" class="headerlink" title="在centos7.6上部署前后端分离项目Nginx反向代理vue.js2.6+Tornado5.1.1，使用supervisor统一管理服务"></a>在centos7.6上部署前后端分离项目Nginx反向代理vue.js2.6+Tornado5.1.1，使用supervisor统一管理服务</h1><p> 这一次使用vue.js+tornado的组合来部署前后端分离的web项目，vue.js不用说了，前端当红炸子鸡，泛用性非常广，无论是单页应用，还是混合式开发app，亦或是微信小程序开发，样样得心应手，tornado最近的风头有点被新锐框架sanic抢走了，但是作为老牌的异步非阻塞框架，其内置了支持epoll/kqueue 等高效网络库，而具备了处理高并发的能力并且开发效率也不低，这一次tornado作为承载后端压力的角色。</p>
-<p>​    首先部署前端，将测试好的vue.js2.6项目打包，值得一提的是，在生产环境并不需要node.js服务，因为利用vue.js的特性可以对前端页面进行打包，使其成为一个纯静态页包，上线后利用nginx对其代理即可，既方便又安全。在项目目录下执行npm run build命令，在执行之前，先把conifg目录下index.js中的bulid配置../dist改成./dist</p>
-<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190822/20190822125312_62859.png" alt="img"></p>
-<p>​    执行命令后，会在项目的config目录下的dist目录生成静态页，将dist目录上传到服务器的/root目录下</p>
-<p>​    运行 chmod 755 /root/dist 对项目文件授权</p>
-<p>​    然后，在线上安装nginx</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#设置源</span><br><span class="line">sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</span><br><span class="line"></span><br><span class="line">#安装</span><br><span class="line">yum install -y nginx</span><br><span class="line"></span><br><span class="line">#启动服务</span><br><span class="line">systemctl start nginx.service</span><br></pre></td></tr></table></figure>
-
-<p>​    服务器需要暴露80端口，此时，测试一下，看看能否显示欢迎页</p>
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190822/20190822125636_42282.png" alt="img"></p>
-<p>​    没有问题，这时修改一下nginx 配置文件 vim /etc/nginx/conf.d/default.conf  增加下面的配置，这里前端服务默认监听80端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    access_log      /root/md_vue_access.log;</span><br><span class="line">    error_log       /root/md_vue_error.log;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    client_max_body_size 75M;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line"></span><br><span class="line">        root /root/dist;</span><br><span class="line">        index index.html;</span><br><span class="line">        try_files $uri $uri/ /index.html;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    error_log    /root/dist/error.log    error;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#继续修改配置</span><br><span class="line">vim /etc/nginx/nginx.conf</span><br><span class="line">将第一行改为 user root;</span><br></pre></td></tr></table></figure>
-
-<p>改好后，重启nginx服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl reload nginx.service</span><br></pre></td></tr></table></figure>
-
-<p>每次修改nginx配置一定要重启服务，否则修改不会生效</p>
-<p>访问一下，看看效果</p>
-<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190822/20190822131209_18271.png" alt="img"></p>
-<p>​    至此，前端就部署好了，是不是很简单呢？这一次我们摒弃了老美多商城丑陋而原始的模板，采用响应式设计的新模板，兼容任意大小屏幕，并且还可以打包成apk，简直棒</p>
-<p>​    接着，我们来部署后端，首先安装python3，需要注意的是centos自带python2.7，当装软件的时候千万不要影响这个python2.7，因为系统很多东西都依赖python2，所以我们只要python2和python3共存就可以了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line"></span><br><span class="line">yum install python36</span><br><span class="line"></span><br><span class="line">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span><br><span class="line"></span><br><span class="line">python3 get-pip.py</span><br><span class="line"></span><br><span class="line">pip3 install pymysql</span><br><span class="line"></span><br><span class="line">pip3 install pillow</span><br><span class="line"></span><br><span class="line">pip3 install pycryptodome</span><br><span class="line"></span><br><span class="line">pip3 install tornado==5.1.1</span><br><span class="line"></span><br><span class="line">pip3 install sqlalchemy</span><br></pre></td></tr></table></figure>
-
-<p>​    将tornado项目上传到/root/mytornado下，修改项目权限:chmod -R 755 /root/mytornado 然后将项目的debug模式关闭，并且修改端口号为8001，同时阿里云暴露8001端口，进行项目根目录，启动服务:python3 server.py，检查一下</p>
-<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190823/20190823013951_52792.png" alt="img"></p>
-<p>​    没有问题，此时修改nginx配置文件，用nginx对tornado进行反向代理，新建一个配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/conf.d/tornado.conf</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">upstream tornado &#123;</span><br><span class="line">    server 127.0.0.1:8001;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen   8000;</span><br><span class="line">    root /root/mytornado;</span><br><span class="line">    index server.py index.html;</span><br><span class="line"></span><br><span class="line">    server_name server;</span><br><span class="line"></span><br><span class="line">        # 静态文件直接由Nginx处理</span><br><span class="line">    location /static/&#123;</span><br><span class="line">        alias /root/mytornado/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125;</span><br><span class="line">    location /&#123;</span><br><span class="line">        proxy_pass_header Server;</span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        proxy_redirect off;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        # 把请求方向代理传给tornado服务器，负载均衡</span><br><span class="line">        proxy_pass http://tornado;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>该配置的意思就是由nginx监听8000端口，并且将请求反向代理至tornado服务，这里我们只起了一个8001的服务，还可以启动更多，这就是传统意义上的负载均衡</p>
-<p>重启一下nginx</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart nginx.service</span><br></pre></td></tr></table></figure>
-
-<p>访问服务器的8000端口，阿里云也别忘了暴露一下8000</p>
-<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190823/20190823022030_20802.png" alt="img"></p>
-<p>​    最后，每次手动在命令行启动应用是比较麻烦的，我们还需要一个能够方便的管理服务进程的工具，包括自动重启进程等，而Supervisor的作用在这里就可以体现了。我们使用它来管理这个Tornado web server相关的进程</p>
-<p>​    安装supervisor</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line">yum install -y supervisor</span><br></pre></td></tr></table></figure>
-
-<p>​    生成配置文件</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">supervisord -c /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
-
-<p>​    修改配置文件</p>
-<p>​    然后修改配置文件 vim /etc/supervisord.conf   将下面几行的注释解开</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[inet_http_server]         ; inet (TCP) server disabled by default</span><br><span class="line">port=*:9001        ; (ip_address:port specifier, *:port for all iface)</span><br><span class="line">username=user              ; (default is no username (open server))</span><br><span class="line">password=123               ; (default is no password (open server))</span><br></pre></td></tr></table></figure>
-
-
-
-<p>​    然后在配置文件末尾加上tornado的配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[program:mytornado]</span><br><span class="line">command=python3 /root/mytornado/server.py --port=8001</span><br><span class="line">directory=/root/mytornado</span><br><span class="line">autorestart=true</span><br><span class="line">redirect_stderr=true</span><br></pre></td></tr></table></figure>
-
-<p>​    保存文件退出后，启动supervisor服务</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">supervisord -c /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
-
-<p>​    此时，将刚刚手动启动的tornado服务关闭，然后访问服务器的9001端口，用配置文件中的账号和密码登录</p>
-<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190823/20190823024429_56609.png" alt="img"></p>
-<p>​    这样就可以在管理页面中控制tornado服务了，同时supervisor还赋予了守护进程模式，方便服务拉起</p>
-<p>​    需要注意的是，当修改了supervisor的配置，想要生效就得重启supervisor服务，终止服务命令是：</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall -s INT /usr/bin/python</span><br></pre></td></tr></table></figure>
-
-<p>​    因为supervisor是基于python2的，所以不用担心python3的进程</p>
-<p>​    另外如果只想在命令行中控制tornado也是可以的</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#停止tornado服务</span><br><span class="line">supervisorctl stop mytornado</span><br><span class="line"></span><br><span class="line">#启动tornado服务</span><br><span class="line">supervisorctl start mytornado</span><br></pre></td></tr></table></figure>
-
-<p>至此，我们通过nginx反向代理tornado负载均衡，并且通过supervisor管理就部署好了，简直太简单了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/11/ALiYun1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hexo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/25/Hexo/">Hexo</a>
-    </h1>
-  
-
-        
-        <a href="/2015/07/25/Hexo/" class="archive-article-date">
-  	<time datetime="2015-07-25T06:59:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-07-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="使用Hexo建立一个轻量、简易、高逼格的博客"><a href="#使用Hexo建立一个轻量、简易、高逼格的博客" class="headerlink" title="使用Hexo建立一个轻量、简易、高逼格的博客"></a>使用Hexo建立一个轻量、简易、高逼格的博客</h1><p>​    在之前的一篇文章中，介绍了如何使用Hugo在<a href="https://v3u.cn/a_id_81" target="_blank" rel="noopener">三分钟之内建立一个简单的个人博客系统</a>，它是基于go lang的，其实，市面上还有一款类似的静态页生成器，就是Hexo 读音/hækso/ ，它是基于node.js的，和Hugo一样，Hexo 正常来说，不需要部署到我们的服务器上，我们的服务器上保存的，其实是基于在hexo通过markdown编写的文章，然后hexo帮我们生成静态的html页面，然后，将生成的html上传到我们的服务器。简而言之：hexo是个静态页面生成、上传的工具。</p>
-<p>​    首先安装Hexo，在此之前，请确保电脑里已经安装好新版的node.js</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<p>​    如果感觉安装速度比较慢，可以为npm指定国内的源</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>​    安装完成后，创建博客项目</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure>
-
-<p>​    这样，就建立起了一个blog文件夹，进入到blog目录下 cd blog，建立第一篇文章</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new myfirst</span><br></pre></td></tr></table></figure>
-
-<p>​    然后运行hexo服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<p>​    就可以在本地访问你的博客网站了，默认端口号是4000</p>
-<p>​    那么如何将博客网站打包呢？直接运行打包命令，这样就能使用 Hexo 引擎将 Markdown 格式的文件解析成可以使用浏览器查看的 HTML 文件，HTML 文件存储在 blog/public 目录下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>​    下面我们可以配置一下hexo主题，Hexo 提供了默认主题 landscape，主题的位置在 blog -&gt;themes 文件夹下。主题根据自己喜好可以在网上找到:<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-<p>​    主题都放在blog/themes文件夹下面，这我们下载一个新的主题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir themes/next</span><br><span class="line">git clone --branch v5.1.2 https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-
-<p>​    然后在修改 /blog/config.yml 文件，将其中的 theme 改成 next</p>
-<p>​    最后，将打包好的public目录上传到服务器，使用nginx代理访问就可以了，具体配置请移步：<a href="https://v3u.cn/a_id_81" target="_blank" rel="noopener">https://v3u.cn/a_id_81</a></p>
-<p>​    如果没有自己的域名和服务器怎么办？没关系，可以申请 Github 免费静态内容空间，在github.com注册一个账号，然后创建一个新的仓库</p>
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190625/20190625080452_43440.png" alt="img"></p>
-<p>​    仓库名称一定要定义成 账号名.github.io，这种形式，注意账号名一定要和你的github当前登录的账号吻合</p>
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190625/20190625080756_40947.png" alt="img">  </p>
-<p>​    这样你的静态内容空间就已经创建好了，在浏览器输入你的 <a href="https://zcxey2911.github.io/" target="_blank" rel="noopener">https://你的账号.github.io/</a> 就可以访问了。</p>
-<p>​    将之前打包好的public中的文件push到刚刚创建好的github仓库中去</p>
-<p>​    访问静态空间网址<a href="https://zcxey2911.github.io/" target="_blank" rel="noopener">https://zcxey2911.github.io</a></p>
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190625/20190625082305_49762.png" alt="img"></p>
-<p>没有问题，搞定收工</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/07/25/Hexo/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Yi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/08/22/Yi/">Yi</a>
-    </h1>
-  
-
-        
-        <a href="/2011/08/22/Yi/" class="archive-article-date">
-  	<time datetime="2011-08-22T05:51:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>GIT</p>
-<p>到码云上创建仓库  (建议设置共有)</p>
-<p>在计算机上</p>
-<ol>
-<li>新建文件夹</li>
-<li>到该文件夹目录</li>
-<li>初始化  </li>
-</ol>
-<p>$ git init </p>
-<p>$ git remote add origin <a href="https://gitee.com/xxx/xxx.git" target="_blank" rel="noopener">https://gitee.com/xxx/xxx.git</a> (你的远程项目地址)</p>
-<p>2.克隆一下</p>
-<p>$ git clone https://.git (你的远程项目地址)</p>
-<ol>
-<li>拉取仓库数据</li>
-</ol>
-<p>$ git pull origin master</p>
-<p>4.添加到暂存区</p>
-<p>$ git add .</p>
-<p>5.添加到仓库区</p>
-<p>$ git commit -m “你的第一次提交”</p>
-<p>6.push到你的码云仓库</p>
-<p>$ git push origin master</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2011/08/22/Yi/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -880,8 +362,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
