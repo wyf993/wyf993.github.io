@@ -152,6 +152,77 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/Docker/">Docker</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/Docker/" class="archive-article-date">
+  	<time datetime="2018-04-10T07:15:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="在Centos7-6上部署Docker环境以及安装docker-compose"><a href="#在Centos7-6上部署Docker环境以及安装docker-compose" class="headerlink" title="在Centos7.6上部署Docker环境以及安装docker-compose"></a>在Centos7.6上部署Docker环境以及安装docker-compose</h1><p>​    毫无疑问，Docker目前是现阶段最为火爆的容器技术了，它在业务解耦和拆分业务层面有着不可忽视的作用，而使用 Docker Compose 可以轻松、高效的管理容器，它是一个用于定义和运行多容器 Docker 的应用程序工具，这里记录一下如何在centos7.6上部署Docker以及docker-compose。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#升级yum</span><br><span class="line">sudo yum update</span><br><span class="line">#卸载旧版本docker</span><br><span class="line">sudo yum remove docker  docker-common docker-selinux docker-engine</span><br><span class="line">#安装依赖</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">#设置源</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">#安装docker</span><br><span class="line">sudo yum install docker-ce</span><br><span class="line">#启动服务</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">#查看版本</span><br><span class="line">docker version</span><br><span class="line">#拉取镜像</span><br><span class="line">docker pull hello-world</span><br><span class="line">#启动容器</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p>启动容器后，如果出现下面的输出则表示安装成功</p>
+<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190821/20190821094924_49629.png" alt="img"></p>
+<p>下面安装docker-compose，运行下面的脚本可以自动安装，并且授权</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>安装成功后，检查版本号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -v</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/Docker/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SessionCookie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
