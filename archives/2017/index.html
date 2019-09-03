@@ -6,19 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>dabaoVUE | Hexo</title>
+  <title>Archives: 2017 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="打包vue项目 1.找到vue项目中找到config下面的index.js 2.在index.js下找到第39行 将原来的 “../dist/index.html”     改成下方代码所示  需两处修改。 build: { ​    // Template for index.html ​    index: path.resolve(__dirname, ‘./dist/index.html’">
-<meta property="og:type" content="article">
-<meta property="og:title" content="dabaoVUE">
-<meta property="og:url" content="http://yoursite.com/2018/04/20/dabaoVUE/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="打包vue项目 1.找到vue项目中找到config下面的index.js 2.在index.js下找到第39行 将原来的 “../dist/index.html”     改成下方代码所示  需两处修改。 build: { ​    // Template for index.html ​    index: path.resolve(__dirname, ‘./dist/index.html’">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-25T11:31:27.057Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dabaoVUE">
-<meta name="twitter:description" content="打包vue项目 1.找到vue项目中找到config下面的index.js 2.在index.js下找到第39行 将原来的 “../dist/index.html”     改成下方代码所示  需两处修改。 build: { ​    // Template for index.html ​    index: path.resolve(__dirname, ‘./dist/index.html’">
+<meta name="twitter:title" content="Hexo">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -154,193 +150,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-dabaoVUE" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      dabaoVUE
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/08/25/Axios/" class="archive-article-date">
+  	<time datetime="2017-08-25T12:55:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-25</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/08/25/Axios/">Axios</a>
     </h1>
   
 
-        
-        <a href="/2018/04/20/dabaoVUE/" class="archive-article-date">
-  	<time datetime="2018-04-20T11:30:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打包vue项目</p>
-<p>1.找到vue项目中找到config下面的index.js</p>
-<p>2.在index.js下找到第39行 将原来的 “../dist/index.html”     改成下方代码所示  需两处修改。</p>
-<p>build: {</p>
-<p>​    // Template for index.html</p>
-<p>​    index: path.resolve(__dirname, ‘./dist/index.html’),  #此处需要修改</p>
-<p>​    </p>
-<p>​    // Paths</p>
-<p>​        assetsRoot: path.resolve(__dirname, ‘./dist’),   #此处需要修改</p>
-<p>​        assetsSubDirectory: ‘static’,</p>
-<p>​        assetsPublicPath: ‘/‘,</p>
-<p>​        /**</p>
-<p>​         * Source Maps</p>
-<p>​         */</p>
-<p>​        productionSourceMap: true,</p>
-<p>​        // <a href="https://webpack.js.org/configuration/devtool/#production" target="_blank" rel="noopener">https://webpack.js.org/configuration/devtool/#production</a></p>
-<p>​        devtool: ‘#source-map’,</p>
-<p>原理：这个理解为 当你运行npm run vue的时候  它会将你所有vue中的服务，所有的组件，所有的网页，打包成静态页， 这个静态页的位置，是跟config同级的dist。</p>
-<p>3.将gitignore 第三行 “/dist/”  把前面那个“/”去掉    最后结果成  “dist/”</p>
-<p>4.在上述工作完成后到你的vue项目根路径下  运行   npm run build 进行打包</p>
-<p>5.执行下面两条命令，可以进到里面看有没有dist  </p>
-<p>cd config </p>
-<p>cd dist</p>
-<p>npm install http-server -g   安装hs</p>
-<p>6 . 当 cd 进去之后  可以执行hs  自启一个web服务  访问一个纯静态一个网页 </p>
-<p>hs执行访问不了执行一下</p>
-<p>python -m http.server</p>
-<p>如果服务器nginx访问阿里云公ip无法访问：</p>
-<p>添加安全规则80端口要开放</p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/04/20/dabaoVUE/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/08/13/Zhifubao/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          支付宝（含退款）
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/04/10/Docker/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Docker</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -363,8 +215,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
