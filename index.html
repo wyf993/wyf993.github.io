@@ -152,6 +152,215 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-docker2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/03/docker2/">Docker快速入门-Compose</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/03/docker2/" class="archive-article-date">
+  	<time datetime="2019-09-03T12:07:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p># </p>
+<h2 id="一、Docker-Compose简介"><a href="#一、Docker-Compose简介" class="headerlink" title="一、Docker-Compose简介"></a>一、Docker-Compose简介</h2><h3 id="1、Docker-Compose简介"><a href="#1、Docker-Compose简介" class="headerlink" title="1、Docker-Compose简介"></a>1、Docker-Compose简介</h3><p>Docker-Compose项目是Docker官方的开源项目，负责实现对Docker容器集群的快速编排。<br>Docker-Compose将所管理的容器分为三层，分别是工程（project），服务（service）以及容器（container）。Docker-Compose运行目录下的所有文件（docker-compose.yml，extends文件或环境变量文件等）组成一个工程，若无特殊指定工程名即为当前目录名。一个工程当中可包含多个服务，每个服务中定义了容器运行的镜像，参数，依赖。一个服务当中可包括多个容器实例，Docker-Compose并没有解决负载均衡的问题，因此需要借助其它工具实现服务发现及负载均衡。<br>Docker-Compose的工程配置文件默认为docker-compose.yml，可通过环境变量COMPOSE_FILE或-f参数自定义配置文件，其定义了多个有依赖关系的服务及每个服务运行的容器。<br>使用一个Dockerfile模板文件，可以让用户很方便的定义一个单独的应用容器。在工作中，经常会碰到需要多个容器相互配合来完成某项任务的情况。例如要实现一个Web项目，除了Web服务容器本身，往往还需要再加上后端的数据库服务容器，甚至还包括负载均衡容器等。<br>Compose允许用户通过一个单独的docker-compose.yml模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）。<br>Docker-Compose项目由Python编写，调用Docker服务提供的API来对容器进行管理。因此，只要所操作的平台支持Docker API，就可以在其上利用Compose来进行编排管理。</p>
+<h3 id="2、Docker-Compose安装"><a href="#2、Docker-Compose安装" class="headerlink" title="2、Docker-Compose安装"></a>2、Docker-Compose安装</h3><p>安装方法一：<br>下载Docker-Compose：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://github.com/docker/compose/releases/download/1.23.0-rc3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>安装Docker-Compose：<br><code>sudo chmod +x /usr/local/bin/docker-compose</code><br>查看版本 :<br><code>docker-compose version</code><br>安装方法二：<br>安装pip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br><span class="line">yum -y install python-pip</span><br></pre></td></tr></table></figure>
+
+<p>确认版本<br><code>pip --version</code><br>更新pip<br><code>pip install --upgrade pip</code><br>安装docker-compose<br><code>pip install docker-compose</code><br>查看版本<br><code>docker-compose version</code><br>安装补全工具：<br>为了方便输入命令，也可以安装Docker的补全提示工具帮忙快速输入命令：<br>安装<br><code>yum install bash-completion</code><br>下载docker-compose脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose &gt; /etc/bash_completion.d/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、Docker-Compose卸载"><a href="#3、Docker-Compose卸载" class="headerlink" title="3、Docker-Compose卸载"></a>3、Docker-Compose卸载</h3><p>如果是二进制包方式安装的，删除二进制文件即可：<br><code>sudo rm /usr/local/bin/docker-compose</code><br>如果通过Python pip工具安装的，则执行如下命令删除：<br><code>sudo pip uninstall docker-compose</code></p>
+<h2 id="二、Docker-Compose常用命令"><a href="#二、Docker-Compose常用命令" class="headerlink" title="二、Docker-Compose常用命令"></a>二、Docker-Compose常用命令</h2><h3 id="1、Docker-Compose命令格式"><a href="#1、Docker-Compose命令格式" class="headerlink" title="1、Docker-Compose命令格式"></a>1、Docker-Compose命令格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose [-f &lt;arg&gt;...] [options] [COMMAND] [ARGS...]</span><br></pre></td></tr></table></figure>
+
+<p>命令选项如下：<br>-f，–file FILE指定Compose模板文件，默认为docker-compose.yml，可以多次指定。<br>-p，–project-name NAME指定项目名称，默认将使用所在目录名称作为项目名。<br>-x-network-driver 使用Docker的可拔插网络后端特性（需要Docker 1.9+版本）<br>-x-network-driver DRIVER指定网络后端的驱动，默认为bridge（需要Docker 1.9+版本）<br>-verbose输出更多调试信息<br>-v，–version打印版本并退出</p>
+<h3 id="2、docker-compose-up"><a href="#2、docker-compose-up" class="headerlink" title="2、docker-compose up"></a>2、docker-compose up</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up [options] [--scale SERVICE=NUM...] [SERVICE...]</span><br></pre></td></tr></table></figure>
+
+<p>选项包括：<br>-d 在后台运行服务容器<br>–no-color 不使用颜色来区分不同的服务的控制输出<br>–no-deps 不启动服务所链接的容器<br>–force-recreate 强制重新创建容器，不能与–no-recreate同时使用<br>–no-recreate 如果容器已经存在，则不重新创建，不能与–force-recreate同时使用<br>–no-build 不自动构建缺失的服务镜像<br>–build 在启动容器前构建服务镜像<br>–abort-on-container-exit 停止所有容器，如果任何一个容器被停止，不能与-d同时使用<br>-t, –timeout TIMEOUT 停止容器时候的超时（默认为10秒）<br>–remove-orphans 删除服务中没有在compose文件中定义的容器<br>–scale SERVICE=NUM 设置服务运行容器的个数，将覆盖在compose中通过scale指定的参数<br><code>docker-compose up</code><br>启动所有服务<br><code>docker-compose up -d</code><br>在后台所有启动服务<br>-f 指定使用的Compose模板文件，默认为docker-compose.yml，可以多次指定。<br><code>docker-compose -f docker-compose.yml up -d</code></p>
+<h3 id="3、docker-compose-ps"><a href="#3、docker-compose-ps" class="headerlink" title="3、docker-compose ps"></a>3、docker-compose ps</h3><p><code>docker-compose ps [options] [SERVICE...]</code><br><code>docker-compose ps</code><br>列出项目中目前的所有容器</p>
+<h3 id="4、docker-compose-stop"><a href="#4、docker-compose-stop" class="headerlink" title="4、docker-compose stop"></a>4、docker-compose stop</h3><p><code>docker-compose stop [options] [SERVICE...]</code><br>选项包括：<br>-t, –timeout TIMEOUT 停止容器时候的超时（默认为10秒）<br><code>docker-compose stop</code><br>停止正在运行的容器，可以通过docker-compose start 再次启动</p>
+<h3 id="5、docker-compose-h"><a href="#5、docker-compose-h" class="headerlink" title="5、docker-compose -h"></a>5、docker-compose -h</h3><p><code>docker-compose -h</code><br>查看帮助</p>
+<h3 id="6、docker-compose-down"><a href="#6、docker-compose-down" class="headerlink" title="6、docker-compose down"></a>6、docker-compose down</h3><p><code>docker-compose down [options]</code><br>停止和删除容器、网络、卷、镜像。<br>选项包括：<br>–rmi type，删除镜像，类型必须是：all，删除compose文件中定义的所有镜像；local，删除镜像名为空的镜像<br>-v, –volumes，删除已经在compose文件中定义的和匿名的附在容器上的数据卷<br>–remove-orphans，删除服务中没有在compose中定义的容器<br><code>docker-compose down</code><br>停用移除所有容器以及网络相关</p>
+<h3 id="7、docker-compose-logs"><a href="#7、docker-compose-logs" class="headerlink" title="7、docker-compose logs"></a>7、docker-compose logs</h3><p><code>docker-compose logs [options] [SERVICE...]</code><br>查看服务容器的输出。默认情况下，docker-compose将对不同的服务输出使用不同的颜色来区分。可以通过–no-color来关闭颜色。<br><code>docker-compose logs</code><br>查看服务容器的输出</p>
+<h3 id="8、docker-compose-build"><a href="#8、docker-compose-build" class="headerlink" title="8、docker-compose build"></a>8、docker-compose build</h3><p><code>docker-compose build [options] [--build-arg key=val...] [SERVICE...]</code><br>构建（重新构建）项目中的服务容器。<br>选项包括：<br>–compress 通过gzip压缩构建上下环境<br>–force-rm 删除构建过程中的临时容器<br>–no-cache 构建镜像过程中不使用缓存<br>–pull 始终尝试通过拉取操作来获取更新版本的镜像<br>-m, –memory MEM为构建的容器设置内存大小<br>–build-arg key=val为服务设置build-time变量<br>服务容器一旦构建后，将会带上一个标记名。可以随时在项目目录下运行docker-compose build来重新构建服务</p>
+<h3 id="9、docker-compose-pull"><a href="#9、docker-compose-pull" class="headerlink" title="9、docker-compose pull"></a>9、docker-compose pull</h3><p><code>docker-compose pull [options] [SERVICE...]</code><br>拉取服务依赖的镜像。<br>选项包括：<br>–ignore-pull-failures，忽略拉取镜像过程中的错误<br>–parallel，多个镜像同时拉取<br>–quiet，拉取镜像过程中不打印进度信息<br><code>docker-compose pull</code><br>拉取服务依赖的镜像</p>
+<h3 id="10、docker-compose-restart"><a href="#10、docker-compose-restart" class="headerlink" title="10、docker-compose restart"></a>10、docker-compose restart</h3><p><code>docker-compose restart [options] [SERVICE...]</code><br>重启项目中的服务。<br>选项包括：<br>-t, –timeout TIMEOUT，指定重启前停止容器的超时（默认为10秒）<br><code>docker-compose restart</code><br>重启项目中的服务</p>
+<h3 id="11、docker-compose-rm"><a href="#11、docker-compose-rm" class="headerlink" title="11、docker-compose rm"></a>11、docker-compose rm</h3><p><code>docker-compose rm [options] [SERVICE...]</code><br>删除所有（停止状态的）服务容器。<br>选项包括：<br>–f, –force，强制直接删除，包括非停止状态的容器<br>-v，删除容器所挂载的数据卷<br><code>docker-compose rm</code><br>删除所有（停止状态的）服务容器。推荐先执行docker-compose stop命令来停止容器。</p>
+<h3 id="12、docker-compose-start"><a href="#12、docker-compose-start" class="headerlink" title="12、docker-compose start"></a>12、docker-compose start</h3><p><code>docker-compose start [SERVICE...]</code><br><code>docker-compose start</code><br>启动已经存在的服务容器。</p>
+<h3 id="13、docker-compose-run"><a href="#13、docker-compose-run" class="headerlink" title="13、docker-compose run"></a>13、docker-compose run</h3><p><code>docker-compose run [options] [-v VOLUME...] [-p PORT...] [-e KEY=VAL...] SERVICE [COMMAND] [ARGS...]</code><br>在指定服务上执行一个命令。<br><code>docker-compose run ubuntu ping www.baidu.com</code><br>在指定容器上执行一个ping命令。</p>
+<h3 id="14、docker-compose-scale"><a href="#14、docker-compose-scale" class="headerlink" title="14、docker-compose scale"></a>14、docker-compose scale</h3><p><code>docker-compose scale web=3 db=2</code><br>设置指定服务运行的容器个数。通过service=num的参数来设置数量</p>
+<h3 id="15、docker-compose-pause"><a href="#15、docker-compose-pause" class="headerlink" title="15、docker-compose pause"></a>15、docker-compose pause</h3><p><code>docker-compose pause [SERVICE...]</code><br>暂停一个服务容器</p>
+<h3 id="16、docker-compose-kill"><a href="#16、docker-compose-kill" class="headerlink" title="16、docker-compose kill"></a>16、docker-compose kill</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker-compose kill [options] [SERVICE...]`</span><br><span class="line">通过发送SIGKILL信号来强制停止服务容器。 </span><br><span class="line">支持通过-s参数来指定发送的信号，例如通过如下指令发送SIGINT信号：</span><br><span class="line">`docker-compose kill -s SIGINT</span><br></pre></td></tr></table></figure>
+
+<h3 id="17、dokcer-compose-config"><a href="#17、dokcer-compose-config" class="headerlink" title="17、dokcer-compose config"></a>17、dokcer-compose config</h3><p><code>docker-compose config [options]</code><br>验证并查看compose文件配置。<br>选项包括：<br>–resolve-image-digests 将镜像标签标记为摘要<br>-q, –quiet 只验证配置，不输出。 当配置正确时，不输出任何内容，当文件配置错误，输出错误信息<br>–services 打印服务名，一行一个<br>–volumes 打印数据卷名，一行一个</p>
+<h3 id="18、docker-compose-create"><a href="#18、docker-compose-create" class="headerlink" title="18、docker-compose create"></a>18、docker-compose create</h3><p><code>docker-compose create [options] [SERVICE...]</code><br>为服务创建容器。<br>选项包括：<br>–force-recreate：重新创建容器，即使配置和镜像没有改变，不兼容–no-recreate参数<br>–no-recreate：如果容器已经存在，不需要重新创建，不兼容–force-recreate参数<br>–no-build：不创建镜像，即使缺失<br>–build：创建容器前，生成镜像</p>
+<h3 id="19、docker-compose-exec"><a href="#19、docker-compose-exec" class="headerlink" title="19、docker-compose exec"></a>19、docker-compose exec</h3><p><code>docker-compose exec [options] SERVICE COMMAND [ARGS...]</code><br>选项包括：<br>-d 分离模式，后台运行命令。<br>–privileged 获取特权。<br>–user USER 指定运行的用户。<br>-T 禁用分配TTY，默认docker-compose exec分配TTY。<br>–index=index，当一个服务拥有多个容器时，可通过该参数登陆到该服务下的任何服务，例如：docker-compose exec –index=1 web /bin/bash ，web服务中包含多个容器</p>
+<h3 id="20、docker-compose-port"><a href="#20、docker-compose-port" class="headerlink" title="20、docker-compose port"></a>20、docker-compose port</h3><p><code>docker-compose port [options] SERVICE PRIVATE_PORT</code><br>显示某个容器端口所映射的公共端口。<br>选项包括：<br>–protocol=proto，指定端口协议，TCP（默认值）或者UDP<br>–index=index，如果同意服务存在多个容器，指定命令对象容器的序号（默认为1）</p>
+<h3 id="21、docker-compose-push"><a href="#21、docker-compose-push" class="headerlink" title="21、docker-compose push"></a>21、docker-compose push</h3><p><code>docker-compose push [options] [SERVICE...]</code><br>推送服务依的镜像。<br>选项包括：<br>–ignore-push-failures 忽略推送镜像过程中的错误</p>
+<h3 id="22、docker-compose-stop"><a href="#22、docker-compose-stop" class="headerlink" title="22、docker-compose stop"></a>22、docker-compose stop</h3><p><code>docker-compose stop [options] [SERVICE...]</code><br>显示各个容器运行的进程情况。</p>
+<h3 id="23、docker-compose-unpause"><a href="#23、docker-compose-unpause" class="headerlink" title="23、docker-compose unpause"></a>23、docker-compose unpause</h3><p><code>docker-compose unpause [SERVICE...]</code><br>恢复处于暂停状态中的服务。</p>
+<h3 id="24、docker-compose-version"><a href="#24、docker-compose-version" class="headerlink" title="24、docker-compose version"></a>24、docker-compose version</h3><p><code>docker-compose version</code><br>打印版本信息。</p>
+<h2 id="三、Docker-Compose模板文件"><a href="#三、Docker-Compose模板文件" class="headerlink" title="三、Docker-Compose模板文件"></a>三、Docker-Compose模板文件</h2><h3 id="1、Docker-Compose模板文件简介"><a href="#1、Docker-Compose模板文件简介" class="headerlink" title="1、Docker-Compose模板文件简介"></a>1、Docker-Compose模板文件简介</h3><p>Compose允许用户通过一个docker-compose.yml模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）。<br>Compose模板文件是一个定义服务、网络和卷的YAML文件。Compose模板文件默认路径是当前目录下的docker-compose.yml，可以使用.yml或.yaml作为文件扩展名。<br>Docker-Compose标准模板文件应该包含version、services、networks 三大部分，最关键的是services和networks两个部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    image: dockercloud/hello-world</span><br><span class="line">    ports:</span><br><span class="line">      - 8080</span><br><span class="line">    networks:</span><br><span class="line">      - front-tier</span><br><span class="line">      - back-tier</span><br><span class="line"></span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br><span class="line">    links:</span><br><span class="line">      - web</span><br><span class="line">    networks:</span><br><span class="line">      - back-tier</span><br><span class="line"></span><br><span class="line">  lb:</span><br><span class="line">    image: dockercloud/haproxy</span><br><span class="line">    ports:</span><br><span class="line">      - 80:80</span><br><span class="line">    links:</span><br><span class="line">      - web</span><br><span class="line">    networks:</span><br><span class="line">      - front-tier</span><br><span class="line">      - back-tier</span><br><span class="line">    volumes:</span><br><span class="line">      - /var/run/docker.sock:/var/run/docker.sock </span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  front-tier:</span><br><span class="line">    driver: bridge</span><br><span class="line">  back-tier:</span><br><span class="line">    driver: bridge</span><br></pre></td></tr></table></figure>
+
+<p>Compose目前有三个版本分别为Version 1，Version 2，Version 3，Compose区分Version 1和Version 2（Compose 1.6.0+，Docker Engine 1.10.0+）。Version 2支持更多的指令。Version 1将来会被弃用。</p>
+<h3 id="2、image"><a href="#2、image" class="headerlink" title="2、image"></a>2、image</h3><p>image是指定服务的镜像名称或镜像ID。如果镜像在本地不存在，Compose将会尝试拉取镜像。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">services: </span><br><span class="line">    web: </span><br><span class="line">        image: hello-world</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、build"><a href="#3、build" class="headerlink" title="3、build"></a>3、build</h3><p>服务除了可以基于指定的镜像，还可以基于一份Dockerfile，在使用up启动时执行构建任务，构建标签是build，可以指定Dockerfile所在文件夹的路径。Compose将会利用Dockerfile自动构建镜像，然后使用镜像启动服务容器。<br><code>build: /path/to/build/dir</code><br>也可以是相对路径，只要上下文确定就可以读取到Dockerfile。<br><code>build: ./dir</code><br>设定上下文根目录，然后以该目录为准指定Dockerfile。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">build:</span><br><span class="line">  context: ../</span><br><span class="line">  dockerfile: path/of/Dockerfile</span><br></pre></td></tr></table></figure>
+
+<p>build都是一个目录，如果要指定Dockerfile文件需要在build标签的子级标签中使用dockerfile标签指定。<br>如果同时指定image和build两个标签，那么Compose会构建镜像并且把镜像命名为image值指定的名字。</p>
+<h3 id="4、context"><a href="#4、context" class="headerlink" title="4、context"></a>4、context</h3><p>context选项可以是Dockerfile的文件路径，也可以是到链接到git仓库的url，当提供的值是相对路径时，被解析为相对于撰写文件的路径，此目录也是发送到Docker守护进程的context</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">build:</span><br><span class="line">  context: ./dir</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、dockerfile"><a href="#5、dockerfile" class="headerlink" title="5、dockerfile"></a>5、dockerfile</h3><p>使用dockerfile文件来构建，必须指定构建路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">build:</span><br><span class="line">  context: .</span><br><span class="line">  dockerfile: Dockerfile-alternate</span><br></pre></td></tr></table></figure>
+
+<p>dockerfile指令不能跟image同时使用，否则Compose将不确定根据哪个指令来生成最终的服务镜像。</p>
+<h3 id="6、command"><a href="#6、command" class="headerlink" title="6、command"></a>6、command</h3><p>使用command可以覆盖容器启动后默认执行的命令。<br><code>command: bundle exec thin -p 3000</code></p>
+<h3 id="7、container-name"><a href="#7、container-name" class="headerlink" title="7、container_name"></a>7、container_name</h3><p>Compose的容器名称格式是：&lt;项目名称&gt;&lt;服务名称&gt;&lt;序号&gt;<br>可以自定义项目名称、服务名称，但如果想完全控制容器的命名，可以使用标签指定：<br><code>container_name: app</code></p>
+<h3 id="8、depends-on"><a href="#8、depends-on" class="headerlink" title="8、depends_on"></a>8、depends_on</h3><p>在使用Compose时，最大的好处就是少打启动命令，但一般项目容器启动的顺序是有要求的，如果直接从上到下启动容器，必然会因为容器依赖问题而启动失败。例如在没启动数据库容器的时候启动应用容器，应用容器会因为找不到数据库而退出。depends_on标签用于解决容器的依赖、启动先后的问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    build: .</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">      - redis</span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br><span class="line">  db:</span><br><span class="line">    image: postgres</span><br></pre></td></tr></table></figure>
+
+<p>上述YAML文件定义的容器会先启动redis和db两个服务，最后才启动web 服务。</p>
+<h3 id="9、pid"><a href="#9、pid" class="headerlink" title="9、pid"></a>9、pid</h3><p><code>pid: &quot;host&quot;</code><br>将PID模式设置为主机PID模式，跟主机系统共享进程命名空间。容器使用pid标签将能够访问和操纵其他容器和宿主机的名称空间。</p>
+<h3 id="10、ports"><a href="#10、ports" class="headerlink" title="10、ports"></a>10、ports</h3><p>ports用于映射端口的标签。<br>使用HOST:CONTAINER格式或者只是指定容器的端口，宿主机会随机映射端口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ports:</span><br><span class="line"> - &quot;3000&quot;</span><br><span class="line"> - &quot;8000:8000&quot;</span><br><span class="line"> - &quot;49100:22&quot;</span><br><span class="line"> - &quot;127.0.0.1:8001:8001&quot;</span><br></pre></td></tr></table></figure>
+
+<p>当使用HOST:CONTAINER格式来映射端口时，如果使用的容器端口小于60可能会得到错误得结果，因为YAML将会解析xx:yy这种数字格式为60进制。所以建议采用字符串格式。</p>
+<h3 id="11、extra-hosts"><a href="#11、extra-hosts" class="headerlink" title="11、extra_hosts"></a>11、extra_hosts</h3><p>添加主机名的标签，会在/etc/hosts文件中添加一些记录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extra_hosts:</span><br><span class="line"> - &quot;somehost:162.242.195.82&quot;</span><br><span class="line"> - &quot;otherhost:50.31.209.229&quot;</span><br></pre></td></tr></table></figure>
+
+<p>启动后查看容器内部hosts：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">162.242.195.82  somehost</span><br><span class="line">50.31.209.229   otherhost</span><br></pre></td></tr></table></figure>
+
+<h3 id="12、volumes"><a href="#12、volumes" class="headerlink" title="12、volumes"></a>12、volumes</h3><p>挂载一个目录或者一个已存在的数据卷容器，可以直接使用 [HOST:CONTAINER]格式，或者使用[HOST:CONTAINER:ro]格式，后者对于容器来说，数据卷是只读的，可以有效保护宿主机的文件系统。<br>Compose的数据卷指定路径可以是相对路径，使用 . 或者 .. 来指定相对目录。<br>数据卷的格式可以是下面多种形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">volumes:</span><br><span class="line">  // 只是指定一个路径，Docker 会自动在创建一个数据卷（这个路径是容器内部的）。</span><br><span class="line">  - /var/lib/mysql</span><br><span class="line">  // 使用绝对路径挂载数据卷</span><br><span class="line">  - /opt/data:/var/lib/mysql</span><br><span class="line">  // 以 Compose 配置文件为中心的相对路径作为数据卷挂载到容器。</span><br><span class="line">  - ./cache:/tmp/cache</span><br><span class="line">  // 使用用户的相对路径（~/ 表示的目录是 /home/&lt;用户目录&gt;/ 或者 /root/）。</span><br><span class="line">  - ~/configs:/etc/configs/:ro</span><br><span class="line">  // 已经存在的命名的数据卷。</span><br><span class="line">  - datavolume:/var/lib/mysql</span><br></pre></td></tr></table></figure>
+
+<p>如果不使用宿主机的路径，可以指定一个volume_driver。<br><code>volume_driver: mydriver</code></p>
+<h3 id="13、volumes-from"><a href="#13、volumes-from" class="headerlink" title="13、volumes_from"></a>13、volumes_from</h3><p>从另一个服务或容器挂载其数据卷：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">volumes_from:</span><br><span class="line">   - service_name    </span><br><span class="line">     - container_name</span><br></pre></td></tr></table></figure>
+
+<h3 id="14、dns"><a href="#14、dns" class="headerlink" title="14、dns"></a>14、dns</h3><p>自定义DNS服务器。可以是一个值，也可以是一个列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dns：8.8.8.8</span><br><span class="line">dns：</span><br><span class="line">    - 8.8.8.8    </span><br><span class="line">      - 9.9.9.9</span><br></pre></td></tr></table></figure>
+
+<h3 id="15、dns-search"><a href="#15、dns-search" class="headerlink" title="15、dns_search"></a>15、dns_search</h3><p>配置DNS搜索域。可以是一个值，也可以是一个列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dns_search：example.com</span><br><span class="line">dns_search：</span><br><span class="line">    - domain1.example.com</span><br><span class="line">    - domain2.example.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="16、entrypoint"><a href="#16、entrypoint" class="headerlink" title="16、entrypoint"></a>16、entrypoint</h3><p>在Dockerfile中有一个指令叫做ENTRYPOINT指令，用于指定接入点。<br>在docker-compose.yml中可以定义接入点，覆盖Dockerfile中的定义：<br><code>entrypoint: /code/entrypoint.sh</code></p>
+<h3 id="17、env-file"><a href="#17、env-file" class="headerlink" title="17、env_file"></a>17、env_file</h3><p>在docker-compose.yml中可以定义一个专门存放变量的文件。<br>如果通过docker-compose -f FILE指定配置文件，则env_file中路径会使用配置文件路径。<br>如果有变量名称与environment指令冲突，则以后者为准。格式如下：<br><code>env_file: .env</code><br>或者根据docker-compose.yml设置多个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">env_file:</span><br><span class="line">  - ./common.env</span><br><span class="line">  - ./apps/web.env</span><br><span class="line">  - /opt/secrets.env</span><br></pre></td></tr></table></figure>
+
+<p>如果在配置文件中有build操作，变量并不会进入构建过程中。</p>
+<h3 id="18、cap-add"><a href="#18、cap-add" class="headerlink" title="18、cap_add"></a>18、cap_add</h3><p>增加指定容器的内核能力（capacity）。<br>让容器具有所有能力可以指定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cap_add:</span><br><span class="line">    - ALL</span><br></pre></td></tr></table></figure>
+
+<h3 id="19、cap-drop"><a href="#19、cap-drop" class="headerlink" title="19、cap_drop"></a>19、cap_drop</h3><p>去掉指定容器的内核能力（capacity）。<br>去掉NET_ADMIN能力可以指定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cap_drop:</span><br><span class="line">    - NET_ADMIN</span><br></pre></td></tr></table></figure>
+
+<h3 id="20、cgroup-parent"><a href="#20、cgroup-parent" class="headerlink" title="20、cgroup_parent"></a>20、cgroup_parent</h3><p>创建了一个cgroup组名称为cgroups_1:<br><code>cgroup_parent: cgroups_1</code></p>
+<h3 id="21、devices"><a href="#21、devices" class="headerlink" title="21、devices"></a>21、devices</h3><p>指定设备映射关系，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">devices:</span><br><span class="line">    - &quot;/dev/ttyUSB1:/dev/ttyUSB0&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="22、expose"><a href="#22、expose" class="headerlink" title="22、expose"></a>22、expose</h3><p>暴露端口，但不映射到宿主机，只允许能被连接的服务访问。仅可以指定内部端口为参数，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">expose:</span><br><span class="line">    - &quot;3000&quot;</span><br><span class="line">    - &quot;8000&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="23、extends"><a href="#23、extends" class="headerlink" title="23、extends"></a>23、extends</h3><p>基于其它模板文件进行扩展。例如，对于webapp服务定义了一个基础模板文件为common.yml：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># common.yml</span><br><span class="line">webapp:</span><br><span class="line">    build: ./webapp</span><br><span class="line">    environment:</span><br><span class="line">        - DEBUG=false</span><br><span class="line">        - SEND_EMAILS=false</span><br></pre></td></tr></table></figure>
+
+<p>再编写一个新的development.yml文件，使用common.yml中的webapp服务进行扩展：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># development.yml</span><br><span class="line">web:</span><br><span class="line">    extends:</span><br><span class="line">        file: common.yml</span><br><span class="line">        service: webapp</span><br><span class="line">    ports:</span><br><span class="line">        - &quot;8000:8000&quot;</span><br><span class="line">    links:</span><br><span class="line">        - db</span><br><span class="line">    environment:</span><br><span class="line">        - DEBUG=true</span><br><span class="line">db:</span><br><span class="line">    image: mysql</span><br></pre></td></tr></table></figure>
+
+<p>后者会自动继承common.yml中的webapp服务及环境变量定义。<br>extends限制如下：<br>A、要避免出现循环依赖<br>B、extends不会继承links和volumes_from中定义的容器和数据卷资源<br>推荐在基础模板中只定义一些可以共享的镜像和环境变量，在扩展模板中具体指定应用变量、链接、数据卷等信息</p>
+<h3 id="24、external-links"><a href="#24、external-links" class="headerlink" title="24、external_links"></a>24、external_links</h3><p>链接到docker-compose.yml外部的容器，可以是非Compose管理的外部容器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">external_links:</span><br><span class="line">    - redis_1</span><br><span class="line">    - project_db_1:mysql</span><br><span class="line">    - project_db_1:postgresql</span><br></pre></td></tr></table></figure>
+
+<h3 id="25、labels"><a href="#25、labels" class="headerlink" title="25、labels"></a>25、labels</h3><p>为容器添加Docker元数据（metadata）信息。例如，可以为容器添加辅助说明信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">labels：</span><br><span class="line">    com.startupteam.description: &quot;webapp for a strtup team&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="26、links"><a href="#26、links" class="headerlink" title="26、links"></a>26、links</h3><p>链接到其它服务中的容器。使用服务名称（同时作为别名），或者“服务名称:服务别名”（如 SERVICE:ALIAS），例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">links:</span><br><span class="line">    - db</span><br><span class="line">    - db:database</span><br><span class="line">    - redis</span><br></pre></td></tr></table></figure>
+
+<p>使用别名将会自动在服务容器中的/etc/hosts里创建。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">172.17.2.186  db</span><br><span class="line">172.17.2.186  database</span><br><span class="line">172.17.2.187  redis</span><br></pre></td></tr></table></figure>
+
+<h3 id="27、log-driver"><a href="#27、log-driver" class="headerlink" title="27、log_driver"></a>27、log_driver</h3><p>指定日志驱动类型。目前支持三种日志驱动类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_driver: &quot;json-file&quot;</span><br><span class="line">log_driver: &quot;syslog&quot;</span><br><span class="line">log_driver: &quot;none&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="28、log-opt"><a href="#28、log-opt" class="headerlink" title="28、log_opt"></a>28、log_opt</h3><p>日志驱动的相关参数。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log_driver: &quot;syslog&quot;log_opt: </span><br><span class="line">    syslog-address: &quot;tcp://192.168.0.42:123&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="29、net"><a href="#29、net" class="headerlink" title="29、net"></a>29、net</h3><p>设置网络模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net: &quot;bridge&quot;</span><br><span class="line">net: &quot;none&quot;</span><br><span class="line">net: &quot;host&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="30、security-opt"><a href="#30、security-opt" class="headerlink" title="30、security_opt"></a>30、security_opt</h3><p>指定容器模板标签（label）机制的默认属性（用户、角色、类型、级别等）。例如，配置标签的用户名和角色名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">security_opt:</span><br><span class="line">    - label:user:USER</span><br><span class="line">    - label:role:ROLE</span><br></pre></td></tr></table></figure>
+
+<h3 id="31、环境变量"><a href="#31、环境变量" class="headerlink" title="31、环境变量"></a>31、环境变量</h3><p>环境变量可以用来配置Docker-Compose的行为。<br>COMPOSE_PROJECT_NAME<br>设置通过Compose启动的每一个容器前添加的项目名称，默认是当前工作目录的名字。<br>COMPOSE_FILE<br>设置docker-compose.yml模板文件的路径。默认路径是当前工作目录。<br>DOCKER_HOST<br>设置Docker daemon的地址。默认使用unix:///var/run/docker.sock。 DOCKER_TLS_VERIFY<br>如果设置不为空，则与Docker daemon交互通过TLS进行。<br>DOCKER_CERT_PATH<br>配置TLS通信所需要的验证(ca.pem、cert.pem 和 key.pem)文件的路径，默认是 ~/.docker 。</p>
+<h2 id="四、Docker-Compose模板文件示例"><a href="#四、Docker-Compose模板文件示例" class="headerlink" title="四、Docker-Compose模板文件示例"></a>四、Docker-Compose模板文件示例</h2><h3 id="1、docker-compose模板文件编写"><a href="#1、docker-compose模板文件编写" class="headerlink" title="1、docker-compose模板文件编写"></a>1、docker-compose模板文件编写</h3><p>docker-compose.yaml文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  web1:</span><br><span class="line">    image: nginx</span><br><span class="line">    ports: </span><br><span class="line">      - &quot;6061:80&quot;</span><br><span class="line">    container_name: &quot;web1&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - dev</span><br><span class="line">  web2:</span><br><span class="line">    image: nginx</span><br><span class="line">    ports: </span><br><span class="line">      - &quot;6062:80&quot;</span><br><span class="line">    container_name: &quot;web2&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - dev</span><br><span class="line">      - pro</span><br><span class="line">  web3:</span><br><span class="line">    image: nginx</span><br><span class="line">    ports: </span><br><span class="line">      - &quot;6063:80&quot;</span><br><span class="line">    container_name: &quot;web3&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - pro</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  dev:</span><br><span class="line">    driver: bridge</span><br><span class="line">  pro:</span><br><span class="line">    driver: bridge</span><br><span class="line"></span><br><span class="line">#volumes:</span><br></pre></td></tr></table></figure>
+
+<p>docker-compose.yaml文件指定了三个web服务。</p>
+<h3 id="2、启动应用"><a href="#2、启动应用" class="headerlink" title="2、启动应用"></a>2、启动应用</h3><p>创建一个webapp目录，将docker-compose.yaml文件拷贝到webapp目录下，使用docker-compose启动应用。<br><code>docker-compose up -d</code></p>
+<h3 id="3、服务访问"><a href="#3、服务访问" class="headerlink" title="3、服务访问"></a>3、服务访问</h3><p>通过浏览器访问web1，web2，web3服务:<br><a href="http://127.0.0.1:6061/" target="_blank" rel="noopener">http://127.0.0.1:6061</a><br><a href="http://127.0.0.1:6062/" target="_blank" rel="noopener">http://127.0.0.1:6062</a><br><a href="http://127.0.0.1:6063/" target="_blank" rel="noopener">http://127.0.0.1:6063</a></p>
+<p>©著作权归作者所有：来自51CTO博客作者天山老妖S的原创作品，如需转载，请注明出处，否则将追究法律责任</p>
+<p>文章来源：<a href="https://blog.51cto.com/9291927/2310444" target="_blank" rel="noopener">https://blog.51cto.com/9291927/2310444</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/03/docker2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-fastDfs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1291,73 +1500,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/10/Docker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SessionCookie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/03/SessionCookie/">SessionCookie</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/03/SessionCookie/" class="archive-article-date">
-  	<time datetime="2018-03-03T07:08:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="彻底弄清楚session-cookie-sessionStorage-localStorage的区别及应用场景（面试向）"><a href="#彻底弄清楚session-cookie-sessionStorage-localStorage的区别及应用场景（面试向）" class="headerlink" title="彻底弄清楚session,cookie,sessionStorage,localStorage的区别及应用场景（面试向）"></a>彻底弄清楚session,cookie,sessionStorage,localStorage的区别及应用场景（面试向）</h1><p>​    客户端状态保持是一个老生常谈的问题了，归根结底追踪浏览器的用户身份及其相关数据无非就是以下四种方式：session,cookie,sessionStorage,localStorage</p>
-<p>​    首先cookie和session:</p>
-<p>​    Cookie机制：如果不在浏览器中设置过期时间，cookie被保存在内存中，生命周期随浏览器的关闭而结束，这种cookie简称会话cookie。如果在浏览器中设置了cookie的过期时间，cookie被保存在硬盘中，关闭浏览器后，cookie数据仍然存在，直到过期时间结束才消失。<br>    Cookie是服务器发给客户端的特殊信息，cookie是以文本的方式保存在客户端，每次请求时都带上它<br>    Session机制：当服务器收到请求需要创建session对象时，首先会检查客户端请求中是否包含sessionid。如果有sessionid，服务器将根据该id返回对应session对象。如果客户端请求中没有sessionid，服务器会创建新的session对象，并把sessionid在本次响应中返回给客户端。通常使用cookie方式存储sessionid到客户端，在交互中浏览器按照规则将sessionid发送给服务器。如果用户禁用cookie，则要使用URL重写，可以通过response.encodeURL(url) 进行实现；API对encodeURL的结束为，当浏览器支持Cookie时，url不做任何处理；当浏览器不支持Cookie的时候，将会重写URL将SessionID拼接到访问地址后。<br>    3、存储内容：cookie只能保存字符串类型，以文本的方式；session通过类似与Hashtable的数据结构来保存，能支持任何类型的对象(session中可含有多个对象)<br>    4、存储的大小：cookie：单个cookie保存的数据不能超过4kb；session大小没有限制。<br>    5、安全性：cookie：针对cookie所存在的攻击：Cookie欺骗，Cookie截获；session的安全性大于cookie。<br>    原因如下：<br>    （1）sessionID存储在cookie中，若要攻破session首先要攻破cookie；<br>    （2）sessionID是要有人登录，或者启动session_start才会有，所以攻破cookie也不一定能得到sessionID；<br>    （3）第二次启动session_start后，前一次的sessionID就是失效了，session过期后，sessionID也随之失效。<br>    （4）sessionID是加密的<br>    （5）综上所述，攻击者必须在短时间内攻破加密的sessionID，并非易事。<br>    6、应用场景：<br>    cookie：<br>    （1）判断用户是否登陆过网站，以便下次登录时能够实现自动登录（或者记住密码）。如果我们删除cookie，则每次登录必须从新填写登录的相关信息。<br>    （2）保存上次登录的时间等信息。<br>    （3）保存上次查看的页面<br>    （4）浏览计数<br>    session：Session用于保存每个用户的专用信息，变量的值保存在服务器端，通过SessionID来区分不同的客户。<br>    （1）网上商城中的购物车<br>    （2）保存用户登录信息<br>    （3）将某些数据放入session中，供同一用户的不同页面使用<br>    （4）防止用户非法登录<br>    7、缺点：cookie：<br>    （1）大小受限<br>    （2）用户可以操作（禁用）cookie，使功能受限<br>    （3）安全性较低<br>    （4）有些状态不可能保存在客户端。<br>    （5）每次访问都要传送cookie给服务器，浪费带宽。<br>    （6）cookie数据有路径（path）的概念，可以限制cookie只属于某个路径下。<br>    session：<br>    （1）Session保存的东西越多，就越占用服务器内存，对于用户在线人数较多的网站，服务器的内存压力会比较大。<br>    （2）依赖于cookie（sessionID保存在cookie），如果禁用cookie，则要使用URL重写，不安全<br>    （3）创建Session变量有很大的随意性，可随时调用，不需要开发者做精确地处理，所以，过度使用session变量将会导致代码不可读而且不好维护。</p>
-<p>​    说白了，这两种状态保持方式都差强人意，于是webStroage应运而生</p>
-<p>​    WebStorage的目的是克服由cookie所带来的一些限制，当数据需要被严格控制在客户端时，不需要持续的将数据发回服务器。<br>    WebStorage两个主要目标：（1）提供一种在cookie之外存储会话数据的路径。（2）提供一种存储大量可以跨会话存在的数据的机制。<br>    HTML5的WebStorage提供了两种API：localStorage（本地存储）和sessionStorage（会话存储）。<br>    1、生命周期：localStorage:localStorage的生命周期是永久的，关闭页面或浏览器之后localStorage中的数据也不会消失。localStorage除非主动删除数据，否则数据永远不会消失。<br>    sessionStorage的生命周期是在仅在当前会话下有效。sessionStorage引入了一个“浏览器窗口”的概念，sessionStorage是在同源的窗口中始终存在的数据。只要这个浏览器窗口没有关闭，即使刷新页面或者进入同源另一个页面，数据依然存在。但是sessionStorage在关闭了浏览器窗口后就会被销毁。同时独立的打开同一个窗口同一个页面，sessionStorage也是不一样的。<br>    2、存储大小：localStorage和sessionStorage的存储数据大小一般都是：5MB<br>    3、存储位置：localStorage和sessionStorage都保存在客户端，不与服务器进行交互通信。<br>    4、存储内容类型：localStorage和sessionStorage只能存储字符串类型，对于复杂的对象可以使用ECMAScript提供的JSON对象的stringify和parse来处理<br>    5、获取方式：localStorage：window.localStorage;；sessionStorage：window.sessionStorage;。<br>    6、应用场景：localStoragese：常用于长期登录（+判断用户是否已登录），适合长期保存在本地的数据（令牌）。sessionStorage：敏感账号一次性登录；<br>    WebStorage的优点：<br>    （1）存储空间更大：cookie为4KB，而WebStorage是5MB；<br>    （2）节省网络流量：WebStorage不会传送到服务器，存储在本地的数据可以直接获取，也不会像cookie一样美词请求都会传送到服务器，所以减少了客户端和服务器端的交互，节省了网络流量；<br>    （3）对于那种只需要在用户浏览一组页面期间保存而关闭浏览器后就可以丢弃的数据，sessionStorage会非常方便；<br>    （4）快速显示：有的数据存储在WebStorage上，再加上浏览器本身的缓存。获取数据时可以从本地获取会比从服务器端获取快得多，所以速度更快；<br>    （5）安全性：WebStorage不会随着HTTP header发送到服务器端，所以安全性相对于cookie来说比较高一些，不会担心截获，但是仍然存在伪造问题；<br>    （6）WebStorage提供了一些方法，数据操作比cookie方便；<br>            setItem (key, value) —— 保存数据，以键值对的方式储存信息。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/03/SessionCookie/">展开全文 >></a>
         </p>
       
 
