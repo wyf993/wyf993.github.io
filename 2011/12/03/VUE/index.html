@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>VUE生命周期 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="vue生命周期流程图：4张图     生命周期的解析和应用： Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。通俗说就是 Vue 实例从创建到销毁的过程，就是生命周期。  beforecreate :   完成实例初始化，初始化非响应式变量 this指向创建的实例； 可以在这加个loading">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VUE生命周期">
+<meta property="og:url" content="http://yoursite.com/2011/12/03/VUE/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="vue生命周期流程图：4张图     生命周期的解析和应用： Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。通俗说就是 Vue 实例从创建到销毁的过程，就是生命周期。  beforecreate :   完成实例初始化，初始化非响应式变量 this指向创建的实例； 可以在这加个loading">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/92b4536a9c7d43998d08211e840b7134/clipboard.png">
+<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/c225e6a0c4a74c55be27de22930f7815/clipboard.png">
+<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/c66b80474ced4c3d92570d330377a0d6/clipboard.png">
+<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/75b65879149644f6a6406d468bb6b099/clipboard.png">
+<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/e8b18b8928cc457a95817c2bc94bb6f0/clipboard.png">
+<meta property="og:updated_time" content="2019-09-03T00:59:21.654Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="VUE生命周期">
+<meta name="twitter:description" content="vue生命周期流程图：4张图     生命周期的解析和应用： Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。通俗说就是 Vue 实例从创建到销毁的过程，就是生命周期。  beforecreate :   完成实例初始化，初始化非响应式变量 this指向创建的实例； 可以在这加个loading">
+<meta name="twitter:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/92b4536a9c7d43998d08211e840b7134/clipboard.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,106 +160,251 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-VUE" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      VUE生命周期
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2011" class="archive-year">2011</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2011/12/03/VUE/" class="archive-article-date">
+
+        
+        <a href="/2011/12/03/VUE/" class="archive-article-date">
   	<time datetime="2011-12-03T00:58:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-12-03</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2011/12/03/VUE/">VUE生命周期</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>vue生命周期流程图：4张图</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/92b4536a9c7d43998d08211e840b7134/clipboard.png" alt="img"></p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/c225e6a0c4a74c55be27de22930f7815/clipboard.png" alt="img"></p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/c66b80474ced4c3d92570d330377a0d6/clipboard.png" alt="img"></p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/75b65879149644f6a6406d468bb6b099/clipboard.png" alt="img"></p>
+<p>生命周期的解析和应用：</p>
+<p>Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。通俗说就是 Vue 实例从创建到销毁的过程，就是生命周期。</p>
+<ol>
+<li>beforecreate : </li>
+</ol>
+<p>完成实例初始化，初始化非响应式变量</p>
+<p>this指向创建的实例；</p>
+<p>可以在这加个loading事件；</p>
+<p>data computed watch methods上的方法和数据均不能访问</p>
+<ol>
+<li>created</li>
+</ol>
+<p>实例创建完成</p>
+<p>完成数据(data props computed)的初始化 导入依赖项。</p>
+<p>可访问data computed watch methods上的方法和数据</p>
+<p>未挂载DOM,不能访问$el,$ref为空数组</p>
+<p>可在这结束loading，还做一些初始化，实现函数自执行,</p>
+<p>可以对data数据进行操作，可进行一些请求，请求不易过多，避免白屏时间太长。</p>
+<p>若在此阶段进行的 DOM 操作一定要放在 Vue.nextTick() 的回调函数中</p>
+<ol>
+<li>berofeMount</li>
+</ol>
+<p>有了el,编译了template|/outerHTML</p>
+<p>能找到对应的template,并编译成render函数</p>
+<ol>
+<li>mounted</li>
+</ol>
+<p>完成创建vm.$el，和双向绑定，</p>
+<p>完成挂载DOM 和渲染;可在mounted钩子对挂载的dom进行操作</p>
+<p>即有了DOM 且完成了双向绑定 可访问DOM节点,$ref</p>
+<p>可在这发起后端请求，拿回数据，配合路由钩子做一些事情；</p>
+<p>可对DOM 进行操作</p>
+<ol>
+<li>beforeUpdate</li>
+</ol>
+<p>数据更新之前</p>
+<p>可在更新前访问现有的DOM,如手动移除添加的事件监听器；</p>
+<ol>
+<li>updated :</li>
+</ol>
+<p>完成虚拟DOM的重新渲染和打补丁；</p>
+<p>组件DOM 已完成更新；</p>
+<p>可执行依赖的dom 操作</p>
+<p>注意：不要在此函数中操作数据，会陷入死循环的。</p>
+<ol>
+<li>activated:</li>
+</ol>
+<p>在使用vue-router时有时需要使用<keep-alive></keep-alive>来缓存组件状态，这个时候created钩子就不会被重复调用了，</p>
+<p>如果我们的子组件需要在每次加载的时候进行某些操作，可以使用activated钩子触发</p>
+<ol>
+<li>deactivated </li>
+</ol>
+<p>for keep-alive 组件被移除时使用</p>
+<ol>
+<li>beforeDestroy： </li>
+</ol>
+<p>在执行app.$destroy()之前</p>
+<p>可做一些删除提示，如：你确认删除XX吗？ </p>
+<p>可用于销毁定时器，解绑全局时间 销毁插件对象</p>
+<ol>
+<li>destroyed ：</li>
+</ol>
+<p>当前组件已被删除，销毁监听事件 组件 事件 子实例也被销毁 这时组件已经没有了，你无法操作里面的任何东西了。 </p>
+<p>子父组件的生命周期</p>
+<p>仅当子组件完成挂载后，父组件才会挂载</p>
+<p>当子组件完成挂载后，父组件会主动执行一次beforeUpdate/updated钩子函数（仅首次）</p>
+<p>父子组件在data变化中是分别监控的，但是在更新props中的数据是关联的（可实践）</p>
+<p>销毁父组件时，先将子组件销毁后才会销毁父组件</p>
+<p>兄弟组件的初始化（mounted之前）分开进行，挂载是从上到下依次进行</p>
+<p>当没有数据关联时，兄弟组件之间的更新和销毁是互不关联的</p>
+<p>mixin中的生命周期与引入该组件的生命周期是仅仅关联的，且mixin的生命周期优先执行</p>
+<p>测试demo:</p>
+<!DOCTYPE html> <html lang="en"> <head><meta name="generator" content="Hexo 3.9.0">     <meta charset="UTF-8">     <title>Title</title>     <script src="../vue.js"></script> </head> <body> <div id="app">     <p></p>     <keep-alive>         <my-components msg="hello" v-if="show"></my-components>     </keep-alive> </div> </body> <script>     var child = {         template: '<div>from child: </div>',         props: ['msg'],         data: function () {             return {                 childMsg: 'child1'             };         },         deactivated: function () {             console.log('component deactivated!');         },         activated: function () {             console.log('component activated');         }     };     var app = new Vue({         el: '#app',         data: function () {             return {                 message: 'father',                 show: true             };         },         beforeCreate: function () {             console.group('beforeCreate 创建前状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(state);         },         created: function () {             console.group('created 创建完毕状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(state);         },         beforeMount: function () {             console.group('beforeMount 挂载前状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);         },         mounted: function () {             console.group('mounted 挂载结束状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);             // this.message = 'change';         },         beforeUpdate: function () {             console.group('beforeUpdate 更新前状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);             // this.message = 'change2';         },         updated: function () {             console.group('updated 更新完成状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);         },         beforeDestroy: function () {             console.group('beforeDestroy 销毁前状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);         },         destroyed: function () {             console.group('destroyed 销毁完成状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);         },         components: {             'my-components': child         }     }); </script> </html>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>首先来梳理一下结构：</p>
+<p>1.我们创建了一个Vue根实例命名为app，将其挂载到页面id为app的dom元素上。</p>
+<p>2.局部注册的一个组件child并在根实例中将其注册使其可以在根实例的作用域中使用。</p>
+<p>3.将子组件用<keep-alive> 包裹，为接下来的测试作准备。</keep-alive></p>
+<p>在谷歌浏览器打开开发者工具，开始测试！</p>
+<p>结果：注意区分下 beforeCreate() created() beforeMount() mounted()</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/e8b18b8928cc457a95817c2bc94bb6f0/clipboard.png" alt="img"></p>
+<p>页面渲染优先级：</p>
+<p>render函数选项 &gt; template选项 &gt; outer HTML.</p>
 
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2011/12/03/VUE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2011/09/03/PythonPrimary/" class="archive-article-date">
-  	<time datetime="2011-09-03T00:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-09-03</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2012/09/02/XiaoResume/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          简历模板
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/09/03/PythonPrimary/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python初级</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2011/09/03/PythonPrimary/">Python初级</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2011/08/22/Yi/" class="archive-article-date">
-  	<time datetime="2011-08-22T05:51:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-08-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2011/08/22/Yi/">Yi</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -273,8 +428,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
