@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | Hexo</title>
+  <title>VIM操作 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="基本上vi/vim可以分为三种状态，分别是普通模式、插入模式和命令模式，各模式的功能区分如下： 1、普通模式 控制屏幕光标的移动，字符、字或行的删除，移动复制某区段。 2、插入模式 只有在插入下，才可以做文字输入、删除，按「ESC」键可回到普通模式。 可以按i、I、a、A、o、O、r、R即可。其中i和I表示插入（Insert），r和R表示替换（replace）。 3、命令模式 将文件保存或退出vi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/08/22/hello-world/index.html">
+<meta property="og:title" content="VIM操作">
+<meta property="og:url" content="http://yoursite.com/2017/04/04/VIM/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="基本上vi/vim可以分为三种状态，分别是普通模式、插入模式和命令模式，各模式的功能区分如下： 1、普通模式 控制屏幕光标的移动，字符、字或行的删除，移动复制某区段。 2、插入模式 只有在插入下，才可以做文字输入、删除，按「ESC」键可回到普通模式。 可以按i、I、a、A、o、O、r、R即可。其中i和I表示插入（Insert），r和R表示替换（replace）。 3、命令模式 将文件保存或退出vi">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-22T00:45:41.330Z">
+<meta property="og:updated_time" content="2019-09-04T06:05:33.221Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="VIM操作">
+<meta name="twitter:description" content="基本上vi/vim可以分为三种状态，分别是普通模式、插入模式和命令模式，各模式的功能区分如下： 1、普通模式 控制屏幕光标的移动，字符、字或行的删除，移动复制某区段。 2、插入模式 只有在插入下，才可以做文字输入、删除，按「ESC」键可回到普通模式。 可以按i、I、a、A、o、O、r、R即可。其中i和I表示插入（Insert），r和R表示替换（replace）。 3、命令模式 将文件保存或退出vi">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -154,39 +154,51 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-VIM" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      VIM操作
     </h1>
   
 
         
-        <a href="/2019/08/22/hello-world/" class="archive-article-date">
-  	<time datetime="2019-08-22T00:45:41.330Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
+        <a href="/2017/04/04/VIM/" class="archive-article-date">
+  	<time datetime="2017-04-04T06:02:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>基本上vi/vim可以分为三种状态，分别是普通模式、插入模式和命令模式，各模式的功能区分如下：</p>
+<p>1、普通模式</p>
+<p>控制屏幕光标的移动，字符、字或行的删除，移动复制某区段。</p>
+<p>2、插入模式</p>
+<p>只有在插入下，才可以做文字输入、删除，按「ESC」键可回到普通模式。</p>
+<p>可以按i、I、a、A、o、O、r、R即可。其中i和I表示插入（Insert），r和R表示替换（replace）。</p>
+<p>3、命令模式</p>
+<p>将文件保存或退出vim，也可以设置编辑环境，如寻找字符串、列出行号等……</p>
+<p>可以按“:”、“/”、“?”。其中“:”表示输入vim命令，“/”表示后面输入要向下搜索的字符串，“?”表示后面输入要向上搜索字符串。   其实，可以把普通模式理解为常态，进入其它任何一种模式，需要某种特殊方式，而从其它特殊模式回到普通模式，就按「ESC」键即可。</p>
+<p>1、普通模式 → 插入模式</p>
+<p>i   小写字母i，   在光标位置插入 </p>
+<p>a  小写字母a，  在光标的下一个位置插入 </p>
+<p>I   大写字母I，   在光标所在行的第一个非空格处插入 </p>
+<p>A  大写字母A， 在光标所在行的最后一个字符处插入 </p>
+<p>o  小写字母o，  在光标所在行的下一行处插入新行 </p>
+<p>O  大写字母O， 在光标所在行的上一行处插入新航 </p>
+<p>r   小写字母r，   替换光标所在处的字符一次 </p>
+<p>R  大写字母R， 持续替换光标所在处的字符，直到按下「ESC」键 </p>
+<p>普通模式 → 命令模式</p>
+<p>:q   退出 </p>
+<p>:q!  强制退出 </p>
+<p>:wq  保存后退出 </p>
+<p>:wq! 强制保存后退出 </p>
+<p>光标行操作</p>
+<p>G     光标移动到文件的最后一行的第一个非空白字符 nG/ngg 光标移动到文件的第n行，相当于”:n” gg    光标移动到文件的第1行的第一个非空白字符</p>
 
       
 
@@ -266,7 +278,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/22/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/04/04/VIM/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -280,18 +292,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/22/JWT/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/25/Axios/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          JWT
+          Axios
         
       </div>
     </a>
   
   
-    <a href="/2019/08/20/Phone/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">手机短信验证</div>
+    <a href="/2015/07/25/Hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo</div>
       <i class="icon-circle-right"></i>
     </a>
   
