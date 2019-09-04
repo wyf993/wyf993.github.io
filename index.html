@@ -152,6 +152,142 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/04/Python/">常见python面试题-手写代码系列</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/04/Python/" class="archive-article-date">
+  	<time datetime="2019-09-04T10:57:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-如何反向迭代一个序列"><a href="#1-如何反向迭代一个序列" class="headerlink" title="1.如何反向迭代一个序列"></a>1.如何反向迭代一个序列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#如果是一个list,最快的方法使用reverse</span><br><span class="line">tempList = [1,2,3,4]</span><br><span class="line">tempList.reverse()</span><br><span class="line">for x in tempList:</span><br><span class="line">    print x</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#如果不是list,需要手动重排</span><br><span class="line">templist = (1,2,3,4)</span><br><span class="line">for i in range(len(templist)-1,-1,-1):</span><br><span class="line">    print templist[i]</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-如何查询和替换一个文本中的字符串"><a href="#2-如何查询和替换一个文本中的字符串" class="headerlink" title="2.如何查询和替换一个文本中的字符串"></a>2.如何查询和替换一个文本中的字符串</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#最简单的方法使用replace()</span><br><span class="line">tempstr = &quot;hello you hello python are you ok&quot;</span><br><span class="line">print tempstr.replace(&quot;you&quot;,&quot;python&quot;)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#还可以使用正则,有个sub()</span><br><span class="line">tempstr = &quot;hello you hello python are you ok&quot;</span><br><span class="line">import re</span><br><span class="line">rex = r&apos;(hello|Use)&apos;</span><br><span class="line">print re.sub(rex,&quot;Bye&quot;,tempstr)</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-使用python实现单例模式"><a href="#3-使用python实现单例模式" class="headerlink" title="3.使用python实现单例模式"></a>3.使用python实现单例模式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#方法一:可以使用__new__方法</span><br><span class="line">#在__new__方法中把类实例绑定到类变量_instance上，如果cls._instance为None表示该类还没有实例化过，实例化该类并返回。如果cls_instance不为None表示该类已实例化，直接返回cls_instance</span><br><span class="line">class SingleTon(object):</span><br><span class="line">    def __new__(cls,*args,**kwargs):</span><br><span class="line">        if not hasattr(cls,&apos;_instance&apos;):</span><br><span class="line">            cls._instance = object.__new__(cls,*args,**kwargs)</span><br><span class="line">        return cls._instance</span><br><span class="line">class TestClass(SingleTon):</span><br><span class="line">    a = 1</span><br><span class="line"></span><br><span class="line">test1 = TestClass()</span><br><span class="line">test2 = TestClass()</span><br><span class="line">print test1.a,test2.a</span><br><span class="line"></span><br><span class="line">test1.a=2</span><br><span class="line">print test1.a,test2.a</span><br><span class="line"></span><br><span class="line">print id(test1),id(test2)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#方法二:使用装饰器,建立过实例的就放到instances里面,下次建立的时候先检查里面有没有</span><br><span class="line">def SingleTon(cls,*args,**kwargs):</span><br><span class="line">    instances = &#123;&#125;</span><br><span class="line">    print instances</span><br><span class="line">    def _singleton():</span><br><span class="line">        if cls not in instances:</span><br><span class="line">            instances[cls] = cls(*args,**kwargs)</span><br><span class="line">        print instances</span><br><span class="line">        return instances[cls]</span><br><span class="line">    return _singleton</span><br><span class="line"></span><br><span class="line">@SingleTon</span><br><span class="line">class LastClass(object):</span><br><span class="line">    a = 1</span><br><span class="line">test1 = LastClass()</span><br><span class="line">print test1.a</span><br><span class="line">test2 = LastClass()</span><br><span class="line">print test2.a</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#方法三:使用__metaclass__(元类)关于元类看看这个吧;http://blog.jobbole.com/21351/</span><br><span class="line">class SignalTon(type):</span><br><span class="line">    def __init__(cls,name,bases,dict):</span><br><span class="line">        super(SignalTon, cls).__init__(name,bases,dict)</span><br><span class="line">        cls._instance = None</span><br><span class="line"></span><br><span class="line">    def __call__(cls, *args, **kwargs):</span><br><span class="line">        if cls._instance is None:</span><br><span class="line">            cls._instance = super(SignalTon,cls).__call__(*args,**kwargs)</span><br><span class="line">        return cls._instance</span><br><span class="line"></span><br><span class="line">class TestClass(object):</span><br><span class="line">    __metaclass__ = SignalTon</span><br><span class="line"></span><br><span class="line">test1 = TestClass()</span><br><span class="line">test2 = TestClass()</span><br><span class="line"></span><br><span class="line">test1.a = 2</span><br><span class="line">print test1.a,test2.a</span><br><span class="line">print id(test1),id(test2)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#方法四:共享属性  所谓单例就是所有的引用（实例，对象）拥有相同的属性和方法，同一个类的实例天生都会有相同的方法，那我们只需要保证同一个类所产生的实例都具有相同的属性。所有实例共享属性最简单直接的方法就是共享__dict__属性指向。</span><br><span class="line"></span><br><span class="line">class SingleTon(object):</span><br><span class="line">    _state = &#123;&#125;</span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        obj = object.__new__(cls,*args,**kwargs)</span><br><span class="line">        obj.__dict__ = cls._state</span><br><span class="line">        return obj</span><br><span class="line"></span><br><span class="line">class TestClass(SingleTon):</span><br><span class="line">    a = 1</span><br><span class="line"></span><br><span class="line">test1 = TestClass()</span><br><span class="line">test2 = TestClass()</span><br><span class="line">print test1.a,test2.a</span><br><span class="line">test1.a = 2</span><br><span class="line">print test1.a,test2.a</span><br><span class="line">print id(test1),id(test2)</span><br><span class="line">#方法五:使用同一个模版</span><br><span class="line">#写在mysingleton.py中</span><br><span class="line">class My_Singleton(object):</span><br><span class="line">    def foo(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">my_singleton = My_Singleton()</span><br><span class="line"></span><br><span class="line">#写在要使用这个实例的py文件里面,在不同的引用的地方都引用相同的实例,以此实现单例模式</span><br><span class="line">from mysingleton import my_singleton</span><br><span class="line">my_singleton.foo()</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-重新实现str-strip"><a href="#4-重新实现str-strip" class="headerlink" title="4.重新实现str.strip()"></a>4.重新实现str.strip()</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">def rightStrip(tempStr,splitStr):</span><br><span class="line">    endindex = tempStr.rfind(splitStr)</span><br><span class="line">    while endindex != -1 and endindex == len(tempStr) - 1:</span><br><span class="line">         tempStr = tempStr[:endindex]</span><br><span class="line">         endindex = tempStr.rfind(splitStr)</span><br><span class="line">    return tempStr</span><br><span class="line"></span><br><span class="line">def leftStrip(tempStr,splitStr):</span><br><span class="line">    startindex = tempStr.find(splitStr)</span><br><span class="line">    while startindex == 0:</span><br><span class="line">        tempStr = tempStr[startindex+1:]</span><br><span class="line">        startindex = tempStr.find(splitStr)</span><br><span class="line">    return tempStr</span><br><span class="line"></span><br><span class="line">str = &quot;  H  &quot;</span><br><span class="line">print str</span><br><span class="line">print leftStrip(str,&apos; &apos;)</span><br><span class="line">print rightStrip(str,&apos; &apos;)</span><br><span class="line">#输出</span><br><span class="line">  H  </span><br><span class="line">H  </span><br><span class="line">  H</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-super的原理"><a href="#5-super的原理" class="headerlink" title="5.super的原理"></a>5.super的原理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#阅读下面的代码，它的输出结果是什么？</span><br><span class="line">class A(object):</span><br><span class="line">  def __init__(self):</span><br><span class="line">   print &quot;enter A&quot;</span><br><span class="line">   super(A, self).__init__()  # new</span><br><span class="line">   print &quot;leave A&quot;</span><br><span class="line"></span><br><span class="line"> class B(object):</span><br><span class="line">  def __init__(self):</span><br><span class="line">   print &quot;enter B&quot;</span><br><span class="line">   super(B, self).__init__()  # new</span><br><span class="line">   print &quot;leave B&quot;</span><br><span class="line"></span><br><span class="line"> class C(A):</span><br><span class="line">  def __init__(self):</span><br><span class="line">   print &quot;enter C&quot;</span><br><span class="line">   super(C, self).__init__()</span><br><span class="line">   print &quot;leave C&quot;</span><br><span class="line"></span><br><span class="line"> class D(A):</span><br><span class="line">  def __init__(self):</span><br><span class="line">   print &quot;enter D&quot;</span><br><span class="line">   super(D, self).__init__()</span><br><span class="line">   print &quot;leave D&quot;</span><br><span class="line"> class E(B, C):</span><br><span class="line">  def __init__(self):</span><br><span class="line">   print &quot;enter E&quot;</span><br><span class="line">   super(E, self).__init__()  # change</span><br><span class="line">   print &quot;leave E&quot;</span><br><span class="line"></span><br><span class="line"> class F(E, D):</span><br><span class="line">  def __init__(self):</span><br><span class="line">   print &quot;enter F&quot;</span><br><span class="line">   super(F, self).__init__()  # change</span><br><span class="line">   print &quot;leave F&quot;</span><br><span class="line"></span><br><span class="line">#输出</span><br><span class="line"></span><br><span class="line"> enter F</span><br><span class="line"> enter E</span><br><span class="line"> enter B</span><br><span class="line"> enter C</span><br><span class="line"> enter D</span><br><span class="line"> enter A</span><br><span class="line"> leave A</span><br><span class="line"> leave D</span><br><span class="line"> leave C</span><br><span class="line"> leave B</span><br><span class="line"> leave E</span><br><span class="line"> leave F</span><br></pre></td></tr></table></figure>
+
+<p>非常棒的讲解:</p>
+<p><a href="http://www.cnblogs.com/lovemo1314/archive/2011/05/03/2035005.html" target="_blank" rel="noopener">http://www.cnblogs.com/lovemo1314/archive/2011/05/03/2035005.html</a></p>
+<h2 id="6-闭包"><a href="#6-闭包" class="headerlink" title="6.闭包"></a>6.闭包</h2><p>常用的装饰器就是闭包的一种 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def make_adder(addend): </span><br><span class="line">    def adder(addend): </span><br><span class="line">        return addend+addend </span><br><span class="line">return adder</span><br><span class="line"></span><br><span class="line">P1 = make_adder(5) </span><br><span class="line">P2= make_adder(4)</span><br><span class="line"></span><br><span class="line">print p1(10) </span><br><span class="line">#输出15 </span><br><span class="line">print p2(10) </span><br><span class="line">#输出14</span><br></pre></td></tr></table></figure>
+
+
+
+<p>闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外<br><a href="http://www.cnblogs.com/ma6174/archive/2013/04/15/3022548.html" target="_blank" rel="noopener">http://www.cnblogs.com/ma6174/archive/2013/04/15/3022548.html</a></p>
+<p><a href="https://foofish.net/python-closure.html" target="_blank" rel="noopener">https://foofish.net/python-closure.html</a></p>
+<h2 id="7-给列表中的字典排序"><a href="#7-给列表中的字典排序" class="headerlink" title="7.给列表中的字典排序"></a>7.给列表中的字典排序</h2><p>list 对象 alist [{“name”:”a”,”age”:20},{“name”:”b”,”age”:30},{“name”:”c”,”age”:25}]按照 age 从大到小排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alist = [&#123;&quot;name&quot;:&quot;a&quot;,&quot;age&quot;:20&#125;,&#123;&quot;name&quot;:&quot;b&quot;,&quot;age&quot;:30&#125;,&#123;&quot;name&quot;:&quot;c&quot;,&quot;age&quot;:25&#125;]</span><br><span class="line">alist.sort(key=lambda:x:-x.get(&quot;age&quot;))</span><br><span class="line">print alist</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-合并两个列表排除重复元素"><a href="#8-合并两个列表排除重复元素" class="headerlink" title="8.合并两个列表排除重复元素"></a><strong>8.合并两个列表排除重复元素</strong></h2><p>用简洁的方法合并alist = [‘a’,’b’,’c’,’d’,’e’,’f’]<br>blist = [‘x’,’y’,’z’,’e’,’f’]并且元素不能重复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">alist = [&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;,&apos;f&apos;]</span><br><span class="line">blist = [&apos;x&apos;,&apos;y&apos;,&apos;z&apos;,&apos;e&apos;,&apos;f&apos;]</span><br><span class="line">def merge_list(*args):</span><br><span class="line">    s = set()</span><br><span class="line">    for i in args:</span><br><span class="line">        s = s.union(i)</span><br><span class="line">    print(s)</span><br><span class="line">    return s</span><br><span class="line"></span><br><span class="line">merge_list(alist,blist)</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-打乱一个排好序的列表"><a href="#9-打乱一个排好序的列表" class="headerlink" title="9.打乱一个排好序的列表"></a>9.打乱一个排好序的列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from random import shuffle</span><br><span class="line">alist = range(10)</span><br><span class="line">print(alist)</span><br><span class="line">shuffle(alist)</span><br><span class="line">print(alist)</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-简单的实现一个栈结构-stack"><a href="#10-简单的实现一个栈结构-stack" class="headerlink" title="10.简单的实现一个栈结构 stack"></a>10.简单的实现一个栈结构 stack</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Stack(object):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.value = []</span><br><span class="line"></span><br><span class="line">    def push(self,x):</span><br><span class="line">        self.value.append(x)</span><br><span class="line"></span><br><span class="line">    def pop(self):</span><br><span class="line">        self.value.pop()</span><br><span class="line"></span><br><span class="line">stack = Stack()</span><br><span class="line"></span><br><span class="line">stack.push(1)</span><br><span class="line">stack.push(2)</span><br><span class="line">stack.push(3)</span><br><span class="line">print(stack.value)</span><br><span class="line">stack.pop()</span><br><span class="line">print(stack.value)</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-输入一个日期-返回时一年中的哪一天"><a href="#11-输入一个日期-返回时一年中的哪一天" class="headerlink" title="11.输入一个日期,返回时一年中的哪一天"></a>11.输入一个日期,返回时一年中的哪一天</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from datetime import datetime</span><br><span class="line">def which_day(year,month,day):</span><br><span class="line">    return (datetime(year,month,day)-datetime(year,1,1)).days+1</span><br><span class="line"></span><br><span class="line">print(which_day(2017,1,15))</span><br></pre></td></tr></table></figure>
+
+<h2 id="12-把字符串”k1-1-k2-2-k3-3”处理成-python-字典的形式-k1-1-k2-2-k3-3"><a href="#12-把字符串”k1-1-k2-2-k3-3”处理成-python-字典的形式-k1-1-k2-2-k3-3" class="headerlink" title="12.把字符串”k1:1|k2:2|k3:3”处理成 python 字典的形式:{k1:1,k2:2,k3:3}"></a><strong>12.把字符串”k1:1|k2:2|k3:3”处理成 python 字典的形式:{k1:1,k2:2,k3:3}</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def string_to_dict(string):</span><br><span class="line">    d = &#123;&#125;</span><br><span class="line">    for kv in string.split(&quot;|&quot;):</span><br><span class="line">        k,v = kv.split(&quot;:&quot;)</span><br><span class="line">        if v.isdigit():</span><br><span class="line">            v=int(v)</span><br><span class="line">        d[k]=v</span><br><span class="line">    return d</span><br><span class="line"></span><br><span class="line">print(string_to_dict(&quot;k1:1|k2:2|k3:3&quot;))</span><br></pre></td></tr></table></figure>
+
+<h2 id="13-判断输入的值是否在矩阵之中-杨氏矩阵"><a href="#13-判断输入的值是否在矩阵之中-杨氏矩阵" class="headerlink" title="13.判断输入的值是否在矩阵之中(杨氏矩阵)"></a>13.判断输入的值是否在矩阵之中(杨氏矩阵)</h2><p>在一个二维数组之中,每一行都按照从走到右递增的顺序排序,每一列到按照从上到下的顺序排序.请完成一个函数,输入这样的一个二维手术和一个整数,判断数组中是否含有该整数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#处理数组矩阵</span><br><span class="line">arr = [[1,4,7,10,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]</span><br><span class="line">def get_num(num,data=None):</span><br><span class="line">    while data:</span><br><span class="line">        if num &gt; data[0][-1]:</span><br><span class="line">            del data[0]</span><br><span class="line">        elif num&lt;data[0][-1]:</span><br><span class="line">            data = list(zip(*data))</span><br><span class="line">            del data[-1]</span><br><span class="line">            data = list(zip(*data))</span><br><span class="line">        else:</span><br><span class="line">            return True</span><br><span class="line">            data.clear()</span><br><span class="line">    return False</span><br><span class="line">print (get_num(18,arr))</span><br></pre></td></tr></table></figure>
+
+<p>不处理数组矩阵<br>使用 step-wise 线性搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def getvalue(data,value):</span><br><span class="line">    m = len(data)-1</span><br><span class="line">    n = len(data[0])-1</span><br><span class="line">    r = 0</span><br><span class="line">    c = n</span><br><span class="line">    while c&gt;=0 and r&lt;=m:</span><br><span class="line">        if value == data[r][c]:</span><br><span class="line">            return True</span><br><span class="line">        elif value&gt;data[r][c]:</span><br><span class="line">            r = r+1</span><br><span class="line">        else:</span><br><span class="line">            c = c-1</span><br><span class="line">    return False</span><br></pre></td></tr></table></figure>
+
+<h2 id="14-获取最大公约数-欧几里得算法"><a href="#14-获取最大公约数-欧几里得算法" class="headerlink" title="14.获取最大公约数(欧几里得算法)"></a><strong>14.获取最大公约数(欧几里得算法)</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a= 25</span><br><span class="line">b=15</span><br><span class="line"></span><br><span class="line">def max_common(a,b):</span><br><span class="line">    while b:</span><br><span class="line">        a,b=b,a%b</span><br><span class="line">    return a</span><br></pre></td></tr></table></figure>
+
+<p>详解:</p>
+<p><a href="https://blog.csdn.net/franktan2010/article/details/38229641" target="_blank" rel="noopener">https://blog.csdn.net/franktan2010/article/details/38229641</a></p>
+<h2 id="15-求两个数的最小公倍数-公式法"><a href="#15-求两个数的最小公倍数-公式法" class="headerlink" title="15.求两个数的最小公倍数(公式法)"></a>15.求两个数的最小公倍数(公式法)</h2><p>两个数的乘积等于这两个数的 最大公约数与最小公倍数的积</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a=25</span><br><span class="line">b=15</span><br><span class="line">def min_common(a,b):</span><br><span class="line">    c= a*b</span><br><span class="line">    while b:</span><br><span class="line">        a,b=b,a%b</span><br><span class="line">    return c//a</span><br></pre></td></tr></table></figure>
+
+<p>详情:</p>
+<p><a href="https://zhidao.baidu.com/question/90232880" target="_blank" rel="noopener">https://zhidao.baidu.com/question/90232880</a></p>
+<p>16.获取中位数</p>
+<p>如果总数个数是奇数，按从小到大的顺序，取中间的那个数；如果总数个数是偶数个的话，按从小到大的顺序，取中间那两个数的平均数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#计算中位数</span><br><span class="line">def mediannum(num):</span><br><span class="line">    listnum = [num[i] for i in range(len(num))]</span><br><span class="line">    listnum.sort()</span><br><span class="line">    lnum = len(num)</span><br><span class="line">    if lnum % 2 == 1:</span><br><span class="line">        i = int((lnum + 1) / 2)-1</span><br><span class="line">        return listnum[i]</span><br><span class="line">    else:</span><br><span class="line">        i = int(lnum / 2)-1</span><br><span class="line">        return (listnum[i] + listnum[i + 1]) / 2</span><br></pre></td></tr></table></figure>
+
+<p>详情:</p>
+<p><a href="https://blog.csdn.net/qq_33363973/article/details/78773144" target="_blank" rel="noopener">https://blog.csdn.net/qq_33363973/article/details/78773144</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def medin(data):</span><br><span class="line">    data.sort()</span><br><span class="line">    half = len(data)//2</span><br><span class="line">    return (data[half]+data[~half])/2</span><br><span class="line">l = [1,3,4,53,2,46,8,42,82]</span><br><span class="line">print (median(l))</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/04/Python/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-docker2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1143,76 +1279,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/08/14/Sina/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PeopleCount" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/08/PeopleCount/">在线人数的统计</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/08/PeopleCount/" class="archive-article-date">
-  	<time datetime="2019-08-08T06:23:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在线人数的统计逻辑：</p>
-<p>​    获取web登录用户的IP，存入redis数据库中，获取key的个数，就是登录访问web的人数，返回前端，前端使用组件传值，展示人数。</p>
-<p>直接上代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新写一个函数，作用如下：</span></span><br><span class="line"><span class="comment"># 存储IP到redis</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_ip</span><span class="params">(ip)</span>:</span></span><br><span class="line">    <span class="comment"># 存入redis</span></span><br><span class="line">    conn = redis.Redis(host=<span class="string">"localhost"</span>, port=<span class="number">6379</span>, db=<span class="number">4</span>)</span><br><span class="line">    <span class="comment"># scard 返回元素个数</span></span><br><span class="line">    count = conn.scard(<span class="string">'ip'</span>)</span><br><span class="line">    <span class="comment"># 如果获取的IP，数据库中不存在，说明未访问过，加入一条新的key，过期时间60s</span></span><br><span class="line">    <span class="keyword">if</span> count == <span class="number">0</span>:</span><br><span class="line">        conn.sadd(<span class="string">'ip'</span>, ip)</span><br><span class="line">        conn.expire(<span class="string">'ip'</span>, <span class="number">60</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        conn.sadd(<span class="string">'ip'</span>, ip)</span><br><span class="line">    <span class="keyword">return</span> conn.scard(<span class="string">'ip'</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在接口中调用上面的函数，返回给前端</span></span><br><span class="line"><span class="comment"># 获取访问web的用户IP</span></span><br><span class="line">ip = self.request.remote_ip</span><br><span class="line"><span class="comment"># 调用函数</span></span><br><span class="line">count = count_ip(ip)</span><br></pre></td></tr></table></figure>
-
-<p>具体前端在哪使用，根据需求决定，使用组件传值即可。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/08/PeopleCount/">展开全文 >></a>
         </p>
       
 
