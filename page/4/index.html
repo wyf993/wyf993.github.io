@@ -6,30 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>阿里云服务器docker搭建fastDfs | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前写过了在win系统下使用docker搭建fastDfs，这篇讲一下如何在阿里云服务器部署。  首先在阿里云服务器上开放端口    阿里云首页点击控制台，在最近使用中选择云服务器ECS，跳转新的页面，点击我的资源里的云服务器，跳转实例列表页面，最右边有一个更多，选择网络和安全组里的安全组配置，点击配置规则，上面有一个添加安全组规则，添加要开放的端口。 端口范围例子：8888/8888 授权对象列">
-<meta property="og:type" content="article">
-<meta property="og:title" content="阿里云服务器docker搭建fastDfs">
-<meta property="og:url" content="http://yoursite.com/2019/08/29/fastDfs/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="之前写过了在win系统下使用docker搭建fastDfs，这篇讲一下如何在阿里云服务器部署。  首先在阿里云服务器上开放端口    阿里云首页点击控制台，在最近使用中选择云服务器ECS，跳转新的页面，点击我的资源里的云服务器，跳转实例列表页面，最右边有一个更多，选择网络和安全组里的安全组配置，点击配置规则，上面有一个添加安全组规则，添加要开放的端口。 端口范围例子：8888/8888 授权对象列">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/5cb7a13101e24457ad7258391b5b208b/edc2de1a233c4258908c3b4153ddceff.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/45b5d3c920d14e82aae8abd309eb7e90/5ed0b040264a4ea3ac4b12cb9240d4c8.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/882a71a8a6d9466e83dc0408441136bc/f24751351235497bbbae5cd62a7f363d.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/a859ce618bfb48a2bcd1dfdb89eb9b09/71da4769c6844ebe9a7f8bd6e9496c30.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/51ebd532760f45839b8f993815ea0c80/b58d7c35df6c42de84d3b75db951719b.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/4e8808accc1249eeaecd627480de3fe1/7f46d575cf264f718b1a83f56f879f09.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/6e2b06499bda4bcca220fba7b928cfd0/0ecbbe4c48fc4fbb94c65a1a0061e602.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/dea7f17563114522a3435982cd567523/fa4bd93681214c69b67c9a5ff8cf2b56.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/d3e6f9c75265486696ef426109135011/4cac88aa70df46208aa46ad3f2b31a3d.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/08d751e51cfd4632be4655b142584790/61f04e9fbb85406484e547d1c0588580.jpg">
-<meta property="og:updated_time" content="2019-09-03T12:01:10.859Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="阿里云服务器docker搭建fastDfs">
-<meta name="twitter:description" content="之前写过了在win系统下使用docker搭建fastDfs，这篇讲一下如何在阿里云服务器部署。  首先在阿里云服务器上开放端口    阿里云首页点击控制台，在最近使用中选择云服务器ECS，跳转新的页面，点击我的资源里的云服务器，跳转实例列表页面，最右边有一个更多，选择网络和安全组里的安全组配置，点击配置规则，上面有一个添加安全组规则，添加要开放的端口。 端口范围例子：8888/8888 授权对象列">
-<meta name="twitter:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/5cb7a13101e24457ad7258391b5b208b/edc2de1a233c4258908c3b4153ddceff.jpg">
+<meta name="twitter:title" content="Hexo">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -165,170 +150,192 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-fastDfs" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-PythonPrimary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      阿里云服务器docker搭建fastDfs
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/09/03/PythonPrimary/">Python初级</a>
     </h1>
   
 
         
-        <a href="/2019/08/29/fastDfs/" class="archive-article-date">
-  	<time datetime="2019-08-29T11:58:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
+        <a href="/2011/09/03/PythonPrimary/" class="archive-article-date">
+  	<time datetime="2011-09-03T00:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-09-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>之前写过了在win系统下使用docker搭建fastDfs，这篇讲一下如何在阿里云服务器部署。</p>
-<ul>
-<li>首先在阿里云服务器上开放端口  </li>
-</ul>
-<p>阿里云首页点击控制台，在最近使用中选择云服务器ECS，跳转新的页面，点击我的资源里的云服务器，跳转实例列表页面，最右边有一个更多，选择网络和安全组里的安全组配置，点击配置规则，上面有一个添加安全组规则，添加要开放的端口。</p>
-<p>端口范围例子：8888/8888</p>
-<p>授权对象列例子：0.0.0.0/0</p>
-<ul>
-<li><ul>
-<li>8000    tornado或者django默认端口</li>
-<li>22122     docker fastdfs容器端口</li>
-<li>8888        nignx默认端口</li>
-<li>80             tornado端口</li>
-<li>3306         mysql端口</li>
-<li>6379         redis端口</li>
-<li>8080         vue端口</li>
-</ul>
-</li>
-<li><p>安装docker</p>
-</li>
-<li><ul>
-<li>升级yum</li>
-</ul>
-</li>
-</ul>
-<p>sudo yum update</p>
-<p>卸载旧版本docker</p>
-<p>sudo yum remove docker docker-common docker-selinux docker-engine</p>
-<p>安装依赖</p>
-<p>sudo yum install -y yum-utils device-mapper-persistent-data lvm2</p>
-<p>设置源</p>
-<p>sudo yum-config-manager –add-repo <a href="https://download.docker.com/linux/centos/docker-ce.repo" target="_blank" rel="noopener">https://download.docker.com/linux/centos/docker-ce.repo</a></p>
-<p>安装docker</p>
-<p>sudo yum install docker-ce</p>
-<p>启动服务</p>
-<p>sudo systemctl start docker</p>
-<p>查看docker版本</p>
-<p>docker version</p>
-<p>如果以上不成功的话 执行：</p>
-<p>sudo yum install -y yum-utils device-mapper-persistent-data lvm2</p>
-<p>sudo yum-config-manager –add-repo <a href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p>
-<p>sudo yum makecache fast</p>
-<p>sudo yum -y install docker-ce</p>
-<p>在docker中将fastdfs镜像下载</p>
-<p>docker pull delron/fastdfs</p>
-<p>第一种：在docker容器内下载图片</p>
+        <p>python-基础知识总结</p>
+<p>1、数据类型：数字型（int，long，float，complex），布尔型（bool），字符串(str)，列表(list)，元祖(tuple)，字典(dict)，集合(set)</p>
+<p>2、字符串格式化：</p>
+<p>​    1) ‘Hello, %s’ % ‘world’</p>
+<p>​    2) ‘hello {}’.format(‘kangkang’)</p>
 <p>​    </p>
-<p>step1:</p>
-<p>  使用docker镜像构建tracker容器（跟踪服务器，起到调度的作用），这里tracker服务将会自动映射到宿主机上 </p>
-<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
-<p>step2:</p>
-<p>使用docker镜像构建storage容器（存储服务器，提供容量和备份服务），这里storage容器需要依赖tracker服务，传入你的tracker服务的ip地址，端口默认是22122，ip地址也就是你宿主机的ip </p>
-<p>这里的172.16.187.153是服务器centos的ip地址  通过ipconfig即可查看</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.187.153:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p>此时，命令行输入 docker ps 就可以看到两套服务都已经启动 </p>
-<p>step3:</p>
-<p>进入正在后台运行的storage容器</p>
-<p>docker exec -it storage /bin/bash</p>
-<p>随便下载一张图片,这个不用担心，因为在容器中如果不提交仓库的话，该图片是不会保存的 </p>
-<p>wget <a href="https://v3u.cn/v3u/Public/images/logo.png" target="_blank" rel="noopener">https://v3u.cn/v3u/Public/images/logo.png</a></p>
-<p>将该图片通过命令上传到分布式系统中 </p>
-<p>/usr/bin/fdfs_upload_file /etc/fdfs/client.conf logo.png</p>
-<p>这时该图片已上传至文件系统，并在执行该语句后返回图片存储的网络地址 </p>
-<p>最后通过浏览器访问以下存储在Fastdfs的图片，这张图片是通过nginx代理的静态资源，默认nginx监听8888端口，所以需要加上端口号，如果是在阿里云上部署，则需要暴露外部端口8888 </p>
-<p>注意：此时查看访问图片的IP地址是自己阿里云服务器提供的  公  IP + 8888</p>
-<p>第二种：在容器外部上传图片文件</p>
-<p>step1：</p>
-<p>利用docker的特性，我们知道docker 的 -v 参数，可以自动挂载宿主机的文件件到容器中去，这样宿主和容器就可以进行无障碍的文件共享，我们通过-v参数，把宿主机的root目录自动挂载到docker容器中的/var/root目录中去。</p>
-<p>这里的172.16.187.153是服务器centos的ip地址  通过ipconfig即可查看</p>
-<p># 创建tracker</p>
-<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
-<p># 创建storage</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.187.153:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p>我们可以利用docker的exec命令不进入容器，直接在宿主机的环境下调用容器内的命令，因为文件夹已经共享，所以我们输入的文件目录虽然是容器中的/var/root目录，但是实际上该上传的文件就在宿主的/root目录中 。</p>
-<p>注意：</p>
-<p>​    1、上传的图片路径不再是/var/root/文件名  而是/tmp/nginx/nginx-1.12.2/logo.png  这个就要自己进入容器查看一下决定，可能每个人不一样  使用 docker exec -it storage /bin/bash命令进入容器，进入后最左面的路径就是你要写的图片路径。</p>
-<p>​    2、这个要上传的文件必须已经存在于你的路径下，也就是说本地要确实存在这个图片或者视频等文件，否则会报错。</p>
-<p>docker exec -i storage /usr/bin/fdfs_upload_file /etc/fdfs/client.conf /tmp/nginx/nginx-1.12.2/logo.png</p>
-<p>上传成功后，fastdfs将会网络地址 </p>
-<p>然后在服务器访问即可，参照上一种的方法！</p>
-<p>docker拉取镜像</p>
-<p>docker pull delron/fastdfs</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/5cb7a13101e24457ad7258391b5b208b/edc2de1a233c4258908c3b4153ddceff.jpg" alt="img"></p>
-<p> docker images</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/45b5d3c920d14e82aae8abd309eb7e90/5ed0b040264a4ea3ac4b12cb9240d4c8.jpg" alt="img"></p>
-<p>docker save -o d:/redis.tar redis         存盘</p>
-<p>docker save -o d:/fastdfs.tar delron/fastdfs     （ 路径 镜像下的名字）</p>
-<p>docker load -i ‘d:/redis.tar’                   读盘</p>
-<p>docker load -i ‘d:/fastdfs.tar’</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/882a71a8a6d9466e83dc0408441136bc/f24751351235497bbbae5cd62a7f363d.jpg" alt="img"></p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/a859ce618bfb48a2bcd1dfdb89eb9b09/71da4769c6844ebe9a7f8bd6e9496c30.jpg" alt="img"></p>
-<p>#停止容器</p>
-<p>docker stop $(docker ps -a -q)</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/51ebd532760f45839b8f993815ea0c80/b58d7c35df6c42de84d3b75db951719b.jpg" alt="img"></p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/4e8808accc1249eeaecd627480de3fe1/7f46d575cf264f718b1a83f56f879f09.jpg" alt="img"></p>
-<p>#删除容器</p>
-<p>docker rm $(docker ps -a -q)</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/6e2b06499bda4bcca220fba7b928cfd0/0ecbbe4c48fc4fbb94c65a1a0061e602.jpg" alt="img"></p>
-<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/dea7f17563114522a3435982cd567523/fa4bd93681214c69b67c9a5ff8cf2b56.jpg" alt="img"></p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=192.168.99.100:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p>docker下的：</p>
-<p>116.62.145.139</p>
-<p>密码：wangyifei0607.</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.51.0:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/d3e6f9c75265486696ef426109135011/4cac88aa70df46208aa46ad3f2b31a3d.jpg" alt="img"></p>
-<p>docker exec -it storage /bin/bash                       进入容器</p>
-<p>wget <a href="https://v3u.cn/v3u/Public/images/logo.png" target="_blank" rel="noopener">https://v3u.cn/v3u/Public/images/logo.png</a></p>
-<p>ls</p>
-<p>/usr/bin/fdfs_upload_file /etc/fdfs/client.conf logo.png</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/08d751e51cfd4632be4655b142584790/61f04e9fbb85406484e547d1c0588580.jpg" alt="img"></p>
-<p>exit;</p>
-<p>浏览器访问：</p>
-<p><a href="http://192.168.99.100:8888/group1/M00/00/00/wKhjZF1bXXWADunAAAAS9iNyoDo725.png" target="_blank" rel="noopener">http://192.168.99.100:8888/group1/M00/00/00/wKhjZF1bXXWADunAAAAS9iNyoDo725.png</a></p>
-<p>docker ps -a          查看所有</p>
-<p>docker run -d –network=host –name tracker -v /c/Users:/var/root delron/fastdfs tracker</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=192.168.99.100:22122 -v /c/Users:/var/root -e GROUP_NAM</p>
-<p>E=group1 delron/fastdfs storage</p>
-<p>docker exec -i        在外部调用容器内部的服务</p>
-<p>docker exec -i storage /usr/bin/fdfs_upl·oad_file /etc/fdfs/client.conf /var/root/test.mp4</p>
+<p>3、字符串解码与编码</p>
+<p>​    1) 解码：decoding(‘utf-8’) 默认是：utf-8</p>
+<p>​    2) 编码：encoding(‘utf-8’)</p>
+<p>​    </p>
+<p>4、list</p>
+<p>​    1) 定义方式：[]</p>
+<p>​    2) 操作方式</p>
+<p>​        1) 增：append(“内容”)末尾追加；insert(“位置”, “内容”)指定位置追加</p>
+<p>​        2) 删：pop()删除末尾；pop(位置)删除指定位置的内容</p>
+<p>​        3) 改: list[下标] = 新内容</p>
+<p>​        4) 查: in, not in ; 下标（整数从前开始，负数从末尾开始）</p>
+<p>​        </p>
+<p>5、tuple</p>
+<p>​    1) 定义方式：()</p>
+<p>​    2) 元祖只能查,方法和list一样</p>
+<p>​    3) 元祖拆包：        </p>
+<p>​    注：元祖拆包 a=(1,2)  c,d = a , c = 1 d = 2</p>
+<p>​    依此类推</p>
+<p>​        for A,B IN a :</p>
+<p>​            A = 1</p>
+<p>​            B = 2</p>
+<p>6、dict</p>
+<p>​    1) 定义方式{key：value}</p>
+<p>​    2) 操作方式</p>
+<p>​        1) 增：dict[key]=value</p>
+<p>​        2) 删：del dict[key]</p>
+<p>​        3) 改：相同键名表修改</p>
+<p>​        4) 查：dict[key]没有报错,可以用in先做判断；dict.get(key)没有不会报错</p>
+<p>7、set</p>
+<p>​    1)定义方式：{}，如果要创建一个空集合，你必须用 set() 而不是 {}</p>
+<p>​    2)操作方式</p>
+<p>​        1) 增 add()</p>
+<p>​        2) 删 pop末尾，remove()指定</p>
+<p>​        3) 改 update({}或[])</p>
+<p>​        4) 查 for in</p>
+<p>类型总结：</p>
+<p>​    1) 可变类型:list,dict,set</p>
+<p>​    2) 不可变类型：number， bool, str, tuple</p>
+<p>​    3) 作用：不可变类型可以作为键，可变类型不能作为键.</p>
+<p>​    4) 补充：type()可以测出变量类型，id()可以测出变量的地址</p>
+<p>​        </p>
+<p>8、函数</p>
+<p>​    1) 定义： def func_name(形参)</p>
+<p>​    2) 调用:  func_name(实参)</p>
+<p>​    3) 型参类型：</p>
+<p>​        1) 默认参数：func_name(a,b=2),b是默认参数，必须放在必要参数的后面（不然会出问题，因为不知道参数是给默认参数还是必要参数）</p>
+<p>​           例：print(‘value’,end=””)不换行，end为默认参数’\n’</p>
+<p>​           注：有多个默认参数，可以指定为哪个默认参数指定值，可以通过参数名=值的方式调用</p>
+<p>​        2) 不定长参数：func_name(a,b,*args) *args 实参多于形参的个数都是它的（封装成元祖（注：一个元素的元祖是（a，）一定有逗号））</p>
+<p>​        3) 关键字参数：func_name(**kwargs) 带有变量名的参数</p>
+<p>​           调用方法：func_name(key=value) 如果key为必要参数，先满足必要参数。</p>
+<p>​        4) 命名关键字参数func_name(*，a，b)a，b为命名关键字参数</p>
+<p>​           调用方法：func_name(a = value, b = value)</p>
+<p>​        </p>
+<p>​        形参的定义顺序：必要参数，默认参数，不定长参数，命名关键字参数，关键字参数 （不定长参数和命名管家你参数不联用）</p>
+<p>​    4) 递归函数</p>
+<p>​    5) 匿名函数：</p>
+<p>​        1) 定义方式：lambda 形参：表达式  （默认返回表达式的值）</p>
+<p>​        2) 调用方式：可以将匿名函数赋值给变量，通过变量访问</p>
+<p>​    6) 值传递or引用传递？</p>
+<p>​        Python参数传递统一使用的是引用传递方式。因为Python对象分为可变对象(list,dict,set等)和不可变对象(number,string,tuple等)，</p>
+<p>​        当传递的参数是可变对象的引用时，因为可变对象的值可以修改，因此可以通过修改参数值而修改原对象，这类似于C语言中的引用传递；</p>
+<p>​        当传递的参数是不可变对象的引用时，虽然传递的是引用，参数变量和原变量都指向同一内存地址，但是不可变对象无法修改，</p>
+<p>​        所以参数的重新赋值不会影响原对象，这类似于C语言中的值传递。</p>
+<p>​        </p>
+<p>9、模块</p>
+<p>​    1) 一个py文件相当于一个模块</p>
+<p>​    2) 模块安装： pip install 模块名</p>
+<p>​    3) 导入模块：</p>
+<p>​        1）import 模块 调用：模块名.方法（或别的）例:import requests</p>
+<p>​        2）from 模块 import 方法  调用：方法（或别的）例：from lxml import etree</p>
+<p>​        3）from 模块 impory * ,不推荐，后面导入的会覆盖前面的</p>
+<p>​        4）import 模块 as 小名</p>
+<p>​    4) def _func_name() 以下划线开头的属性和方法是这个模块私有的</p>
+<p>​    5) <strong>all</strong> = [“函数，变量，类···”] 在模块中可以指定那些东西能被外部调用</p>
+<p>​    </p>
+<p>​    6) 模块在解释的时候，模块会被翻译成字节码。后续不用重新翻译。</p>
+<p>​    7) <strong>name</strong> 属性：通过命令执行时：为<strong>main</strong> 模块导入引用是模块名</p>
+<p>​        </p>
+<p>​       所以在模块中if(<strong>name</strong> == “<strong>main</strong>“):后面可以执行一些只在当前模块执行的代码，通常是测试代码。</p>
+<p>​    8) 标准模块写法：</p>
+<p>​        # -<em>-coding:utf-8-</em>-</p>
+<p>​        <strong>author</strong> = ‘author’</p>
+<p>​        import modules</p>
+<p>​        def main():</p>
+<p>​            pass</p>
+<p>​        if <strong>name</strong> == ‘<strong>main</strong>‘:</p>
+<p>​            main()</p>
+<p>​            </p>
+<p>10、类</p>
+<p>​    1) 类的定义：class 类名():</p>
+<p>​    2) 对象的声明：类名()</p>
+<p>​    3) 方法：</p>
+<p>​        1) <strong>new</strong>(),实例创建的时候调用</p>
+<p>​        2) <strong>init</strong>(),实例初始化用</p>
+<p>​        3) <strong>del</strong>(),实例销毁时候用</p>
+<p>​        4) 私有方法：def __func_name():</p>
+<p>​        5) 静态方法：正常方法加上@staticmethod</p>
+<p>​        6) 正常方法：def func_name():</p>
+<p>​        7) 类方法：正常方法上加@classmethod 用来修改类属性</p>
+<p>​    4) 属性：</p>
+<p>​        实例属性：</p>
+<p>​            1)定义方式： def <strong>init</strong>(self, name, sex):</p>
+<p>​                            self.name = name</p>
+<p>​                            self.sex = name</p>
+<p>​            2)私有属性： self.__name = name</p>
+<p>​            3)正常方法可以修改属性（类似java中get、set方法）</p>
+<p>​        类属性：</p>
+<p>​            1) 定义方式： class Student():</p>
+<p>​                            name = ‘’</p>
+<p>​                直接在类中定义</p>
+<p>​            2) 私有属性：__name = name</p>
+<p>​            3) 通过类方法修改</p>
+<p>​    5) 继承：</p>
+<p>​        1) 实现方式：class A(C)</p>
+<p>​        2) 支持多继承class A(B,C)</p>
+<p>​           注意:如果方法重名，首先调用自己的方法</p>
+<p>​           可以通过类名.<strong>mro</strong>的查看调用顺序</p>
+<p>​        3) 调用父类方法：可以通过类名加方法名</p>
+<p>​    6) 多态：</p>
+<p>​        1) 向上转型：子类对象先从父类对象继承，然后子类对象应用赋值给父类对象</p>
+<p>​        2) 向下转型：父类对象引用赋值给子类对象</p>
+<p>​        上述两条是java中的多态体现</p>
+<p>​        在python中不要求严格的继承关系，只要即在向上转型的过程中不要求子类必须继承自父类。</p>
+<p>11、异常</p>
+<p>​    1) 定义方式：</p>
+<p>​        try:</p>
+<p>​        except 异常名字(多个异常用括号包起来)：</p>
+<p>​        except Exception as exp捕获所有异常</p>
+<p>​            exp：异常信息</p>
+<p>​        else：</p>
+<p>​            没有异常时执行</p>
+<p>​        finaly:</p>
+<p>​    2) 自定义异常</p>
+<p>​        定义：从Exception（异常类）继承</p>
+<p>​        抛出：raise 自定义异常类</p>
+<p>​    3) 抛出异常：raise</p>
+<p>​    </p>
+<p>12、IO操作</p>
+<p>​    1) 打开文件：open(‘文件名.后缀’，’操作符’)</p>
+<p>​    2) 关闭文件：close()</p>
+<p>​    3) 读文件：read()防止内存奔溃；读行数据：readlines()全部行；readline 只读一行</p>
+<p>​    4) 写文件：write(); writelines()</p>
+<p>​        1) write()需要传入一个字符串做为参数，否则会报错</p>
+<p>​        2) writelines()既可以传入字符串又可以传入一个字符序列，并将该字符序列写入文件</p>
+<p>​    5) 文件定位：seek(offset,from)</p>
+<p>​                offset:移动距离</p>
+<p>​                from： 0：表示文件头</p>
+<p>​                       1: 当前位置</p>
+<p>​                       2：文件结尾</p>
+<p>​    6) 文件操纵：os模块</p>
+<p>​        1) 文件重命名：os.rename()</p>
+<p>​        2) 文件删除：os.remove()</p>
+<p>​        3) 删除文件夹：os.rmdir()</p>
+<p>​    </p>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -337,84 +344,16 @@
       
 
       
-
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2011/09/03/PythonPrimary/">展开全文 >></a>
+        </p>
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/29/fastDfs/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/08/30/localhostID/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          修改localhost地址为对外ID
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/08/28/Thrift/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Thrift</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -434,14 +373,96 @@
 
 
 
-  
-  
-  
 
   
-
+    <article id="post-Yi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/08/22/Yi/">Yi</a>
+    </h1>
   
 
+        
+        <a href="/2011/08/22/Yi/" class="archive-article-date">
+  	<time datetime="2011-08-22T05:51:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-08-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>GIT</p>
+<p>到码云上创建仓库  (建议设置共有)</p>
+<p>在计算机上</p>
+<ol>
+<li>新建文件夹</li>
+<li>到该文件夹目录</li>
+<li>初始化  </li>
+</ol>
+<p>$ git init </p>
+<p>$ git remote add origin <a href="https://gitee.com/xxx/xxx.git" target="_blank" rel="noopener">https://gitee.com/xxx/xxx.git</a> (你的远程项目地址)</p>
+<p>2.克隆一下</p>
+<p>$ git clone https://.git (你的远程项目地址)</p>
+<ol>
+<li>拉取仓库数据</li>
+</ol>
+<p>$ git pull origin master</p>
+<p>4.添加到暂存区</p>
+<p>$ git add .</p>
+<p>5.添加到仓库区</p>
+<p>$ git commit -m “你的第一次提交”</p>
+<p>6.push到你的码云仓库</p>
+<p>$ git push origin master</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2011/08/22/Yi/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
   
 
 
@@ -464,8 +485,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

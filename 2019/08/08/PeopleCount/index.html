@@ -6,30 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>阿里云服务器docker搭建fastDfs | Hexo</title>
+  <title>在线人数的统计 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前写过了在win系统下使用docker搭建fastDfs，这篇讲一下如何在阿里云服务器部署。  首先在阿里云服务器上开放端口    阿里云首页点击控制台，在最近使用中选择云服务器ECS，跳转新的页面，点击我的资源里的云服务器，跳转实例列表页面，最右边有一个更多，选择网络和安全组里的安全组配置，点击配置规则，上面有一个添加安全组规则，添加要开放的端口。 端口范围例子：8888/8888 授权对象列">
+  <meta name="description" content="在线人数的统计逻辑： ​    获取web登录用户的IP，存入redis数据库中，获取key的个数，就是登录访问web的人数，返回前端，前端使用组件传值，展示人数。 直接上代码： 1234567891011121314# 新写一个函数，作用如下：# 存储IP到redisdef count_ip(ip):    # 存入redis    conn = redis.Redis(host=&quot;localh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="阿里云服务器docker搭建fastDfs">
-<meta property="og:url" content="http://yoursite.com/2019/08/29/fastDfs/index.html">
+<meta property="og:title" content="在线人数的统计">
+<meta property="og:url" content="http://yoursite.com/2019/08/08/PeopleCount/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="之前写过了在win系统下使用docker搭建fastDfs，这篇讲一下如何在阿里云服务器部署。  首先在阿里云服务器上开放端口    阿里云首页点击控制台，在最近使用中选择云服务器ECS，跳转新的页面，点击我的资源里的云服务器，跳转实例列表页面，最右边有一个更多，选择网络和安全组里的安全组配置，点击配置规则，上面有一个添加安全组规则，添加要开放的端口。 端口范围例子：8888/8888 授权对象列">
+<meta property="og:description" content="在线人数的统计逻辑： ​    获取web登录用户的IP，存入redis数据库中，获取key的个数，就是登录访问web的人数，返回前端，前端使用组件传值，展示人数。 直接上代码： 1234567891011121314# 新写一个函数，作用如下：# 存储IP到redisdef count_ip(ip):    # 存入redis    conn = redis.Redis(host=&quot;localh">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/5cb7a13101e24457ad7258391b5b208b/edc2de1a233c4258908c3b4153ddceff.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/45b5d3c920d14e82aae8abd309eb7e90/5ed0b040264a4ea3ac4b12cb9240d4c8.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/882a71a8a6d9466e83dc0408441136bc/f24751351235497bbbae5cd62a7f363d.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/a859ce618bfb48a2bcd1dfdb89eb9b09/71da4769c6844ebe9a7f8bd6e9496c30.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/51ebd532760f45839b8f993815ea0c80/b58d7c35df6c42de84d3b75db951719b.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/4e8808accc1249eeaecd627480de3fe1/7f46d575cf264f718b1a83f56f879f09.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/6e2b06499bda4bcca220fba7b928cfd0/0ecbbe4c48fc4fbb94c65a1a0061e602.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/dea7f17563114522a3435982cd567523/fa4bd93681214c69b67c9a5ff8cf2b56.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/d3e6f9c75265486696ef426109135011/4cac88aa70df46208aa46ad3f2b31a3d.jpg">
-<meta property="og:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/08d751e51cfd4632be4655b142584790/61f04e9fbb85406484e547d1c0588580.jpg">
-<meta property="og:updated_time" content="2019-09-03T12:01:10.859Z">
+<meta property="og:updated_time" content="2019-09-04T06:23:58.799Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="阿里云服务器docker搭建fastDfs">
-<meta name="twitter:description" content="之前写过了在win系统下使用docker搭建fastDfs，这篇讲一下如何在阿里云服务器部署。  首先在阿里云服务器上开放端口    阿里云首页点击控制台，在最近使用中选择云服务器ECS，跳转新的页面，点击我的资源里的云服务器，跳转实例列表页面，最右边有一个更多，选择网络和安全组里的安全组配置，点击配置规则，上面有一个添加安全组规则，添加要开放的端口。 端口范围例子：8888/8888 授权对象列">
-<meta name="twitter:image" content="d:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/5cb7a13101e24457ad7258391b5b208b/edc2de1a233c4258908c3b4153ddceff.jpg">
+<meta name="twitter:title" content="在线人数的统计">
+<meta name="twitter:description" content="在线人数的统计逻辑： ​    获取web登录用户的IP，存入redis数据库中，获取key的个数，就是登录访问web的人数，返回前端，前端使用组件传值，展示人数。 直接上代码： 1234567891011121314# 新写一个函数，作用如下：# 存储IP到redisdef count_ip(ip):    # 存入redis    conn = redis.Redis(host=&quot;localh">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -165,146 +154,34 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-fastDfs" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-PeopleCount" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      阿里云服务器docker搭建fastDfs
+      在线人数的统计
     </h1>
   
 
         
-        <a href="/2019/08/29/fastDfs/" class="archive-article-date">
-  	<time datetime="2019-08-29T11:58:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
+        <a href="/2019/08/08/PeopleCount/" class="archive-article-date">
+  	<time datetime="2019-08-08T06:23:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>之前写过了在win系统下使用docker搭建fastDfs，这篇讲一下如何在阿里云服务器部署。</p>
-<ul>
-<li>首先在阿里云服务器上开放端口  </li>
-</ul>
-<p>阿里云首页点击控制台，在最近使用中选择云服务器ECS，跳转新的页面，点击我的资源里的云服务器，跳转实例列表页面，最右边有一个更多，选择网络和安全组里的安全组配置，点击配置规则，上面有一个添加安全组规则，添加要开放的端口。</p>
-<p>端口范围例子：8888/8888</p>
-<p>授权对象列例子：0.0.0.0/0</p>
-<ul>
-<li><ul>
-<li>8000    tornado或者django默认端口</li>
-<li>22122     docker fastdfs容器端口</li>
-<li>8888        nignx默认端口</li>
-<li>80             tornado端口</li>
-<li>3306         mysql端口</li>
-<li>6379         redis端口</li>
-<li>8080         vue端口</li>
-</ul>
-</li>
-<li><p>安装docker</p>
-</li>
-<li><ul>
-<li>升级yum</li>
-</ul>
-</li>
-</ul>
-<p>sudo yum update</p>
-<p>卸载旧版本docker</p>
-<p>sudo yum remove docker docker-common docker-selinux docker-engine</p>
-<p>安装依赖</p>
-<p>sudo yum install -y yum-utils device-mapper-persistent-data lvm2</p>
-<p>设置源</p>
-<p>sudo yum-config-manager –add-repo <a href="https://download.docker.com/linux/centos/docker-ce.repo" target="_blank" rel="noopener">https://download.docker.com/linux/centos/docker-ce.repo</a></p>
-<p>安装docker</p>
-<p>sudo yum install docker-ce</p>
-<p>启动服务</p>
-<p>sudo systemctl start docker</p>
-<p>查看docker版本</p>
-<p>docker version</p>
-<p>如果以上不成功的话 执行：</p>
-<p>sudo yum install -y yum-utils device-mapper-persistent-data lvm2</p>
-<p>sudo yum-config-manager –add-repo <a href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p>
-<p>sudo yum makecache fast</p>
-<p>sudo yum -y install docker-ce</p>
-<p>在docker中将fastdfs镜像下载</p>
-<p>docker pull delron/fastdfs</p>
-<p>第一种：在docker容器内下载图片</p>
-<p>​    </p>
-<p>step1:</p>
-<p>  使用docker镜像构建tracker容器（跟踪服务器，起到调度的作用），这里tracker服务将会自动映射到宿主机上 </p>
-<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
-<p>step2:</p>
-<p>使用docker镜像构建storage容器（存储服务器，提供容量和备份服务），这里storage容器需要依赖tracker服务，传入你的tracker服务的ip地址，端口默认是22122，ip地址也就是你宿主机的ip </p>
-<p>这里的172.16.187.153是服务器centos的ip地址  通过ipconfig即可查看</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.187.153:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p>此时，命令行输入 docker ps 就可以看到两套服务都已经启动 </p>
-<p>step3:</p>
-<p>进入正在后台运行的storage容器</p>
-<p>docker exec -it storage /bin/bash</p>
-<p>随便下载一张图片,这个不用担心，因为在容器中如果不提交仓库的话，该图片是不会保存的 </p>
-<p>wget <a href="https://v3u.cn/v3u/Public/images/logo.png" target="_blank" rel="noopener">https://v3u.cn/v3u/Public/images/logo.png</a></p>
-<p>将该图片通过命令上传到分布式系统中 </p>
-<p>/usr/bin/fdfs_upload_file /etc/fdfs/client.conf logo.png</p>
-<p>这时该图片已上传至文件系统，并在执行该语句后返回图片存储的网络地址 </p>
-<p>最后通过浏览器访问以下存储在Fastdfs的图片，这张图片是通过nginx代理的静态资源，默认nginx监听8888端口，所以需要加上端口号，如果是在阿里云上部署，则需要暴露外部端口8888 </p>
-<p>注意：此时查看访问图片的IP地址是自己阿里云服务器提供的  公  IP + 8888</p>
-<p>第二种：在容器外部上传图片文件</p>
-<p>step1：</p>
-<p>利用docker的特性，我们知道docker 的 -v 参数，可以自动挂载宿主机的文件件到容器中去，这样宿主和容器就可以进行无障碍的文件共享，我们通过-v参数，把宿主机的root目录自动挂载到docker容器中的/var/root目录中去。</p>
-<p>这里的172.16.187.153是服务器centos的ip地址  通过ipconfig即可查看</p>
-<p># 创建tracker</p>
-<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
-<p># 创建storage</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.187.153:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p>我们可以利用docker的exec命令不进入容器，直接在宿主机的环境下调用容器内的命令，因为文件夹已经共享，所以我们输入的文件目录虽然是容器中的/var/root目录，但是实际上该上传的文件就在宿主的/root目录中 。</p>
-<p>注意：</p>
-<p>​    1、上传的图片路径不再是/var/root/文件名  而是/tmp/nginx/nginx-1.12.2/logo.png  这个就要自己进入容器查看一下决定，可能每个人不一样  使用 docker exec -it storage /bin/bash命令进入容器，进入后最左面的路径就是你要写的图片路径。</p>
-<p>​    2、这个要上传的文件必须已经存在于你的路径下，也就是说本地要确实存在这个图片或者视频等文件，否则会报错。</p>
-<p>docker exec -i storage /usr/bin/fdfs_upload_file /etc/fdfs/client.conf /tmp/nginx/nginx-1.12.2/logo.png</p>
-<p>上传成功后，fastdfs将会网络地址 </p>
-<p>然后在服务器访问即可，参照上一种的方法！</p>
-<p>docker拉取镜像</p>
-<p>docker pull delron/fastdfs</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/5cb7a13101e24457ad7258391b5b208b/edc2de1a233c4258908c3b4153ddceff.jpg" alt="img"></p>
-<p> docker images</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/45b5d3c920d14e82aae8abd309eb7e90/5ed0b040264a4ea3ac4b12cb9240d4c8.jpg" alt="img"></p>
-<p>docker save -o d:/redis.tar redis         存盘</p>
-<p>docker save -o d:/fastdfs.tar delron/fastdfs     （ 路径 镜像下的名字）</p>
-<p>docker load -i ‘d:/redis.tar’                   读盘</p>
-<p>docker load -i ‘d:/fastdfs.tar’</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/882a71a8a6d9466e83dc0408441136bc/f24751351235497bbbae5cd62a7f363d.jpg" alt="img"></p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/a859ce618bfb48a2bcd1dfdb89eb9b09/71da4769c6844ebe9a7f8bd6e9496c30.jpg" alt="img"></p>
-<p>#停止容器</p>
-<p>docker stop $(docker ps -a -q)</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/51ebd532760f45839b8f993815ea0c80/b58d7c35df6c42de84d3b75db951719b.jpg" alt="img"></p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/4e8808accc1249eeaecd627480de3fe1/7f46d575cf264f718b1a83f56f879f09.jpg" alt="img"></p>
-<p>#删除容器</p>
-<p>docker rm $(docker ps -a -q)</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/6e2b06499bda4bcca220fba7b928cfd0/0ecbbe4c48fc4fbb94c65a1a0061e602.jpg" alt="img"></p>
-<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/dea7f17563114522a3435982cd567523/fa4bd93681214c69b67c9a5ff8cf2b56.jpg" alt="img"></p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=192.168.99.100:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p>docker下的：</p>
-<p>116.62.145.139</p>
-<p>密码：wangyifei0607.</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.51.0:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/d3e6f9c75265486696ef426109135011/4cac88aa70df46208aa46ad3f2b31a3d.jpg" alt="img"></p>
-<p>docker exec -it storage /bin/bash                       进入容器</p>
-<p>wget <a href="https://v3u.cn/v3u/Public/images/logo.png" target="_blank" rel="noopener">https://v3u.cn/v3u/Public/images/logo.png</a></p>
-<p>ls</p>
-<p>/usr/bin/fdfs_upload_file /etc/fdfs/client.conf logo.png</p>
-<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/08d751e51cfd4632be4655b142584790/61f04e9fbb85406484e547d1c0588580.jpg" alt="img"></p>
-<p>exit;</p>
-<p>浏览器访问：</p>
-<p><a href="http://192.168.99.100:8888/group1/M00/00/00/wKhjZF1bXXWADunAAAAS9iNyoDo725.png" target="_blank" rel="noopener">http://192.168.99.100:8888/group1/M00/00/00/wKhjZF1bXXWADunAAAAS9iNyoDo725.png</a></p>
-<p>docker ps -a          查看所有</p>
-<p>docker run -d –network=host –name tracker -v /c/Users:/var/root delron/fastdfs tracker</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=192.168.99.100:22122 -v /c/Users:/var/root -e GROUP_NAM</p>
-<p>E=group1 delron/fastdfs storage</p>
-<p>docker exec -i        在外部调用容器内部的服务</p>
-<p>docker exec -i storage /usr/bin/fdfs_upl·oad_file /etc/fdfs/client.conf /var/root/test.mp4</p>
+        <p>在线人数的统计逻辑：</p>
+<p>​    获取web登录用户的IP，存入redis数据库中，获取key的个数，就是登录访问web的人数，返回前端，前端使用组件传值，展示人数。</p>
+<p>直接上代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新写一个函数，作用如下：</span></span><br><span class="line"><span class="comment"># 存储IP到redis</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_ip</span><span class="params">(ip)</span>:</span></span><br><span class="line">    <span class="comment"># 存入redis</span></span><br><span class="line">    conn = redis.Redis(host=<span class="string">"localhost"</span>, port=<span class="number">6379</span>, db=<span class="number">4</span>)</span><br><span class="line">    <span class="comment"># scard 返回元素个数</span></span><br><span class="line">    count = conn.scard(<span class="string">'ip'</span>)</span><br><span class="line">    <span class="comment"># 如果获取的IP，数据库中不存在，说明未访问过，加入一条新的key，过期时间60s</span></span><br><span class="line">    <span class="keyword">if</span> count == <span class="number">0</span>:</span><br><span class="line">        conn.sadd(<span class="string">'ip'</span>, ip)</span><br><span class="line">        conn.expire(<span class="string">'ip'</span>, <span class="number">60</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        conn.sadd(<span class="string">'ip'</span>, ip)</span><br><span class="line">    <span class="keyword">return</span> conn.scard(<span class="string">'ip'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在接口中调用上面的函数，返回给前端</span></span><br><span class="line"><span class="comment"># 获取访问web的用户IP</span></span><br><span class="line">ip = self.request.remote_ip</span><br><span class="line"><span class="comment"># 调用函数</span></span><br><span class="line">count = count_ip(ip)</span><br></pre></td></tr></table></figure>
+
+<p>具体前端在哪使用，根据需求决定，使用组件传值即可。</p>
 
       
 
@@ -384,7 +261,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/29/fastDfs/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/08/PeopleCount/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -398,18 +275,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/30/localhostID/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/14/Sina/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          修改localhost地址为对外ID
+          新浪微博登录
         
       </div>
     </a>
   
   
-    <a href="/2019/08/28/Thrift/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Thrift</div>
+    <a href="/2019/08/04/Page/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">tornado和vue.js结合实现分页：</div>
       <i class="icon-circle-right"></i>
     </a>
   
