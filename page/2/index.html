@@ -152,6 +152,182 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Phone" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/20/Phone/">手机短信验证</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/20/Phone/" class="archive-article-date">
+  	<time datetime="2019-08-20T06:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="利用appgo翻墙"><a href="#利用appgo翻墙" class="headerlink" title="利用appgo翻墙"></a>利用appgo翻墙</h3><p>翻墙后可以看什么：<a href="https://www.zhihu.com/question/28359224" target="_blank" rel="noopener">https://www.zhihu.com/question/28359224</a></p>
+<h3 id="翻墙后注册mail-google-com-记住账号和密码，投简历和收取offer时使用"><a href="#翻墙后注册mail-google-com-记住账号和密码，投简历和收取offer时使用" class="headerlink" title="翻墙后注册mail.google.com 记住账号和密码，投简历和收取offer时使用"></a>翻墙后注册mail.google.com 记住账号和密码，投简历和收取offer时使用</h3><h3 id="注册twilio-获取免费短信接口"><a href="#注册twilio-获取免费短信接口" class="headerlink" title="注册twilio 获取免费短信接口"></a>注册twilio 获取免费短信接口</h3><p>注册twilio攻略：<a href="https://www.jianshu.com/p/91b55f47de8a" target="_blank" rel="noopener">https://www.jianshu.com/p/91b55f47de8a</a> 注意注册twilio必须翻墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install twilio</span><br></pre></td></tr></table></figure>
+
+<p>发短信代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#导包 导入客户端</span><br><span class="line">from twilio.rest import Client</span><br><span class="line"></span><br><span class="line">#定义短信sid</span><br><span class="line">account_sid = &apos;AC5425c9e6c61cba221bd5471c454dcc2f&apos; （需要使twilio给你的）</span><br><span class="line">#定义秘钥</span><br><span class="line">auth_token = &apos;bbb220968bcd3b30ef88244063923839&apos;（需要使twilio给你的）</span><br><span class="line"></span><br><span class="line">#定义客户端对象 </span><br><span class="line">client = Client(account_sid,auth_token)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">message = client.messages.create(</span><br><span class="line">    to=&quot;+8613423432818&quot;,     # 接受短信的手机号，也就是注册界面验证过的那个自己的手机号，注意 写中国区号  +86   （需要使用自己的）</span><br><span class="line">    from_=&quot;+12118627871&quot;,   # 发送短信的美国手机号  区号 +1   （使用twilio给你的）</span><br><span class="line">    body=&quot;Hello from Python!&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#打印发送结果</span><br><span class="line">print(message)</span><br></pre></td></tr></table></figure>
+
+<p> 后台接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 获取验证码</span><br><span class="line">class Get_code(BaseHandler):</span><br><span class="line">    def post(self, *args, **kwargs):</span><br><span class="line">        mes = &#123;&#125;</span><br><span class="line">        phone = self.get_argument(&apos;phone&apos;)</span><br><span class="line">        print(phone)</span><br><span class="line">        ret = re.match(r&quot;^1[35678]\d&#123;9&#125;$&quot;, phone)</span><br><span class="line">        if ret:</span><br><span class="line">            code = make_code()</span><br><span class="line">            send_short_message(phone,code)</span><br><span class="line">            storage_info(phone,code)</span><br><span class="line">            mes[&apos;code&apos;] = 200</span><br><span class="line">            mes[&apos;message&apos;] = &apos;短信已发送&apos;</span><br><span class="line">        else:</span><br><span class="line">            mes[&apos;code&apos;] = 10002</span><br><span class="line">            mes[&apos;message&apos;] = &apos;手机格式不正确&apos;</span><br><span class="line">        self.write(json.dumps(mes, ensure_ascii=False, indent=4))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#生成随机四位数</span><br><span class="line">def make_code():</span><br><span class="line">    list_num = [i for i in range(0,10)]</span><br><span class="line">    list = random.sample(list_num,4)</span><br><span class="line">    code = str(list[0]) + str(list[1]) + str(list[2]) + str(list[3])</span><br><span class="line">    return code</span><br></pre></td></tr></table></figure>
+
+<p>Twilio()是一个位于加利福尼亚的云通信 (PaaS) 公司。Twilio 允许开发者通过使用它提供的 API 进行编程来接电话，收发短信等。  </p>
+<p>免费赠送15美元 短信费。</p>
+<p>Twilio是一个做成开放插件的电话跟踪服务（call-tracking service）</p>
+<p>Twilio公司致力于帮助开发者在其应用里融入电话、短信等功能，该公司周二又推出了一项称为Twilio Client的新服务，可帮助开发者整合灵活而低成本的网络电话（VoIP）功能。</p>
+<p>VoIP即Skype和谷歌电话等服务使用的技术，要提供VoIP服务通常需要准备相应的基础设备，而Twilio Client免除了开发者的这一麻烦，可让他们便捷地在应用里加入网络电话元素。</p>
+<p><a href="https://www.jianshu.com/p/91b55f47de8a" target="_blank" rel="noopener">二、注册 twilio</a></p>
+<p><a href="https://www.jianshu.com/p/91b55f47de8a" target="_blank" rel="noopener">2.1. 打开网址 </a>[<a href="https://www.twilio.com]" target="_blank" rel="noopener">https://www.twilio.com]</a></p>
+<p>选择Get a free API key  </p>
+<p>2.2. 注册信息中，公司名称是可选的，其他的填写上 </p>
+<p>WHICH PRODUCT DO YOU PLAN TO USE FIRST?</p>
+<p>我这里选的SMS</p>
+<p>WHAT ARE YOU BUILDING?</p>
+<p>我这里选的Phone Verification</p>
+<p>CHOOSE YOUR LANGUAGE</p>
+<p>我这里选的Python</p>
+<p><a href>2.3. 验证部分</a></p>
+<p>填写你的手机号后，可以通过短信验证，也可以选择call you insteaded进行电话验证</p>
+<p> <a href="https://www.jianshu.com/p/91b55f47de8a" target="_blank" rel="noopener">三、使用</a></p>
+<p>注册成功后，就来到了控制台面板。 </p>
+<p>记下ACCOUNT SID和AUTH TOKEN，程序里面要用到。 </p>
+<p>然后Get Started，会获得你的 twilio 电话号码。</p>
+<p>按照代码中注释部分填写你对应的值和手机号等等，然后运行看看吧~</p>
+<p>你可以用 twilio 打电话，也可以用你的手机给 twilio 发短信呢。</p>
+<p>比较实用的场景： </p>
+<ol>
+<li>监控你服务器的情况，如果程序或服务器发生什么事情，可以及时短信通知你。 </li>
+<li>写一个报警程序，结合传感器，监控家里的情况然后通知你。</li>
+</ol>
+<p> ！！！描述！！！</p>
+<p>我们项目测采用的是twilio公司的短信验证， 因为Twilio 允许开发者通过使用它提供的 API 进行编程来接电话，收发短信等，大大提高了开发效率，比较有名，相对稳定，因为是国外的，费用相对较高。 </p>
+<p>国内短信验证平台：云片  0.036元/条  便宜</p>
+<p>​                  飞鸽短信平台  需要安装插件 ，操作麻烦 </p>
+<pre><code>目前比较好用的是 mobTech,目前，网易云信、极光、腾讯云、MobTech、乐信都在提供短信验证服务。为了解决短信验证码产生的弊端及问题，MobTech与三大运营商合作，推出了一款不用输入手机号、不用输入密码、不用获取验证码、不用输入验证码，只需点击按钮一步完成验证的产品“秒验”。极简的验证方式，大大优化了用户体验。 </code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/20/Phone/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Sina" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/14/Sina/">新浪微博登录</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/14/Sina/" class="archive-article-date">
+  	<time datetime="2019-08-14T06:19:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 新浪微博登录地址组合返回（第一步）</span><br><span class="line">class SinaFirstHandler(BaseHandler):</span><br><span class="line"></span><br><span class="line">    def get(self,*args,**kwargs):</span><br><span class="line"></span><br><span class="line">        #微博接口地址</span><br><span class="line">        weibo_auth_url = &quot;https://api.weibo.com/oauth2/authorize&quot;</span><br><span class="line">        #回调网址</span><br><span class="line">        redirect_url = &quot;http://127.0.0.1:8000/md_admin/weibo&quot;    #回调自己的路由接口 </span><br><span class="line">        #应用id</span><br><span class="line">        client_id = &quot;2636039333&quot;</span><br><span class="line">        #组合url</span><br><span class="line">        auth_url = weibo_auth_url + &quot;?client_id=&#123;&#125;&amp;redirect_uri=&#123;&#125;&quot;.format(client_id,redirect_url)</span><br><span class="line">        print(auth_url)</span><br><span class="line">        self.write(auth_url)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 新浪回调</span><br><span class="line">class SinaBackHandler(BaseHandler):</span><br><span class="line"></span><br><span class="line">    def get(self,*args,**kwargs):</span><br><span class="line"></span><br><span class="line">        #获取回调的code</span><br><span class="line">        code = self.get_argument(&apos;code&apos;,default=&apos;&apos;)</span><br><span class="line">        if code:</span><br><span class="line">            #微博认证地址</span><br><span class="line">            access_token_url = &quot;https://api.weibo.com/oauth2/access_token&quot;</span><br><span class="line">            #参数 向新浪接口发送请求</span><br><span class="line">            re_dict = requests.post(access_token_url,data=&#123;</span><br><span class="line">                &quot;client_id&quot;: &apos;2636039333&apos;,</span><br><span class="line">                &quot;client_secret&quot;: &quot;4e2fbdb39432c31dc5c2f90be3afa5ce&quot;,</span><br><span class="line">                &quot;grant_type&quot;: &quot;authorization_code&quot;,</span><br><span class="line">                &quot;code&quot;: code,</span><br><span class="line">                &quot;redirect_uri&quot;: &quot;http://127.0.0.1:8000/md_admin/weibo&quot;,</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">            re_dict = re_dict.text</span><br><span class="line">            re_dict = eval(re_dict)</span><br><span class="line">            if re_dict:</span><br><span class="line">                username = re_dict.get(&apos;uid&apos;)</span><br><span class="line">                user = sess.query(User).filter(User.account == username).first()</span><br><span class="line">                if user:</span><br><span class="line">                    self.redirect(&apos;http://127.0.0.1:8080?username=&#123;&#125;&amp;user_id=&#123;&#125;&apos;.format(username,user.id))</span><br><span class="line">                else:</span><br><span class="line">                    new_user = User(account = username , password = generate_password_hash(&apos;123&apos;) , social_attr = 1)</span><br><span class="line">                    sess.add(new_user)</span><br><span class="line">                    sess.commit()</span><br><span class="line">                    new_user = sess.query(User).filter(User.account == username).first()</span><br><span class="line">                    self.redirect(&apos;http://127.0.0.1:8080?username=&#123;&#125;&amp;user_id=&#123;&#125;&apos;.format(username,new_user.id))</span><br><span class="line">            else:</span><br><span class="line">                self.write(&apos;登录错误&apos;)</span><br><span class="line">        else:</span><br><span class="line">            self.redirect(&apos;http://127.0.0.1:8080/login&apos;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># vue.login</span><br><span class="line">&lt;el-button @click=&quot;weibo_login()&quot;&gt;微博登录&lt;/el-button&gt;&lt;br&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># vue.login</span><br><span class="line">weibo_login:function()&#123;</span><br><span class="line">  var url_ = this.base_url +&apos;/req/weibo&apos;</span><br><span class="line">  var _this = this</span><br><span class="line">  this.axios.get(url_).then(function(result) &#123;</span><br><span class="line">   if(result) &#123;</span><br><span class="line">    window.location.href=result.data</span><br><span class="line">&#125;</span><br><span class="line">  else &#123;</span><br><span class="line">      _this.msg = result.data.message</span><br><span class="line">      console.log(result.data)</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;);    </span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/14/Sina/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-PeopleCount" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1245,196 +1421,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/05/21/MongoDB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Number" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/04/Number/">vue关于数字的处理</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/04/Number/" class="archive-article-date">
-  	<time datetime="2019-05-04T06:10:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="（四舍五入，向上取整，向下取整。。）"><a href="#（四舍五入，向上取整，向下取整。。）" class="headerlink" title="（四舍五入，向上取整，向下取整。。）"></a>（四舍五入，向上取整，向下取整。。）</h4><p>1、向下取整的函数</p>
-<h4 id="Math-floor"><a href="#Math-floor" class="headerlink" title="Math.floor();"></a>Math.floor();</h4><p>例如：Math.floor( 23.2222222); // 23</p>
-<p>2、向上取整</p>
-<h4 id="Math-ceil"><a href="#Math-ceil" class="headerlink" title="Math.ceil();"></a>Math.ceil();</h4><p>例如： Math.ceil(23.333333）； // 24</p>
-<p>3、四舍五入</p>
-<h4 id="Math-round"><a href="#Math-round" class="headerlink" title="Math.round();"></a>Math.round();</h4><p>例如：Math.round(23.33333); // 23</p>
-<p>4、四舍五入取n位小数，运算后得到的是字符串</p>
-<h4 id="toFixed-n-取小数点后n位"><a href="#toFixed-n-取小数点后n位" class="headerlink" title="().toFixed(n); // 取小数点后n位"></a>().toFixed(n); // 取小数点后n位</h4><p>例如：(36.36498524).toFixed(3); // 36.365</p>
-<h2 id="ps-虽然写的是vue-但是不仅仅vue中可以使用哦"><a href="#ps-虽然写的是vue-但是不仅仅vue中可以使用哦" class="headerlink" title="ps:虽然写的是vue,但是不仅仅vue中可以使用哦"></a>ps:虽然写的是vue,但是不仅仅vue中可以使用哦</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/04/Number/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Tornado" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/03/Tornado/">Tornado</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/03/Tornado/" class="archive-article-date">
-  	<time datetime="2019-05-03T11:38:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Tornado入门"><a href="#Tornado入门" class="headerlink" title="Tornado入门"></a>Tornado入门</h2><h3 id="Tornado概述"><a href="#Tornado概述" class="headerlink" title="Tornado概述"></a>Tornado概述</h3><p>Python的Web框架种类繁多（比Python语言的关键字还要多），但在众多优秀的Web框架中，Tornado框架最适合用来开发需要处理长连接和应对高并发的Web应用。Tornado框架在设计之初就考虑到性能问题，通过对非阻塞I/O和epoll（Linux 2.5.44内核引入的一种多路I/O复用方式，旨在实现高性能网络服务，在BSD和macOS中是kqueue）的运用，Tornado可以处理大量的并发连接，更轻松的应对C10K（万级并发）问题，是非常理想的实时通信Web框架。</p>
-<blockquote>
-<p>扩展：基于线程的Web服务器产品（如：Apache）会维护一个线程池来处理用户请求，当用户请求到达时就为该请求分配一个线程，如果线程池中没有空闲线程了，那么可以通过创建新的线程来应付新的请求，但前提是系统尚有空闲的内存空间，显然这种方式很容易将服务器的空闲内存耗尽（大多数Linux发行版本中，默认的线程栈大小为8M）。想象一下，如果我们要开发一个社交类应用，这类应用中，通常需要显示实时更新的消息、对象状态的变化和各种类型的通知，那也就意味着客户端需要保持请求连接来接收服务器的各种响应，在这种情况下，服务器上的工作线程很容易被耗尽，这也就意味着新的请求很有可能无法得到响应。</p>
-</blockquote>
-<p>Tornado框架源于FriendFeed网站，在FriendFeed网站被Facebook收购之后得以开源，正式发布的日期是2009年9月10日。Tornado能让你能够快速开发高速的Web应用，如果你想编写一个可扩展的社交应用、实时分析引擎，或RESTful API，那么Tornado框架就是很好的选择。Tornado其实不仅仅是一个Web开发的框架，它还是一个高性能的事件驱动网络访问引擎，内置了高性能的HTTP服务器和客户端（支持同步和异步请求），同时还对WebSocket提供了完美的支持。</p>
-<p>了解和学习Tornado最好的资料就是它的官方文档，在<a href="http://www.tornadoweb.org" target="_blank" rel="noopener">tornadoweb.org</a>上面有很多不错的例子，你也可以在Github上找到Tornado的源代码和历史版本。</p>
-<h3 id="5分钟上手Tornado"><a href="#5分钟上手Tornado" class="headerlink" title="5分钟上手Tornado"></a>5分钟上手Tornado</h3><ol>
-<li><p>创建并激活虚拟环境。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir hello-tornado</span><br><span class="line">cd hello-tornado</span><br><span class="line">python3 -m venv venv</span><br><span class="line">source venv/bin/activate</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装Tornado。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tornado</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写Web应用。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">example01.py</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> tornado.ioloop</span><br><span class="line"><span class="keyword">import</span> tornado.web</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.write(<span class="string">'&lt;h1&gt;Hello, world!&lt;/h1&gt;'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    app = tornado.web.Application(handlers=[(<span class="string">r'/'</span>, MainHandler), ])</span><br><span class="line">    app.listen(<span class="number">8888</span>)</span><br><span class="line">    tornado.ioloop.IOLoop.current().start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行并访问应用。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python example01.py</span><br></pre></td></tr></table></figure>
-
-<p><img src="C:/%E5%AE%9E%E8%AE%AD%E4%B8%80/%E5%A4%A7%E5%AE%9E%E8%AE%AD%E7%AC%94%E8%AE%B0/res/run-hello-world-app.png" alt></p>
-</li>
-</ol>
-<p>在上面的例子中，代码example01.py通过定义一个继承自<code>RequestHandler</code>的类（<code>MainHandler</code>）来处理用户请求，当请求到达时，Tornado会实例化这个类（创建<code>MainHandler</code>对象），并调用与HTTP请求方法（GET、POST等）对应的方法，显然上面的<code>MainHandler</code>只能处理GET请求，在收到GET请求时，它会将一段HTML的内容写入到HTTP响应中。<code>main</code>函数的第1行代码创建了Tornado框架中<code>Application</code>类的实例，它代表了我们的Web应用，而创建该实例最为重要的参数就是<code>handlers</code>，该参数告知<code>Application</code>对象，当收到一个请求时应该通过哪个类的对象来处理这个请求。在上面的例子中，当通过HTTP的GET请求访问站点根路径时，就会调用<code>MainHandler</code>的<code>get</code>方法。 <code>main</code>函数的第2行代码通过<code>Application</code>对象的<code>listen</code>方法指定了监听HTTP请求的端口。<code>main</code>函数的第3行代码用于获取Tornado框架的<code>IOLoop</code>实例并启动它，该实例代表一个条件触发的I/O循环，用于持续的接收来自于客户端的请求。</p>
-<blockquote>
-<p>扩展：在Python 3中，<code>IOLoop</code>实例的本质就是<code>asyncio</code>的事件循环，该事件循环在非Windows系统中就是<code>SelectorEventLoop</code>对象，它基于<code>selectors</code>模块（高级I/O复用模块），会使用当前操作系统最高效的I/O复用选择器，例如在Linux环境下它使用<code>EpollSelector</code>，而在macOS和BSD环境下它使用的是<code>KqueueSelector</code>；在Python 2中，<code>IOLoop</code>直接使用<code>select</code>模块（低级I/O复用模块）的<code>epoll</code>或<code>kqueue</code>函数，如果这两种方式都不可用，则调用<code>select</code>函数实现多路I/O复用。当然，如果要支持高并发，你的系统最好能够支持epoll或者kqueue这两种多路I/O复用方式中的一种。</p>
-</blockquote>
-<p>如果希望通过命令行参数来指定Web应用的监听端口，可以对上面的代码稍作修改。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">example01.py</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> tornado.ioloop</span><br><span class="line"><span class="keyword">import</span> tornado.web</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> tornado.options <span class="keyword">import</span> define, options, parse_command_line</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义默认端口</span></span><br><span class="line">define(<span class="string">'port'</span>, default=<span class="number">8000</span>, type=int)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.write(<span class="string">'&lt;h1&gt;Hello, world!&lt;/h1&gt;'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># python example01.py --port=8000</span></span><br><span class="line">    parse_command_line()</span><br><span class="line">    app = tornado.web.Application(handlers=[(<span class="string">r'/'</span>, MainHandler), ])</span><br><span class="line">    app.listen(options.port)</span><br><span class="line">    tornado.ioloop.IOLoop.current().start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>在启动Web应用时，如果没有指定端口，将使用<code>define</code>函数中设置的默认端口8000，如果要指定端口，可以使用下面的方式来启动Web应用。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python example01.py --port=8000</span><br></pre></td></tr></table></figure>
-
-<h3 id="路由解析"><a href="#路由解析" class="headerlink" title="路由解析"></a>路由解析</h3><p>上面我们曾经提到过创建<code>Application</code>实例时需要指定<code>handlers</code>参数，这个参数非常重要，它应该是一个元组的列表，元组中的第一个元素是正则表达式，它用于匹配用户请求的资源路径；第二个元素是<code>RequestHandler</code>的子类。在刚才的例子中，我们只在<code>handlers</code>列表中放置了一个元组，事实上我们可以放置多个元组来匹配不同的请求（资源路径），而且可以使用正则表达式的捕获组来获取匹配的内容并将其作为参数传入到<code>get</code>、<code>post</code>这些方法中。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">example02.py</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tornado.ioloop</span><br><span class="line"><span class="keyword">import</span> tornado.web</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> tornado.options <span class="keyword">import</span> define, options, parse_command_line</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义默认端口</span></span><br><span class="line">define(<span class="string">'port'</span>, default=<span class="number">8000</span>, type=int)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SayingHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line">    <span class="string">"""自定义请求处理器"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">        sayings = [</span><br><span class="line">            <span class="string">'世上没有绝望的处境，只有对处境绝望的人'</span>,</span><br><span class="line">            <span class="string">'人生的道路在态度的岔口一分为二，从此通向成功或失败'</span>,</span><br><span class="line">            <span class="string">'所谓措手不及，不是说没有时间准备，而是有时间的时候没有准备'</span>,</span><br><span class="line">            <span class="string">'那些你认为不靠谱的人生里，充满你没有勇气做的事'</span>,</span><br><span class="line">            <span class="string">'在自己喜欢的时间里，按照自己喜欢的方式，去做自己喜欢做的事，这便是自由'</span>,</span><br><span class="line">            <span class="string">'有些人不属于自己，但是遇见了也弥足珍贵'</span></span><br><span class="line">        ]</span><br><span class="line">        <span class="comment"># 渲染index.html模板页</span></span><br><span class="line">        self.render(<span class="string">'index.html'</span>, message=random.choice(sayings))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WeatherHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line">    <span class="string">"""自定义请求处理器"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, city)</span>:</span></span><br><span class="line">        <span class="comment"># Tornado框架会自动处理百分号编码的问题</span></span><br><span class="line">        weathers = &#123;</span><br><span class="line">            <span class="string">'北京'</span>: &#123;<span class="string">'temperature'</span>: <span class="string">'-4~4'</span>, <span class="string">'pollution'</span>: <span class="string">'195 中度污染'</span>&#125;,</span><br><span class="line">            <span class="string">'成都'</span>: &#123;<span class="string">'temperature'</span>: <span class="string">'3~9'</span>, <span class="string">'pollution'</span>: <span class="string">'53 良'</span>&#125;,</span><br><span class="line">            <span class="string">'深圳'</span>: &#123;<span class="string">'temperature'</span>: <span class="string">'20~25'</span>, <span class="string">'pollution'</span>: <span class="string">'25 优'</span>&#125;,</span><br><span class="line">            <span class="string">'广州'</span>: &#123;<span class="string">'temperature'</span>: <span class="string">'18~23'</span>, <span class="string">'pollution'</span>: <span class="string">'56 良'</span>&#125;,</span><br><span class="line">            <span class="string">'上海'</span>: &#123;<span class="string">'temperature'</span>: <span class="string">'6~8'</span>, <span class="string">'pollution'</span>: <span class="string">'65 良'</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> city <span class="keyword">in</span> weathers:</span><br><span class="line">            self.render(<span class="string">'weather.html'</span>, city=city, weather=weathers[city])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.render(<span class="string">'index.html'</span>, message=<span class="string">f'没有<span class="subst">&#123;city&#125;</span>的天气信息'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ErrorHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line">    <span class="string">"""自定义请求处理器"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 重定向到指定的路径</span></span><br><span class="line">        self.redirect(<span class="string">'/saying'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""主函数"""</span></span><br><span class="line">    parse_command_line()</span><br><span class="line">    app = tornado.web.Application(</span><br><span class="line">        <span class="comment"># handlers是按列表中的顺序依次进行匹配的</span></span><br><span class="line">        handlers=[</span><br><span class="line">            (<span class="string">r'/saying/?'</span>, SayingHandler),</span><br><span class="line">            (<span class="string">r'/weather/([^/]&#123;2,&#125;)/?'</span>, WeatherHandler),</span><br><span class="line">            (<span class="string">r'/.+'</span>, ErrorHandler),</span><br><span class="line">        ],</span><br><span class="line">        <span class="comment"># 通过template_path参数设置模板页的路径</span></span><br><span class="line">        template_path=os.path.join(os.path.dirname(__file__), <span class="string">'templates'</span>)</span><br><span class="line">    )</span><br><span class="line">    app.listen(options.port)</span><br><span class="line">    tornado.ioloop.IOLoop.current().start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>模板页index.html。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Tornado基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;message&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>模板页weather.html。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- weather.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Tornado基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;city&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>温度：&#123;&#123;weather['temperature']&#125;&#125;摄氏度<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>污染指数：&#123;&#123;weather['pollution']&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Tornado的模板语法与其他的Web框架中使用的模板语法并没有什么实质性的区别，而且目前的Web应用开发更倡导使用前端渲染的方式来减轻服务器的负担，所以这里我们并不对模板语法和后端渲染进行深入的讲解。</p>
-<h3 id="请求处理器"><a href="#请求处理器" class="headerlink" title="请求处理器"></a>请求处理器</h3><p>通过上面的代码可以看出，<code>RequestHandler</code>是处理用户请求的核心类，通过重写<code>get</code>、<code>post</code>、<code>put</code>、<code>delete</code>等方法可以处理不同类型的HTTP请求，除了这些方法之外，<code>RequestHandler</code>还实现了很多重要的方法，下面是部分方法的列表：</p>
-<ol>
-<li><code>get_argument</code> / <code>get_arguments</code> / <code>get_body_argument</code> / <code>get_body_arguments</code> / <code>get_query_arugment</code> / <code>get_query_arguments</code>：获取请求参数。</li>
-<li><code>set_status</code> / <code>send_error</code> / <code>set_header</code> / <code>add_header</code> / <code>clear_header</code> / <code>clear</code>：操作状态码和响应头。</li>
-<li><code>write</code> / <code>flush</code> / <code>finish</code> / <code>write_error</code>：和输出相关的方法。</li>
-<li><code>render</code> / <code>render_string</code>：渲染模板。</li>
-<li><code>redirect</code>：请求重定向。</li>
-<li><code>get_cookie</code> / <code>set_cookie</code> / <code>get_secure_cookie</code> / <code>set_secure_cookie</code> / <code>create_signed_value</code> / <code>clear_cookie</code> / <code>clear_all_cookies</code>：操作Cookie。</li>
-</ol>
-<p>我们用上面讲到的这些方法来完成下面的需求，访问页面时，如果Cookie中没有读取到用户信息则要求用户填写个人信息，如果从Cookie中读取到用户信息则直接显示用户信息。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">example03.py</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tornado.ioloop</span><br><span class="line"><span class="keyword">import</span> tornado.web</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> tornado.options <span class="keyword">import</span> define, options, parse_command_line</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义默认端口</span></span><br><span class="line">define(<span class="string">'port'</span>, default=<span class="number">8000</span>, type=int)</span><br><span class="line"></span><br><span class="line">users = &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""用户"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, nickname, gender, birthday)</span>:</span></span><br><span class="line">        self.nickname = nickname</span><br><span class="line">        self.gender = gender</span><br><span class="line">        self.birthday = birthday</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line">    <span class="string">"""自定义请求处理器"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 从Cookie中读取用户昵称</span></span><br><span class="line">        nickname = self.get_cookie(<span class="string">'nickname'</span>)</span><br><span class="line">        <span class="keyword">if</span> nickname <span class="keyword">in</span> users:</span><br><span class="line">            self.render(<span class="string">'userinfo.html'</span>, user=users[nickname])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.render(<span class="string">'userform.html'</span>, hint=<span class="string">'请填写个人信息'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line">    <span class="string">"""自定义请求处理器"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 从表单参数中读取用户昵称、性别和生日信息</span></span><br><span class="line">        nickname = self.get_body_argument(<span class="string">'nickname'</span>).strip()</span><br><span class="line">        gender = self.get_body_argument(<span class="string">'gender'</span>)</span><br><span class="line">        birthday = self.get_body_argument(<span class="string">'birthday'</span>)</span><br><span class="line">        <span class="comment"># 检查用户昵称是否有效</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> re.fullmatch(<span class="string">r'\w&#123;6,20&#125;'</span>, nickname):</span><br><span class="line">            self.render(<span class="string">'userform.html'</span>, hint=<span class="string">'请输入有效的昵称'</span>)</span><br><span class="line">        <span class="keyword">elif</span> nickname <span class="keyword">in</span> users:</span><br><span class="line">            self.render(<span class="string">'userform.html'</span>, hint=<span class="string">'昵称已经被使用过'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            users[nickname] = User(nickname, gender, birthday)</span><br><span class="line">            <span class="comment"># 将用户昵称写入Cookie并设置有效期为7天</span></span><br><span class="line">            self.set_cookie(<span class="string">'nickname'</span>, nickname, expires_days=<span class="number">7</span>)</span><br><span class="line">            self.render(<span class="string">'userinfo.html'</span>, user=users[nickname])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""主函数"""</span></span><br><span class="line">    parse_command_line()</span><br><span class="line">    app = tornado.web.Application(</span><br><span class="line">        handlers=[</span><br><span class="line">            (<span class="string">r'/'</span>, MainHandler), (<span class="string">r'/register'</span>, UserHandler)</span><br><span class="line">        ],</span><br><span class="line">        template_path=os.path.join(os.path.dirname(__file__), <span class="string">'templates'</span>)</span><br><span class="line">    )</span><br><span class="line">    app.listen(options.port)</span><br><span class="line">    tornado.ioloop.IOLoop.current().start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>模板页userform.html。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- userform.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Tornado基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">		.em &#123; color: red; &#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>填写用户信息<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"em"</span>&gt;</span>&#123;&#123;hint&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/register"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">label</span>&gt;</span>昵称：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"nickname"</span>&gt;</span></span><br><span class="line">			（字母数字下划线，6-20个字符）</span><br><span class="line">		<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">label</span>&gt;</span>性别：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"gender"</span> <span class="attr">value</span>=<span class="string">"男"</span> <span class="attr">checked</span>&gt;</span>男</span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"gender"</span> <span class="attr">value</span>=<span class="string">"女"</span>&gt;</span>女</span><br><span class="line">		<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">label</span>&gt;</span>生日：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">name</span>=<span class="string">"birthday"</span> <span class="attr">value</span>=<span class="string">"1990-01-01"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"确定"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>模板页userinfo.html。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- userinfo.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Tornado基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>用户信息<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>昵称：&#123;&#123;user.nickname&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>性别：&#123;&#123;user.gender&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>出生日期：&#123;&#123;user.birthday&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/03/Tornado/">展开全文 >></a>
         </p>
       
 
