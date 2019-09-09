@@ -15,12 +15,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Tornado入门Tornado概述Python的Web框架种类繁多（比Python语言的关键字还要多），但在众多优秀的Web框架中，Tornado框架最适合用来开发需要处理长连接和应对高并发的Web应用。Tornado框架在设计之初就考虑到性能问题，通过对非阻塞I/O和epoll（Linux 2.5.44内核引入的一种多路I/O复用方式，旨在实现高性能网络服务，在BSD和macOS中是kqueu">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="c:/%E5%AE%9E%E8%AE%AD%E4%B8%80/%E5%A4%A7%E5%AE%9E%E8%AE%AD%E7%AC%94%E8%AE%B0/res/run-hello-world-app.png">
+<meta property="og:image" content="http://yoursite.com/.com//%E5%AE%9E%E8%AE%AD%E4%B8%80/%E5%A4%A7%E5%AE%9E%E8%AE%AD%E7%AC%94%E8%AE%B0/res/run-hello-world-app.png">
 <meta property="og:updated_time" content="2019-09-03T11:38:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tornado">
 <meta name="twitter:description" content="Tornado入门Tornado概述Python的Web框架种类繁多（比Python语言的关键字还要多），但在众多优秀的Web框架中，Tornado框架最适合用来开发需要处理长连接和应对高并发的Web应用。Tornado框架在设计之初就考虑到性能问题，通过对非阻塞I/O和epoll（Linux 2.5.44内核引入的一种多路I/O复用方式，旨在实现高性能网络服务，在BSD和macOS中是kqueu">
-<meta name="twitter:image" content="c:/%E5%AE%9E%E8%AE%AD%E4%B8%80/%E5%A4%A7%E5%AE%9E%E8%AE%AD%E7%AC%94%E8%AE%B0/res/run-hello-world-app.png">
+<meta name="twitter:image" content="http://yoursite.com/.com//%E5%AE%9E%E8%AE%AD%E4%B8%80/%E5%A4%A7%E5%AE%9E%E8%AE%AD%E7%AC%94%E8%AE%B0/res/run-hello-world-app.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -195,7 +195,7 @@
 <li><p>运行并访问应用。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python example01.py</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:/%E5%AE%9E%E8%AE%AD%E4%B8%80/%E5%A4%A7%E5%AE%9E%E8%AE%AD%E7%AC%94%E8%AE%B0/res/run-hello-world-app.png" alt></p>
+<p><img src="/.com//%E5%AE%9E%E8%AE%AD%E4%B8%80/%E5%A4%A7%E5%AE%9E%E8%AE%AD%E7%AC%94%E8%AE%B0/res/run-hello-world-app.png" alt></p>
 </li>
 </ol>
 <p>在上面的例子中，代码example01.py通过定义一个继承自<code>RequestHandler</code>的类（<code>MainHandler</code>）来处理用户请求，当请求到达时，Tornado会实例化这个类（创建<code>MainHandler</code>对象），并调用与HTTP请求方法（GET、POST等）对应的方法，显然上面的<code>MainHandler</code>只能处理GET请求，在收到GET请求时，它会将一段HTML的内容写入到HTTP响应中。<code>main</code>函数的第1行代码创建了Tornado框架中<code>Application</code>类的实例，它代表了我们的Web应用，而创建该实例最为重要的参数就是<code>handlers</code>，该参数告知<code>Application</code>对象，当收到一个请求时应该通过哪个类的对象来处理这个请求。在上面的例子中，当通过HTTP的GET请求访问站点根路径时，就会调用<code>MainHandler</code>的<code>get</code>方法。 <code>main</code>函数的第2行代码通过<code>Application</code>对象的<code>listen</code>方法指定了监听HTTP请求的端口。<code>main</code>函数的第3行代码用于获取Tornado框架的<code>IOLoop</code>实例并启动它，该实例代表一个条件触发的I/O循环，用于持续的接收来自于客户端的请求。</p>

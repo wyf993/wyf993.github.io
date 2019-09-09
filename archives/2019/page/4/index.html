@@ -6,26 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>基于Docker-compose搭建Redis高可用集群-哨兵模式（Redis-Sentinel） | Hexo</title>
+  <title>Archives: 2019 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​    我们知道，Redis的集群方案大致有三种：1）redis cluster集群方案；2）master/slave主从方案；3）哨兵模式来进行主从替换以及故障恢复。 ​    sentinel系统可以监视一个或者多个redis master服务，以及这些master服务的所有从服务；当某个master服务下线时，自动将该master下的某个从服务升级为master服务替代已下线的master">
-<meta property="og:type" content="article">
-<meta property="og:title" content="基于Docker-compose搭建Redis高可用集群-哨兵模式（Redis-Sentinel）">
-<meta property="og:url" content="http://yoursite.com/2019/09/05/Redis-Sentinel/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/archives/2019/page/4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​    我们知道，Redis的集群方案大致有三种：1）redis cluster集群方案；2）master/slave主从方案；3）哨兵模式来进行主从替换以及故障恢复。 ​    sentinel系统可以监视一个或者多个redis master服务，以及这些master服务的所有从服务；当某个master服务下线时，自动将该master下的某个从服务升级为master服务替代已下线的master">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905023139_18583.png">
-<meta property="og:image" content="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905021327_64637.png">
-<meta property="og:image" content="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905021922_10091.png">
-<meta property="og:image" content="http://yoursite.com/.com//C:%5CUsers%5CWANGYI~1%5CAppData%5CLocal%5CTemp%5C1567655478741.png">
-<meta property="og:image" content="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905022218_72948.png">
-<meta property="og:image" content="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905022336_44202.png">
-<meta property="og:updated_time" content="2019-09-05T03:52:28.904Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于Docker-compose搭建Redis高可用集群-哨兵模式（Redis-Sentinel）">
-<meta name="twitter:description" content="​    我们知道，Redis的集群方案大致有三种：1）redis cluster集群方案；2）master/slave主从方案；3）哨兵模式来进行主从替换以及故障恢复。 ​    sentinel系统可以监视一个或者多个redis master服务，以及这些master服务的所有从服务；当某个master服务下线时，自动将该master下的某个从服务升级为master服务替代已下线的master">
-<meta name="twitter:image" content="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905023139_18583.png">
+<meta name="twitter:title" content="Hexo">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -161,210 +150,52 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Redis-Sentinel" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      基于Docker-compose搭建Redis高可用集群-哨兵模式（Redis-Sentinel）
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/03/05/VUE1/" class="archive-article-date">
+  	<time datetime="2019-03-05T06:06:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/03/05/VUE1/">VUE安装流程</a>
     </h1>
   
 
-        
-        <a href="/2019/09/05/Redis-Sentinel/" class="archive-article-date">
-  	<time datetime="2019-09-05T03:49:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​    我们知道，Redis的集群方案大致有三种：1）redis cluster集群方案；2）master/slave主从方案；3）哨兵模式来进行主从替换以及故障恢复。</p>
-<p>​    sentinel系统可以监视一个或者多个redis master服务，以及这些master服务的所有从服务；当某个master服务下线时，自动将该master下的某个从服务升级为master服务替代已下线的master服务继续处理请求。</p>
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905023139_18583.png" alt="img"></p>
-<p>​    同样，我们使用docker进行搭建</p>
-<p>​    新建一个mkdir redis-sentinel文件夹</p>
-<p>​    进入项目文件夹 cd redis-sentinel，再建立一个sentinel专门来存放哨兵脚本，然后cd sentinel</p>
-<p>​    建立sentinel.conf配置文件：</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sentinel monitor mymaster redis-master 6379 2</span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br><span class="line">sentinel parallel-syncs mymaster 1</span><br><span class="line">sentinel failover-timeout mymaster 5000</span><br></pre></td></tr></table></figure>
+        <div class="article-info info-on-right">
+          
+          
 
-<p>​    该配置的意思是，监控主服务器的6379端口并且起两个实例，如果哨兵5s内没有收到主节点的心跳，哨兵就认为主节点宕机了，默认是30秒，如果5秒以上连接不上主库同步，则在5秒后进行选举，对其他的从服务器进行角色转换</p>
-<p>​    随后，建立sentinel-entrypoint.sh脚本文件：</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">sed -i &quot;s/$SENTINEL_QUORUM/$SENTINEL_QUORUM/g&quot; /etc/redis/sentinel.conf</span><br><span class="line">sed -i &quot;s/$SENTINEL_DOWN_AFTER/$SENTINEL_DOWN_AFTER/g&quot; /etc/redis/sentinel.conf</span><br><span class="line">sed -i &quot;s/$SENTINEL_FAILOVER/$SENTINEL_FAILOVER/g&quot; /etc/redis/sentinel.conf</span><br><span class="line"></span><br><span class="line">exec docker-entrypoint.sh redis-server /etc/redis/sentinel.conf --sentinel</span><br></pre></td></tr></table></figure>
-
-<p>​    该脚本文件会对配置文件进行同步，用来启动哨兵</p>
-<p>​    然后我们来建立Dockerfile指定基础镜像，同时拷贝配置文件到镜像内部：</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM redis</span><br><span class="line"></span><br><span class="line">EXPOSE 26379</span><br><span class="line">ADD sentinel.conf /etc/redis/sentinel.conf</span><br><span class="line">RUN chown redis:redis /etc/redis/sentinel.conf</span><br><span class="line">COPY sentinel-entrypoint.sh /usr/local/bin/</span><br><span class="line">RUN chmod +x /usr/local/bin/sentinel-entrypoint.sh</span><br><span class="line">ENTRYPOINT [&quot;sentinel-entrypoint.sh&quot;]</span><br></pre></td></tr></table></figure>
-
-<p>​    最后退到项目根目录 cd ..</p>
-<p>​    建立docker-compose.yml配置文件：</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">master:</span><br><span class="line">  image: redis</span><br><span class="line">  ports:</span><br><span class="line">    - &quot;6379:6379&quot;</span><br><span class="line">slave1:</span><br><span class="line">  image: redis</span><br><span class="line">  command: redis-server --slaveof redis-master 6379</span><br><span class="line">  links:</span><br><span class="line">    - master:redis-master</span><br><span class="line">  ports:</span><br><span class="line">    - &quot;6380:6379&quot;</span><br><span class="line">slave2:</span><br><span class="line">  image: redis</span><br><span class="line">  command: redis-server --slaveof redis-master 6379</span><br><span class="line">  links:</span><br><span class="line">    - master:redis-master</span><br><span class="line">  ports:</span><br><span class="line">    - &quot;6381:6379&quot;</span><br><span class="line">sentinel1:</span><br><span class="line">  build: sentinel</span><br><span class="line">  environment:</span><br><span class="line">    - SENTINEL_DOWN_AFTER=5000</span><br><span class="line">    - SENTINEL_FAILOVER=5000    </span><br><span class="line">  links:</span><br><span class="line">    - master:redis-master</span><br><span class="line">    - slave1</span><br><span class="line">sentinel2:</span><br><span class="line">  build: sentinel</span><br><span class="line">  environment:</span><br><span class="line">    - SENTINEL_DOWN_AFTER=5000</span><br><span class="line">    - SENTINEL_FAILOVER=5000    </span><br><span class="line">  links:</span><br><span class="line">    - master:redis-master</span><br><span class="line">    - slave2</span><br></pre></td></tr></table></figure>
-
-<p>​    意思是，我们起三台redis服务，分别跑在6379,6380,6381 ，一主两从，并且有两个哨兵实例来监控他们，最后项目结构是这样的</p>
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905021327_64637.png" alt="img"></p>
-<p>​    在项目根目录下，启动服务：</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up --force-recreate</span><br></pre></td></tr></table></figure>
-
-<p>​    如果希望在后台运行可以加-d参数</p>
-<p>​    此时我们可以测一下同步是否成功，分别开三个窗口登录到redis,redis-cli -p 6379,redis-cli -p 6380,redis-cli -p 6381</p>
-<p>​    在主库6379中set 123 123，然后分别在从库get 123</p>
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905021922_10091.png" alt="img">    没有问题，现在我们来测一下哨兵模式是否好用，如果主库由于某种原因宕机了，从库是否能自动切换角色</p>
-<p>​    我们可以手动停止主库的容器进程，来模拟宕机的情况</p>
-<p>​    docker ps   先查看redis的master</p>
-<p>​     docker stop redis-sentinel_master_1</p>
-<p><img src="/.com//C:%5CUsers%5CWANGYI~1%5CAppData%5CLocal%5CTemp%5C1567655478741.png" alt="1567655478741"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop redissentinel_master_1</span><br></pre></td></tr></table></figure>
-
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905022218_72948.png" alt="img"></p>
-<p>​    此时主库已经连接不上了，我们进入从库，使用info命令来查看从库的角色</p>
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190905/20190905022336_44202.png" alt="img"></p>
-<p>​    发现之前6380本来是从库(slave)角色，现在已经变成主库了(master)了</p>
-<p>​    其实这就是所谓的高负载高可用架构，在使用集群承担高负载的同时，也能进行高可用的容灾机制。</p>
-<p>​    </p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/05/Redis-Sentinel/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/09/06/Docker1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Docker拉取镜像
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/09/04/Python/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">常见python面试题-手写代码系列</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/2019/page/3/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><a class="page-number" href="/archives/2019/page/2/">2</a><a class="page-number" href="/archives/2019/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
   
 
 
@@ -388,8 +219,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

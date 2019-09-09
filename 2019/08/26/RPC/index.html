@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="#  ​    简单介绍RPC协议及常见框架，对比传统restful api和RPC方式的优缺点。常见RPC框架，gRPC及序列化方式Protobuf等 。 HTTP协议​    http协议是基于tcp协议的，tcp协议是流式协议，包头部分可以通过多出的\r\n来分界，包体部分如何分界呢？这是协议本身要解决的问题。目前一般有两种方式，第一种方式就是在包头中有个content-Length字段，这">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="c:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.webp">
-<meta property="og:image" content="c:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85.webp">
+<meta property="og:image" content="http://yoursite.com/.com//C:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.webp">
+<meta property="og:image" content="http://yoursite.com/.com//C:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85.webp">
 <meta property="og:updated_time" content="2019-09-03T12:43:01.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RPC简介及框架选择">
 <meta name="twitter:description" content="#  ​    简单介绍RPC协议及常见框架，对比传统restful api和RPC方式的优缺点。常见RPC框架，gRPC及序列化方式Protobuf等 。 HTTP协议​    http协议是基于tcp协议的，tcp协议是流式协议，包头部分可以通过多出的\r\n来分界，包体部分如何分界呢？这是协议本身要解决的问题。目前一般有两种方式，第一种方式就是在包头中有个content-Length字段，这">
-<meta name="twitter:image" content="c:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.webp">
+<meta name="twitter:image" content="http://yoursite.com/.com//C:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.webp">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -197,7 +197,7 @@
 <li>客户端发起请求，服务器返回响应（类似于Http的工作方式） RPC 在使用形式上像调用本地函数（或方法）一样去调用远程的函数（或方法）。</li>
 </ul>
 <h4 id="RPC通信过程"><a href="#RPC通信过程" class="headerlink" title="RPC通信过程"></a>RPC通信过程</h4><p>默认socket通信。本地机器的RPC框架反序列化出执行结果，函数return这个结果 </p>
-<p><img src="C:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.webp" alt></p>
+<p><img src="/.com//C:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.webp" alt></p>
 <h3 id="RPC和restful-api对比"><a href="#RPC和restful-api对比" class="headerlink" title="RPC和restful api对比"></a>RPC和restful api对比</h3><p>REST是一种设计风格，它的很多思维方式与RPC是完全冲突的。 RPC的思想是把本地函数映射到API，也就是说一个API对应的是一个function，我本地有一个getAllUsers，远程也能通过某种约定的协议来调用这个getAllUsers。至于这个协议是Socket、是HTTP还是别的什么并不重要； RPC中的主体都是动作，是个动词，表示我要做什么。 而REST则不然，它的URL主体是资源，是个名词。而且也仅支持HTTP协议，规定了使用HTTP Method表达本次要做的动作，类型一般也不超过那四五种。这些动作表达了对资源仅有的几种转化方式。<br> RPC的根本问题是耦合。RPC客户端以多种方式与服务实现紧密耦合，并且很难在不中断客户端的情况下更改服务实现。RPC更偏向内部调用，REST更偏向外部调用。</p>
 <p>Web 服务应该算是 RPC 的一个子集，理论上 RPC 能实现的功能， 用 Web 服务也能实现，甚至很多 RPC 框架选用 HTTP 协议作为传输层。<br> 现在很多网站的 API 都是以 HTTP 服务的形式提供的，这也算是 RPC 的一种形式。</p>
 <p>区别主要在这 2 个东西设计的出发点不太一样：</p>
@@ -220,7 +220,7 @@
 </ul>
 <p>目前有很多Java的RPC框架，有基于Json的，有基于XML，也有基于二进制对象的。</p>
 <p>论复杂度，RPC框架肯定是高于简单的HTTP接口的。但毋庸置疑，HTTP接口由于受限于HTTP协议，需要带HTTP请求头，导致传输起来效率或者说安全性不如RPC</p>
-<p> <img src="C:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85.webp" alt></p>
+<p> <img src="/.com//C:%5CUsers%5CASUS%5CDesktop%5Cmd%E7%94%A8%E5%9B%BE%5CRPC%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85.webp" alt></p>
 <h2 id="常用RPC框架"><a href="#常用RPC框架" class="headerlink" title="常用RPC框架"></a>常用RPC框架</h2><p>支持Java最多，golang</p>
 <ul>
 <li>Netty - Netty框架不局限于RPC，更多的是作为一种网络协议的实现框架，比如HTTP，由于RPC需要高效的网络通信，就可能选择以Netty作为基础。</li>
