@@ -152,6 +152,471 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Django" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/09/Django/">Django项目配置文件</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/09/Django/" class="archive-article-date">
+  	<time datetime="2019-09-09T01:44:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>django版本：</p>
+<p>pip install Django==2.0.13</p>
+<p>pip install django==2.0.4</p>
+<p>1.6    1.8.2   1.9.4   2.1</p>
+<p>常用：1.6   1.8   2.1</p>
+<p>import django</p>
+<p>django.version()</p>
+<p>django-admin –version</p>
+<ol>
+<li>生成django项目</li>
+</ol>
+<p>django-admin startproject mypro(项目名)</p>
+<ul>
+<li><p>项目目录结构</p>
+</li>
+<li><ul>
+<li><strong>init</strong>.py: 声明当前文件夹为一个可导入的包</li>
+<li>settings.py: 整个项目的配置文件</li>
+<li>urls.py: 主控路由映射文件</li>
+<li>wsgi.py: 项目上线时使用的uwsgi服务器的连接文件</li>
+<li>manage.py: 控制管理当前项目</li>
+</ul>
+</li>
+<li><p>开启测试服务器</p>
+</li>
+</ul>
+<p>python manage.py runserverabc.com:8000 abc.com:9000 NO 跨域请求 ajaxa.abc.com b.abc.com YES</p>
+<p>\2. 生成子应用</p>
+<p>python manage.py startapp web(子应用名)</p>
+<p>业务分化，可以优化团队合作，可以明确找锅</p>
+<p>子app目录结构</p>
+<p>admin.py:django内置了一个数据库管理工具</p>
+<p>models.py:数据库，模型类</p>
+<p>views.py:存储不同</p>
+<ul>
+<li><p>app数据库的使用:</p>
+</li>
+<li><ul>
+<li>hello_app 加到settings里的INSTALLED_APPS 属性中</li>
+</ul>
+</li>
+</ul>
+<p>\3. 启动项目</p>
+<p>python manage.py runserver</p>
+<p>\4. 数据库的迁移</p>
+<ul>
+<li>为自己的app创建表</li>
+<li>Django有自带的数据表</li>
+</ul>
+<p>python manage.py makemigrations  查找差异 创建迁移文件</p>
+<p>python manage.py migrate    根据迁移文件 生成数据表及字段   (django不易,迁移请谨慎)</p>
+<p>\5. settings中的配置</p>
+<p>ALLOWED_HOSTS = [‘*’] 谁可以访问我</p>
+<p>后台中文本地化(放在指定位置，替换掉之前的)</p>
+<p>LANGUAGE_CODE = ‘zh-Hans’     语言</p>
+<p>TIME_ZONE = ‘Asia/Shanghai’     时区</p>
+<p>USE_I18N = True</p>
+<p>USE_L10N = True</p>
+<p>USE_TZ = False</p>
+<p>static文件路径配置</p>
+<p>STATIC_URL = ‘/static/‘</p>
+<p> STATICFILES_DIRS = [     os.path.join(BASE_DIR, ‘static’), ]</p>
+<p>上传图片时配置(放在最后即可)</p>
+<p>UPLOAD_ROOT = os.path.join(BASE_DIR,’upload’)</p>
+<p>图片上传时用的函数</p>
+<p>def uploadfile(img):</p>
+<p>​    f = open(os.path.join(settings.UPLOAD_ROOT, ‘’, img.name), ‘wb’)</p>
+<p>​    for chunk in img.chunks():</p>
+<p>​        f.write(chunk)</p>
+<p>​    f.close()</p>
+<p>数据库配置(原来的删掉或注掉)</p>
+<p>DATABASES = {</p>
+<p>​    ‘default’: {</p>
+<p>​        ‘ENGINE’: ‘django.db.backends.mysql’,</p>
+<p>​        ‘HOST’: ‘127.0.0.1’,</p>
+<p>​        ‘PORT’: ‘3306’,</p>
+<p>​        ‘NAME’: ‘shenfenzheng’,      #数据库名</p>
+<p>​        ‘USER’: ‘root’,</p>
+<p>​        ‘PASSWORD’: ‘’,        #密码</p>
+<p>​        ‘OPTIONS’: {</p>
+<p>​             ‘init_command’: “SET sql_mode=’STRICT_TRANS_TABLES’”,</p>
+<p>​            },</p>
+<p>​    }</p>
+<p>}</p>
+<p>admin界面</p>
+<p>django所提供用来帮助你管理项目所使用到的数据表的admin.site.register(models.People)要为admin界面创建超级用户: </p>
+<p>python3 manage.py createsuperuser</p>
+<p>admin.py:</p>
+<p>#把models创建的表，添加到admin后台中</p>
+<p>from web import models</p>
+<p>admiin.site.register(models.表名)</p>
+<p>  def <strong>str</strong>(self): #<strong>unicode</strong></p>
+<p>​    self.name</p>
+<ul>
+<li><p>前端数据的接收</p>
+</li>
+<li><ul>
+<li>表单 </li>
+</ul>
+</li>
+</ul>
+<p>从数据库获取用get</p>
+<p>从页面获取用post</p>
+<ul>
+<li><p>models.</p>
+</li>
+<li><ul>
+<li>orm映射创建表</li>
+<li>对于表的操作就是类的操作</li>
+<li>表的字段就是类的字段</li>
+<li>verbose_name：字段属性，可读性名称</li>
+<li><strong>str</strong>：类的私有属性，给一条数据一个可读性名称</li>
+</ul>
+</li>
+</ul>
+<p> orm</p>
+<p>提供给了开发者一套API接口peoples = models.People.objects.all()对于表的操作 都是对于模型类的操作</p>
+<ul>
+<li><p>django组件探究</p>
+</li>
+<li><ul>
+<li><ol>
+<li>编写视图函数，返回HELLOWORLD  app-&gt;views-&gt;def</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ol>
+<li>路由映射视图函数，可以将视图函数在对应路由访问时候调用</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ol>
+<li>返回HTML页面，模板页面</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>保存模板页面 TEMPLATES-&gt;’DIRS’: [os.path.join(BASE_DIR,’template’)],</li>
+<li>return render(request,’hello_app/index.html’)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ol>
+<li>静态资源：css,js,img,video</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>settings-&gt; STATICFILES_DIRS -&gt; (os.path.join(BASE_DIR,’static’),)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ol>
+<li>模板变量加成</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>页面动态渲染</li>
+<li>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Templates设置</p>
+<p>‘DIRS’: [os.path.join(BASE_DIR,’templates’)],</p>
+<p>注册子应用</p>
+<p>INSTALLED_APPS中注册子应用，别忘了逗号   #  ,‘web’</p>
+<p>CSRF设置</p>
+<p>MIDDLEWARE中的csrf删掉或者注释掉或者在模板里加上   csrf_token  </p>
+<p>发送邮件设置</p>
+<p>如果需要发送邮件则配置</p>
+<p>EMAIL_USE_SSL = True</p>
+<p> EMAIL_HOST = ‘smtp.qq.com’  # 如果是 163 改成 smtp.163.com</p>
+<p> EMAIL_PORT = 465</p>
+<p> EMAIL_HOST_USER = ‘229429587@qq.com’ # 帐号</p>
+<p> EMAIL_HOST_PASSWORD = ‘gnjuflyfsyqbcajd’  # 密码</p>
+<p> DEFAULT_FROM_EMAIL = EMAIL_HOST_USER</p>
+<p>#详情请见文档发送邮件,应该不考</p>
+<p>​          </p>
+<p>创建文件夹</p>
+<p>​          在项目中创建static  templates  upload文件</p>
+<p>​          </p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/5fd322bc78ad45f0a38603df6eed95f7/ip_image002.jpeg" alt="img"></p>
+<p>\6. 主应用urls中的配置</p>
+<p>讲主应用的urls复制拷进子应用</p>
+<p>模块django.urls中加上include</p>
+<p>下面配置path(‘’,include(“web.urls”)),  #web为子应用名</p>
+<p>\7. 子应用中urls中的配置</p>
+<p> from django.urls import path,re_path       #re_path正则匹配路由(上传图片)</p>
+<p> from web import views       #子应用下的视图文件</p>
+<p> from django.views.generic import TemplateView</p>
+<p> from Shop.settings import UPLOAD_ROOT</p>
+<p> #导入文件路由库</p>
+<p> from django.views.static import serve</p>
+<p>path(‘register’,views.register),</p>
+<p>path(‘detail’,views.Detail.as_view()),  类视图</p>
+<p>re_path(‘^upload/(?P<path>.*)$’,serve,{‘document_root’:UPLOAD_ROOT}),                   #上传图片配置,详情见图片上传文档</path></p>
+<ol>
+<li>Ajax简单格式</li>
+</ol>
+<p>$.ajax({</p>
+<p>​         <a href="url:%22/addcart/" target="_blank" rel="noopener">url:”/addcart/</a>“,             #要建立连接的url</p>
+<p>​         type: “post”,                      #传递的方式，一般传数据post，获取get</p>
+<p>​         dataType:”json”,           #格式为json格式，注意t要大写</p>
+<p>​         data:param,     #要传递的值,key:value形式存在，获取时以键取值</p>
+<p>​         success:function (res) {</p>
+<p>​             if(res.code == 200){</p>
+<p>​                                               #这里获取返回的数据</p>
+<p>​             }</p>
+<p>​             else {</p>
+<p>​                                               #这里执行状态码不是200时的操作</p>
+<p>​             }</p>
+<p>​         }</p>
+<p>​         })</p>
+<ol>
+<li>视图文件views或创建的视图文件的配置</li>
+</ol>
+<p>常见的模块</p>
+<p>from django.shortcuts import render,redirect   #绑定页面,重定向</p>
+<p>from django.http import HttpResponse        #返回值</p>
+<p>from django.views import View                                      #类视图</p>
+<p>from web.models import *                                                 #orm数据库操作</p>
+<p>import re                                                                                     #正则匹配</p>
+<p>from django.contrib.auth.hashers import make_password,check_password</p>
+<p>#生成哈希密码，检验哈希密码</p>
+<p>import json                                   </p>
+<p>​            #转化json格式或解码成python语言</p>
+<p>from django.core.mail import send_mail                   </p>
+<p>​            #发送邮件时导入</p>
+<p>from utils.comment import PRECATECOUNT</p>
+<p>from django.core.paginator import Paginator</p>
+<p>#分页时导入</p>
+<p>绑定页面</p>
+<p>return render(request,’admin/catelist.html’,data)</p>
+<p>返回json数据</p>
+<p>return HttpResponse(json.dumps(mes, ensure_ascii=False))</p>
+<p>取数据</p>
+<p>request.POST.get(‘’)</p>
+<p>request.GET.get(‘’)</p>
+<p>request.FILES.get(‘’)</p>
+<p>重定向</p>
+<p>return redirect(‘/sadmin/indeximage’)</p>
+<p>类视图模型</p>
+<p>class Reducecart(View):</p>
+<p>​         def get(self,request):</p>
+<p>​             def post(self,request):</p>
+<p>​         def put(self,request):            #目前一般用前两个</p>
+<p>​         def delete(self,request):</p>
+<p>session的增删查</p>
+<p>request.session.get(‘’)                                        #查</p>
+<p>request.session[‘key’] = value                         #增</p>
+<p>del request.session[‘key’]                                  #删</p>
+<p>request.session.flush()                #删除所有session</p>
+<p>10.juery中简单的操作</p>
+<p>$(‘.class’)    #选中类,class为要选中的类名</p>
+<p>$(‘#id’)     #选中id, id为要选中的id</p>
+<p>function detail() {</p>
+<p>​                                                               #内为执行函数时要进行的操作</p>
+<p>}</p>
+<p>$(‘.class’).click(function () {</p>
+<p>​                                                                #内为点击时要进行的操作</p>
+<p> })</p>
+<p>window.location.reload()    #刷新页面</p>
+<p>window.location.replace(‘/’)   #跳转到某个页面</p>
+<p>from mypro import settings</p>
+<p>import os</p>
+<p># 封装</p>
+<p>def uploadfile(img):</p>
+<p>​    f=open(os.path.join(settings.UPLOAD_ROOT,’’,img.name),’wb’)</p>
+<p>​    # 写文件 遍历图片文件流</p>
+<p>​    for chunk in img.chunks():</p>
+<p>​        f.write(chunk)</p>
+<p>​    # 关闭文件流</p>
+<p>​    f.close()</p>
+<p>#图片提交</p>
+<p>def submit_image(request):</p>
+<p>​    file=request.FILES.get(‘file’)</p>
+<p>​    uploadfile(file)</p>
+<p>​    mes={}</p>
+<p>​    mes[‘path’]=’/upload/‘+file.name</p>
+<p>​    mes[‘error’]=False</p>
+<p>​    return HttpResponse(json.dumps(mes))</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/09/Django/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/06/Docker1/">Docker拉取镜像</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/06/Docker1/" class="archive-article-date">
+  	<time datetime="2019-09-06T01:54:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>docker pull delron/fastdfs</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/5cb7a13101e24457ad7258391b5b208b/edc2de1a233c4258908c3b4153ddceff.jpg" alt="img"></p>
+<p> docker images</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/45b5d3c920d14e82aae8abd309eb7e90/5ed0b040264a4ea3ac4b12cb9240d4c8.jpg" alt="img"></p>
+<p>docker save -o d:/redis.tar redis         存盘</p>
+<p>docker save -o d:/fastdfs.tar delron/fastdfs     （ 路径 镜像下的名字）</p>
+<p>docker load -i ‘d:/redis.tar’                   读盘</p>
+<p>docker load -i ‘d:/fastdfs.tar’</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/882a71a8a6d9466e83dc0408441136bc/f24751351235497bbbae5cd62a7f363d.jpg" alt="img"></p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/a859ce618bfb48a2bcd1dfdb89eb9b09/71da4769c6844ebe9a7f8bd6e9496c30.jpg" alt="img"></p>
+<p>#停止容器</p>
+<p>docker stop $(docker ps -a -q)</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/51ebd532760f45839b8f993815ea0c80/b58d7c35df6c42de84d3b75db951719b.jpg" alt="img"></p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/4e8808accc1249eeaecd627480de3fe1/7f46d575cf264f718b1a83f56f879f09.jpg" alt="img"></p>
+<p>#删除容器</p>
+<p>docker rm $(docker ps -a -q)</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/6e2b06499bda4bcca220fba7b928cfd0/0ecbbe4c48fc4fbb94c65a1a0061e602.jpg" alt="img"></p>
+<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/dea7f17563114522a3435982cd567523/fa4bd93681214c69b67c9a5ff8cf2b56.jpg" alt="img"></p>
+<p>docker run -d –network=host –name storage -e TRACKER_SERVER=192.168.99.100:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
+<p>docker下的：</p>
+<p>116.62.145.139</p>
+<p>密码：wangyifei0607.</p>
+<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.51.0:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/d3e6f9c75265486696ef426109135011/4cac88aa70df46208aa46ad3f2b31a3d.jpg" alt="img"></p>
+<p>docker exec -it storage /bin/bash                       进入容器</p>
+<p>wget <a href="https://v3u.cn/v3u/Public/images/logo.png" target="_blank" rel="noopener">https://v3u.cn/v3u/Public/images/logo.png</a></p>
+<p>ls</p>
+<p>/usr/bin/fdfs_upload_file /etc/fdfs/client.conf logo.png</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/08d751e51cfd4632be4655b142584790/61f04e9fbb85406484e547d1c0588580.jpg" alt="img"></p>
+<p>exit;</p>
+<p>浏览器访问：</p>
+<p><a href="http://192.168.99.100:8888/group1/M00/00/00/wKhjZF1bXXWADunAAAAS9iNyoDo725.png" target="_blank" rel="noopener">http://192.168.99.100:8888/group1/M00/00/00/wKhjZF1bXXWADunAAAAS9iNyoDo725.png</a></p>
+<p>docker ps -a          查看所有</p>
+<p>docker run -d –network=host –name tracker -v /c/Users:/var/root delron/fastdfs tracker</p>
+<p>docker run -d –network=host –name storage -e TRACKER_SERVER=192.168.99.100:22122 -v /c/Users:/var/root -e GROUP_NAM</p>
+<p>E=group1 delron/fastdfs storage</p>
+<p>docker exec -i        在外部调用容器内部的服务</p>
+<p>docker exec -i storage /usr/bin/fdfs_upl·oad_file /etc/fdfs/client.conf /var/root/test.mp4</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/06/Docker1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Redis-Sentinel" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1204,168 +1669,9 @@
 
 
   
-    <article id="post-JWT" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/22/JWT/">JWT</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/22/JWT/" class="archive-article-date">
-  	<time datetime="2019-08-22T07:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/918127ddb04349fc94bc1b37d94d597f/5137b04b869c4bc5b2b58b1853fce8d2.jpg" alt="img"></p>
-<p>JWT是基于token的身份认证的方案。</p>
-<p>json web token全称。可以保证安全传输的前提下传送一些基本的信息，以减轻对外部存储的依赖，减少了分布式组件的依赖，减少了硬件的资源。</p>
-<p>JWT 特点 体积小，因而传输速度快（通过URL/POST参数/HTTP头部等方式传输）</p>
-<p>由 . 分为三段：</p>
-<p>1.头部（Header）</p>
-<p>jwt的头部包含两部分信息：</p>
-<p>声明类型，这里是jwt</p>
-<p>声明加密的算法 通常直接使用 HMAC SHA256</p>
-<p>2.载荷（payload）</p>
-<p>就是存放有效信息的地方。</p>
-<p>3.签名（signature)</p>
-<p>签名的目的签名实际上是对头部以及载荷内容进行签名。</p>
-<p>本质上是一个独立的身份验证令牌，可以包含用户标识、用户角色和权限等信息，以及您可以存储任何其他信息（自包含）。任何人都可以轻松读取和解析，并使用密钥来验证真实性。</p>
-<p>使用JSON Web Token的好处？ </p>
-<p>1.性能问题。 JWT方式将用户状态分散到了客户端中，相比于session，可以明显减轻服务端的内存压力。分布式应用需session，是存储在服务器端的，需要占用大量服务器内存。</p>
-<p>2.单点登录。 JWT能轻松的实现单点登录，因为用户的状态已经被传送到了客户端。 token 可保存自定义信息（用户信息），每个服务不需要与授权服务交互才能授权用户。 </p>
-<p>3.前后端分离。后台对应的客户端是浏览器，使用session+cookies的方式实现登录，页面的渲染、路由都由前端完成，后端只负责RestApi提供数据。</p>
-<p>4.兼容性。 支持移动设备，支持跨程序调用，Cookie 是不允许垮域访问的，而 Token 则不存在这个问题。 </p>
-<p>5.可拓展性。 jwt是无状态的，用于分布式站点的单点登录（SSO）场景。 </p>
-<p>6.安全性。因为有签名，，jwt的安全特性保证了token的不可伪造和不可篡改。</p>
-<p>缺陷： 1）JWT在生成token的时候支持失效时间，支持的失效时间是固定的，比如说一天。jwt token做失效是不可行的，因为jwt在初始化的时候已经定死在什么时候过期了。 在redis中存储token，设置token的过期时间，每次鉴权的时候都会去延长时间 2）jwt不适合存放大量信息，信息越多token越长</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/22/JWT/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/22/hello-world/" class="archive-article-date">
-  	<time datetime="2019-08-22T00:45:41.330Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/22/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 

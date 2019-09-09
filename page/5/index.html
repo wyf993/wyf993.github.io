@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2019/page/2/index.html">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
@@ -152,292 +152,466 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-VUE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/03/VUE/">VUE生命周期</a>
+    </h1>
+  
+
+        
+        <a href="/2011/12/03/VUE/" class="archive-article-date">
+  	<time datetime="2011-12-03T00:58:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-12-03</time>
+</a>
+        
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>vue生命周期流程图：4张图</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/92b4536a9c7d43998d08211e840b7134/clipboard.png" alt="img"></p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/c225e6a0c4a74c55be27de22930f7815/clipboard.png" alt="img"></p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/c66b80474ced4c3d92570d330377a0d6/clipboard.png" alt="img"></p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/75b65879149644f6a6406d468bb6b099/clipboard.png" alt="img"></p>
+<p>生命周期的解析和应用：</p>
+<p>Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。通俗说就是 Vue 实例从创建到销毁的过程，就是生命周期。</p>
+<ol>
+<li>beforecreate : </li>
+</ol>
+<p>完成实例初始化，初始化非响应式变量</p>
+<p>this指向创建的实例；</p>
+<p>可以在这加个loading事件；</p>
+<p>data computed watch methods上的方法和数据均不能访问</p>
+<ol>
+<li>created</li>
+</ol>
+<p>实例创建完成</p>
+<p>完成数据(data props computed)的初始化 导入依赖项。</p>
+<p>可访问data computed watch methods上的方法和数据</p>
+<p>未挂载DOM,不能访问$el,$ref为空数组</p>
+<p>可在这结束loading，还做一些初始化，实现函数自执行,</p>
+<p>可以对data数据进行操作，可进行一些请求，请求不易过多，避免白屏时间太长。</p>
+<p>若在此阶段进行的 DOM 操作一定要放在 Vue.nextTick() 的回调函数中</p>
+<ol>
+<li>berofeMount</li>
+</ol>
+<p>有了el,编译了template|/outerHTML</p>
+<p>能找到对应的template,并编译成render函数</p>
+<ol>
+<li>mounted</li>
+</ol>
+<p>完成创建vm.$el，和双向绑定，</p>
+<p>完成挂载DOM 和渲染;可在mounted钩子对挂载的dom进行操作</p>
+<p>即有了DOM 且完成了双向绑定 可访问DOM节点,$ref</p>
+<p>可在这发起后端请求，拿回数据，配合路由钩子做一些事情；</p>
+<p>可对DOM 进行操作</p>
+<ol>
+<li>beforeUpdate</li>
+</ol>
+<p>数据更新之前</p>
+<p>可在更新前访问现有的DOM,如手动移除添加的事件监听器；</p>
+<ol>
+<li>updated :</li>
+</ol>
+<p>完成虚拟DOM的重新渲染和打补丁；</p>
+<p>组件DOM 已完成更新；</p>
+<p>可执行依赖的dom 操作</p>
+<p>注意：不要在此函数中操作数据，会陷入死循环的。</p>
+<ol>
+<li>activated:</li>
+</ol>
+<p>在使用vue-router时有时需要使用<keep-alive></keep-alive>来缓存组件状态，这个时候created钩子就不会被重复调用了，</p>
+<p>如果我们的子组件需要在每次加载的时候进行某些操作，可以使用activated钩子触发</p>
+<ol>
+<li>deactivated </li>
+</ol>
+<p>for keep-alive 组件被移除时使用</p>
+<ol>
+<li>beforeDestroy： </li>
+</ol>
+<p>在执行app.$destroy()之前</p>
+<p>可做一些删除提示，如：你确认删除XX吗？ </p>
+<p>可用于销毁定时器，解绑全局时间 销毁插件对象</p>
+<ol>
+<li>destroyed ：</li>
+</ol>
+<p>当前组件已被删除，销毁监听事件 组件 事件 子实例也被销毁 这时组件已经没有了，你无法操作里面的任何东西了。 </p>
+<p>子父组件的生命周期</p>
+<p>仅当子组件完成挂载后，父组件才会挂载</p>
+<p>当子组件完成挂载后，父组件会主动执行一次beforeUpdate/updated钩子函数（仅首次）</p>
+<p>父子组件在data变化中是分别监控的，但是在更新props中的数据是关联的（可实践）</p>
+<p>销毁父组件时，先将子组件销毁后才会销毁父组件</p>
+<p>兄弟组件的初始化（mounted之前）分开进行，挂载是从上到下依次进行</p>
+<p>当没有数据关联时，兄弟组件之间的更新和销毁是互不关联的</p>
+<p>mixin中的生命周期与引入该组件的生命周期是仅仅关联的，且mixin的生命周期优先执行</p>
+<p>测试demo:</p>
+<!DOCTYPE html> <html lang="en"> <head><meta name="generator" content="Hexo 3.9.0">     <meta charset="UTF-8">     <title>Title</title>     <script src="../vue.js"></script> </head> <body> <div id="app">     <p></p>     <keep-alive>         <my-components msg="hello" v-if="show"></my-components>     </keep-alive> </div> </body> <script>     var child = {         template: '<div>from child: </div>',         props: ['msg'],         data: function () {             return {                 childMsg: 'child1'             };         },         deactivated: function () {             console.log('component deactivated!');         },         activated: function () {             console.log('component activated');         }     };     var app = new Vue({         el: '#app',         data: function () {             return {                 message: 'father',                 show: true             };         },         beforeCreate: function () {             console.group('beforeCreate 创建前状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(state);         },         created: function () {             console.group('created 创建完毕状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(state);         },         beforeMount: function () {             console.group('beforeMount 挂载前状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);         },         mounted: function () {             console.group('mounted 挂载结束状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);             // this.message = 'change';         },         beforeUpdate: function () {             console.group('beforeUpdate 更新前状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);             // this.message = 'change2';         },         updated: function () {             console.group('updated 更新完成状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);         },         beforeDestroy: function () {             console.group('beforeDestroy 销毁前状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);         },         destroyed: function () {             console.group('destroyed 销毁完成状态===============》');             var state = {                 'el': this.$el,                 'data': this.$data,                 'message': this.message             }             console.log(this.$el);             console.log(state);         },         components: {             'my-components': child         }     }); </script> </html>
+
+<p>首先来梳理一下结构：</p>
+<p>1.我们创建了一个Vue根实例命名为app，将其挂载到页面id为app的dom元素上。</p>
+<p>2.局部注册的一个组件child并在根实例中将其注册使其可以在根实例的作用域中使用。</p>
+<p>3.将子组件用<keep-alive> 包裹，为接下来的测试作准备。</keep-alive></p>
+<p>在谷歌浏览器打开开发者工具，开始测试！</p>
+<p>结果：注意区分下 beforeCreate() created() beforeMount() mounted()</p>
+<p><img src="D:/%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/e8b18b8928cc457a95817c2bc94bb6f0/clipboard.png" alt="img"></p>
+<p>页面渲染优先级：</p>
+<p>render函数选项 &gt; template选项 &gt; outer HTML.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2011/12/03/VUE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="archives">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PythonPrimary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/26/Docker3/" class="archive-article-date">
-  	<time datetime="2019-08-26T01:56:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/26/Docker3/">Docker三要素</a>
+      <a class="article-title" href="/2011/09/03/PythonPrimary/">Python初级</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2011/09/03/PythonPrimary/" class="archive-article-date">
+  	<time datetime="2011-09-03T00:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-09-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>python-基础知识总结</p>
+<p>1、数据类型：数字型（int，long，float，complex），布尔型（bool），字符串(str)，列表(list)，元祖(tuple)，字典(dict)，集合(set)</p>
+<p>2、字符串格式化：</p>
+<p>​    1) ‘Hello, %s’ % ‘world’</p>
+<p>​    2) ‘hello {}’.format(‘kangkang’)</p>
+<p>​    </p>
+<p>3、字符串解码与编码</p>
+<p>​    1) 解码：decoding(‘utf-8’) 默认是：utf-8</p>
+<p>​    2) 编码：encoding(‘utf-8’)</p>
+<p>​    </p>
+<p>4、list</p>
+<p>​    1) 定义方式：[]</p>
+<p>​    2) 操作方式</p>
+<p>​        1) 增：append(“内容”)末尾追加；insert(“位置”, “内容”)指定位置追加</p>
+<p>​        2) 删：pop()删除末尾；pop(位置)删除指定位置的内容</p>
+<p>​        3) 改: list[下标] = 新内容</p>
+<p>​        4) 查: in, not in ; 下标（整数从前开始，负数从末尾开始）</p>
+<p>​        </p>
+<p>5、tuple</p>
+<p>​    1) 定义方式：()</p>
+<p>​    2) 元祖只能查,方法和list一样</p>
+<p>​    3) 元祖拆包：        </p>
+<p>​    注：元祖拆包 a=(1,2)  c,d = a , c = 1 d = 2</p>
+<p>​    依此类推</p>
+<p>​        for A,B IN a :</p>
+<p>​            A = 1</p>
+<p>​            B = 2</p>
+<p>6、dict</p>
+<p>​    1) 定义方式{key：value}</p>
+<p>​    2) 操作方式</p>
+<p>​        1) 增：dict[key]=value</p>
+<p>​        2) 删：del dict[key]</p>
+<p>​        3) 改：相同键名表修改</p>
+<p>​        4) 查：dict[key]没有报错,可以用in先做判断；dict.get(key)没有不会报错</p>
+<p>7、set</p>
+<p>​    1)定义方式：{}，如果要创建一个空集合，你必须用 set() 而不是 {}</p>
+<p>​    2)操作方式</p>
+<p>​        1) 增 add()</p>
+<p>​        2) 删 pop末尾，remove()指定</p>
+<p>​        3) 改 update({}或[])</p>
+<p>​        4) 查 for in</p>
+<p>类型总结：</p>
+<p>​    1) 可变类型:list,dict,set</p>
+<p>​    2) 不可变类型：number， bool, str, tuple</p>
+<p>​    3) 作用：不可变类型可以作为键，可变类型不能作为键.</p>
+<p>​    4) 补充：type()可以测出变量类型，id()可以测出变量的地址</p>
+<p>​        </p>
+<p>8、函数</p>
+<p>​    1) 定义： def func_name(形参)</p>
+<p>​    2) 调用:  func_name(实参)</p>
+<p>​    3) 型参类型：</p>
+<p>​        1) 默认参数：func_name(a,b=2),b是默认参数，必须放在必要参数的后面（不然会出问题，因为不知道参数是给默认参数还是必要参数）</p>
+<p>​           例：print(‘value’,end=””)不换行，end为默认参数’\n’</p>
+<p>​           注：有多个默认参数，可以指定为哪个默认参数指定值，可以通过参数名=值的方式调用</p>
+<p>​        2) 不定长参数：func_name(a,b,*args) *args 实参多于形参的个数都是它的（封装成元祖（注：一个元素的元祖是（a，）一定有逗号））</p>
+<p>​        3) 关键字参数：func_name(**kwargs) 带有变量名的参数</p>
+<p>​           调用方法：func_name(key=value) 如果key为必要参数，先满足必要参数。</p>
+<p>​        4) 命名关键字参数func_name(*，a，b)a，b为命名关键字参数</p>
+<p>​           调用方法：func_name(a = value, b = value)</p>
+<p>​        </p>
+<p>​        形参的定义顺序：必要参数，默认参数，不定长参数，命名关键字参数，关键字参数 （不定长参数和命名管家你参数不联用）</p>
+<p>​    4) 递归函数</p>
+<p>​    5) 匿名函数：</p>
+<p>​        1) 定义方式：lambda 形参：表达式  （默认返回表达式的值）</p>
+<p>​        2) 调用方式：可以将匿名函数赋值给变量，通过变量访问</p>
+<p>​    6) 值传递or引用传递？</p>
+<p>​        Python参数传递统一使用的是引用传递方式。因为Python对象分为可变对象(list,dict,set等)和不可变对象(number,string,tuple等)，</p>
+<p>​        当传递的参数是可变对象的引用时，因为可变对象的值可以修改，因此可以通过修改参数值而修改原对象，这类似于C语言中的引用传递；</p>
+<p>​        当传递的参数是不可变对象的引用时，虽然传递的是引用，参数变量和原变量都指向同一内存地址，但是不可变对象无法修改，</p>
+<p>​        所以参数的重新赋值不会影响原对象，这类似于C语言中的值传递。</p>
+<p>​        </p>
+<p>9、模块</p>
+<p>​    1) 一个py文件相当于一个模块</p>
+<p>​    2) 模块安装： pip install 模块名</p>
+<p>​    3) 导入模块：</p>
+<p>​        1）import 模块 调用：模块名.方法（或别的）例:import requests</p>
+<p>​        2）from 模块 import 方法  调用：方法（或别的）例：from lxml import etree</p>
+<p>​        3）from 模块 impory * ,不推荐，后面导入的会覆盖前面的</p>
+<p>​        4）import 模块 as 小名</p>
+<p>​    4) def _func_name() 以下划线开头的属性和方法是这个模块私有的</p>
+<p>​    5) <strong>all</strong> = [“函数，变量，类···”] 在模块中可以指定那些东西能被外部调用</p>
+<p>​    </p>
+<p>​    6) 模块在解释的时候，模块会被翻译成字节码。后续不用重新翻译。</p>
+<p>​    7) <strong>name</strong> 属性：通过命令执行时：为<strong>main</strong> 模块导入引用是模块名</p>
+<p>​        </p>
+<p>​       所以在模块中if(<strong>name</strong> == “<strong>main</strong>“):后面可以执行一些只在当前模块执行的代码，通常是测试代码。</p>
+<p>​    8) 标准模块写法：</p>
+<p>​        # -<em>-coding:utf-8-</em>-</p>
+<p>​        <strong>author</strong> = ‘author’</p>
+<p>​        import modules</p>
+<p>​        def main():</p>
+<p>​            pass</p>
+<p>​        if <strong>name</strong> == ‘<strong>main</strong>‘:</p>
+<p>​            main()</p>
+<p>​            </p>
+<p>10、类</p>
+<p>​    1) 类的定义：class 类名():</p>
+<p>​    2) 对象的声明：类名()</p>
+<p>​    3) 方法：</p>
+<p>​        1) <strong>new</strong>(),实例创建的时候调用</p>
+<p>​        2) <strong>init</strong>(),实例初始化用</p>
+<p>​        3) <strong>del</strong>(),实例销毁时候用</p>
+<p>​        4) 私有方法：def __func_name():</p>
+<p>​        5) 静态方法：正常方法加上@staticmethod</p>
+<p>​        6) 正常方法：def func_name():</p>
+<p>​        7) 类方法：正常方法上加@classmethod 用来修改类属性</p>
+<p>​    4) 属性：</p>
+<p>​        实例属性：</p>
+<p>​            1)定义方式： def <strong>init</strong>(self, name, sex):</p>
+<p>​                            self.name = name</p>
+<p>​                            self.sex = name</p>
+<p>​            2)私有属性： self.__name = name</p>
+<p>​            3)正常方法可以修改属性（类似java中get、set方法）</p>
+<p>​        类属性：</p>
+<p>​            1) 定义方式： class Student():</p>
+<p>​                            name = ‘’</p>
+<p>​                直接在类中定义</p>
+<p>​            2) 私有属性：__name = name</p>
+<p>​            3) 通过类方法修改</p>
+<p>​    5) 继承：</p>
+<p>​        1) 实现方式：class A(C)</p>
+<p>​        2) 支持多继承class A(B,C)</p>
+<p>​           注意:如果方法重名，首先调用自己的方法</p>
+<p>​           可以通过类名.<strong>mro</strong>的查看调用顺序</p>
+<p>​        3) 调用父类方法：可以通过类名加方法名</p>
+<p>​    6) 多态：</p>
+<p>​        1) 向上转型：子类对象先从父类对象继承，然后子类对象应用赋值给父类对象</p>
+<p>​        2) 向下转型：父类对象引用赋值给子类对象</p>
+<p>​        上述两条是java中的多态体现</p>
+<p>​        在python中不要求严格的继承关系，只要即在向上转型的过程中不要求子类必须继承自父类。</p>
+<p>11、异常</p>
+<p>​    1) 定义方式：</p>
+<p>​        try:</p>
+<p>​        except 异常名字(多个异常用括号包起来)：</p>
+<p>​        except Exception as exp捕获所有异常</p>
+<p>​            exp：异常信息</p>
+<p>​        else：</p>
+<p>​            没有异常时执行</p>
+<p>​        finaly:</p>
+<p>​    2) 自定义异常</p>
+<p>​        定义：从Exception（异常类）继承</p>
+<p>​        抛出：raise 自定义异常类</p>
+<p>​    3) 抛出异常：raise</p>
+<p>​    </p>
+<p>12、IO操作</p>
+<p>​    1) 打开文件：open(‘文件名.后缀’，’操作符’)</p>
+<p>​    2) 关闭文件：close()</p>
+<p>​    3) 读文件：read()防止内存奔溃；读行数据：readlines()全部行；readline 只读一行</p>
+<p>​    4) 写文件：write(); writelines()</p>
+<p>​        1) write()需要传入一个字符串做为参数，否则会报错</p>
+<p>​        2) writelines()既可以传入字符串又可以传入一个字符序列，并将该字符序列写入文件</p>
+<p>​    5) 文件定位：seek(offset,from)</p>
+<p>​                offset:移动距离</p>
+<p>​                from： 0：表示文件头</p>
+<p>​                       1: 当前位置</p>
+<p>​                       2：文件结尾</p>
+<p>​    6) 文件操纵：os模块</p>
+<p>​        1) 文件重命名：os.rename()</p>
+<p>​        2) 文件删除：os.remove()</p>
+<p>​        3) 删除文件夹：os.rmdir()</p>
+<p>​    </p>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2011/09/03/PythonPrimary/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/22/JWT/" class="archive-article-date">
-  	<time datetime="2019-08-22T07:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Yi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/22/JWT/">JWT</a>
+      <a class="article-title" href="/2011/08/22/Yi/">Yi</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/22/hello-world/" class="archive-article-date">
-  	<time datetime="2019-08-22T00:45:41.330Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
+        
+        <a href="/2011/08/22/Yi/" class="archive-article-date">
+  	<time datetime="2011-08-22T05:51:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-08-22</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/22/hello-world/">Hello World</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>GIT</p>
+<p>到码云上创建仓库  (建议设置共有)</p>
+<p>在计算机上</p>
+<ol>
+<li>新建文件夹</li>
+<li>到该文件夹目录</li>
+<li>初始化  </li>
+</ol>
+<p>$ git init </p>
+<p>$ git remote add origin <a href="https://gitee.com/xxx/xxx.git" target="_blank" rel="noopener">https://gitee.com/xxx/xxx.git</a> (你的远程项目地址)</p>
+<p>2.克隆一下</p>
+<p>$ git clone https://.git (你的远程项目地址)</p>
+<ol>
+<li>拉取仓库数据</li>
+</ol>
+<p>$ git pull origin master</p>
+<p>4.添加到暂存区</p>
+<p>$ git add .</p>
+<p>5.添加到仓库区</p>
+<p>$ git commit -m “你的第一次提交”</p>
+<p>6.push到你的码云仓库</p>
+<p>$ git push origin master</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2011/08/22/Yi/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/20/Phone/" class="archive-article-date">
-  	<time datetime="2019-08-20T06:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/20/Phone/">手机短信验证</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/14/Sina/" class="archive-article-date">
-  	<time datetime="2019-08-14T06:19:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/14/Sina/">新浪微博登录</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/08/PeopleCount/" class="archive-article-date">
-  	<time datetime="2019-08-08T06:23:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/08/PeopleCount/">在线人数的统计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/04/Page/" class="archive-article-date">
-  	<time datetime="2019-08-04T12:43:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/04/Page/">tornado和vue.js结合实现分页：</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/03/Email/" class="archive-article-date">
-  	<time datetime="2019-08-03T12:41:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/03/Email/">QQ邮箱验证</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/02/Ajax/" class="archive-article-date">
-  	<time datetime="2019-08-02T06:20:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/02/Ajax/">前后端交互(ajax)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/28/UrlGlobal/" class="archive-article-date">
-  	<time datetime="2019-07-28T06:22:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/28/UrlGlobal/">URL配置全局变量</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
-  
-
-    
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="extend next" rel="next" href="/archives/2019/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
     </nav>
   
 
@@ -461,9 +635,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
