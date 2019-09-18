@@ -152,6 +152,86 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Email" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/03/Email/">QQ邮箱验证</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/03/Email/" class="archive-article-date">
+  	<time datetime="2019-08-03T12:41:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p># </p>
+<h2 id="将你的qq邮箱开启smtp服务"><a href="#将你的qq邮箱开启smtp服务" class="headerlink" title="将你的qq邮箱开启smtp服务"></a>将你的qq邮箱开启smtp服务</h2><p>开启smtp服务攻略:<a href="https://jingyan.baidu.com/article/6079ad0eb14aaa28fe86db5a.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/6079ad0eb14aaa28fe86db5a.html</a></p>
+<p>1.在QQ客户端登录后,在面板上打开邮件, </p>
+<p>2.在打开的邮箱中心,进入设置 </p>
+<p>3.从邮箱设置中心,进入帐户 </p>
+<p>4.在这里可以看到POP3/SMTP服务被关闭了,因此客户端会收不到邮件,我们来开启它, </p>
+<p>5.在开启POP3/SMTP服务时,需要进行身份的验证,按要求来发送一条短信后,点击 我已发送, </p>
+<p>6.这时通过验证的话,就会得到授权码了,在客户端中,配置时密码换成这个授权码就可以了.  </p>
+<p>7.返回到设置中的POP3/SMTP服务页,查看该服务为已开启时,就可以用客户端来收发邮件了.19:06 2018-01-12 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#原代码</span><br><span class="line">import smtplib</span><br><span class="line">from email.mime.text import MIMEText</span><br><span class="line">from email.utils import formataddr</span><br><span class="line"></span><br><span class="line">my_sender=&apos;3611792766@qq.com&apos;    # 发件人邮箱账号</span><br><span class="line">my_pass = &apos;ihzsfjvctqdmciff&apos;              # 发件人smtp秘钥(当时申请smtp给的口令)</span><br><span class="line">my_user=&apos;3611792766@qq.com&apos;      # 收件人邮箱账号，我这边发送给自己</span><br><span class="line">def mail():</span><br><span class="line">    ret=True</span><br><span class="line">    try:</span><br><span class="line">        msg=MIMEText(&apos;填写邮件内容&apos;,&apos;plain&apos;,&apos;utf-8&apos;)</span><br><span class="line">        msg[&apos;From&apos;]=formataddr([&quot;发件人昵称&quot;,my_sender])  # 括号里的对应发件人邮箱昵称、发件人邮箱账号</span><br><span class="line">        msg[&apos;To&apos;]=formataddr([&quot;收件人昵称&quot;,my_user])              # 括号里的对应收件人邮箱昵称、收件人邮箱账号</span><br><span class="line">        msg[&apos;Subject&apos;]=&quot;邮件主题-测试&quot;                # 邮件的主题，也可以说是标题</span><br><span class="line"></span><br><span class="line">        server=smtplib.SMTP_SSL(&quot;smtp.qq.com&quot;, 465)  # 发件人邮箱中的SMTP服务器，端口是465</span><br><span class="line">        server.login(my_sender, my_pass)  # smtp秘钥</span><br><span class="line">        server.sendmail(my_sender,[my_user,],msg.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件</span><br><span class="line">        server.quit()# 关闭连接</span><br><span class="line">    except Exception:# 如果 try 中的语句没有执行，则会执行下面的 ret=False</span><br><span class="line">        ret=False</span><br><span class="line">    return ret</span><br><span class="line"></span><br><span class="line">ret=mail()</span><br><span class="line">if ret:</span><br><span class="line">    print(&quot;邮件发送成功&quot;)</span><br><span class="line">else:</span><br><span class="line">    print(&quot;邮件发送失败&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>项目改造后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#func_tool.py</span><br><span class="line"># 发件人smtp秘钥(当时申请smtp给的口令)</span><br><span class="line">def mail(my_sender,content):</span><br><span class="line">    ret=True</span><br><span class="line">    try:</span><br><span class="line">        msg=MIMEText(content,&apos;plain&apos;,&apos;utf-8&apos;)</span><br><span class="line">        msg[&apos;From&apos;]=formataddr([&quot;你好&quot;,my_sender])  # 括号里的对应发件人邮箱昵称、发件人邮箱账号</span><br><span class="line">        msg[&apos;To&apos;]=formataddr([&quot;你好&quot;,&apos;563173681@qq.com&apos;])              # 括号里的对应收件人邮箱昵称、收件人邮箱账号</span><br><span class="line">        msg[&apos;Subject&apos;]=&quot;请您激活用户&quot;                # 邮件的主题，也可以说是标题</span><br><span class="line"></span><br><span class="line">        server=smtplib.SMTP_SSL(&quot;smtp.qq.com&quot;, 465)  # 发件人邮箱中的SMTP服务器，端口是465</span><br><span class="line">        server.login(my_sender, &apos;jrntnoojsilabjcf&apos;)  # smtp秘钥</span><br><span class="line">        server.sendmail(my_sender,[&apos;563173681@qq.com&apos;,],msg.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件</span><br><span class="line">        server.quit()# 关闭连接</span><br><span class="line">    except Exception:# 如果 try 中的语句没有执行，则会执行下面的 ret=False</span><br><span class="line">        ret=False</span><br><span class="line">    return ret</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#user.py</span><br><span class="line"># 发送邮件</span><br><span class="line">class Post_email(BaseHandler):</span><br><span class="line">    def post(self, *args, **kwargs):</span><br><span class="line">        user_id = self.get_argument(&apos;user_id&apos;)</span><br><span class="line">        user = sess.query(User).filter(User.id == user_id).first()</span><br><span class="line">        if user.email:</span><br><span class="line">            url = &apos;http://172.16.18.10/activate?id=&apos;+user_id</span><br><span class="line">            mail(user.email,url)</span><br><span class="line">        else:</span><br><span class="line">            mes = &#123;&#125;</span><br><span class="line">            mes[&apos;code&apos;] = 10002</span><br><span class="line">            mes[&apos;message&apos;] = &apos;用户信息不全，请填写邮箱后激活&apos;</span><br><span class="line">            self.write(json.dumps(mes, ensure_ascii=False, indent=4))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#user.py</span><br><span class="line"># 回调返回首页</span><br><span class="line">class Activate(BaseHandler):</span><br><span class="line">    def get(self, *args, **kwargs):</span><br><span class="line">        user_id = self.get_argument(&apos;id&apos;)</span><br><span class="line">        user = sess.query(User).filter(User.id == user_id).first()</span><br><span class="line">        user.is_active = 1</span><br><span class="line">        sess.commit()</span><br><span class="line">        self.redirect(&apos;http://172.16.18.10:8080/&apos;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="给用户注册增加功能，用户注册成功后，进入用户首页，点击一个按钮激活账号，此时请求后台接口，接口生成一个链接，将该链接作为邮件发给用户邮箱，用户点击邮箱内的链接后跳转到商城首页，此时异步请求后台接口，后台接口根据用户uid将用户状态改为激活"><a href="#给用户注册增加功能，用户注册成功后，进入用户首页，点击一个按钮激活账号，此时请求后台接口，接口生成一个链接，将该链接作为邮件发给用户邮箱，用户点击邮箱内的链接后跳转到商城首页，此时异步请求后台接口，后台接口根据用户uid将用户状态改为激活" class="headerlink" title="给用户注册增加功能，用户注册成功后，进入用户首页，点击一个按钮激活账号，此时请求后台接口，接口生成一个链接，将该链接作为邮件发给用户邮箱，用户点击邮箱内的链接后跳转到商城首页，此时异步请求后台接口，后台接口根据用户uid将用户状态改为激活"></a>给用户注册增加功能，用户注册成功后，进入用户首页，点击一个按钮激活账号，此时请求后台接口，接口生成一个链接，将该链接作为邮件发给用户邮箱，用户点击邮箱内的链接后跳转到商城首页，此时异步请求后台接口，后台接口根据用户uid将用户状态改为激活</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/03/Email/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Ajax" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1427,95 +1507,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/04/22/Mysql/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Scrapy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/13/Scrapy/">反爬虫机制和破解方法汇总</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/13/Scrapy/" class="archive-article-date">
-  	<time datetime="2019-04-13T12:39:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>什么是爬虫和反爬虫？</p>
-<ul>
-<li>爬虫：使用任何技术手段，批量获取网站信息的一种方式。</li>
-<li>反爬虫：使用任何技术手段，阻止别人批量获取自己网站信息的一种方式。</li>
-</ul>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/bbdb7646fc214dbda285f2bf1d666a5e/xa9bhuro7m.jpeg" alt="img"></p>
-<p> 常见的反爬虫机制</p>
-<ul>
-<li>通过UA 识别爬虫 有些爬虫的UA是特殊的，与正常浏览器的不一样，可通过识别特征UA，直接封掉爬虫请求</li>
-<li>设置IP访问频率，如果超过一定频率，弹出验证码 如果输入正确的验证码，则放行，如果没有输入，则拉入禁止一段时间，如果超过禁爬时间，再次出发验证码，则拉入黑名单。当然根据具体的业务，为不同场景设置不同阈值，比如登陆用户和非登陆用户，请求是否含有refer。</li>
-<li>通过并发识别爬虫 有些爬虫的并发是很高的，统计并发最高的IP，加入黑名单（或者直接封掉爬虫IP所在C段）</li>
-<li>请求的时间窗口过滤统计 爬虫爬取网页的频率都是比较固定的，不像人去访问网页，中间的间隔时间比较无规则，所以我们可以给每个IP地址建立一个时间窗口，记录IP地址最近12次访问时间，每记录一次就滑动一次窗口，比较最近访问时间和当前时间，如果间隔时间很长判断不是爬虫，清除时间窗口，如果间隔不长，就回溯计算指定时间段的访问频率，如果访问频率超过阀值，就转向验证码页面让用户填写验证码</li>
-<li>限制单个ip/api token的访问量 比如15分钟限制访问页面180次，具体标准可参考一些大型网站的公开api，如twitter api，对于抓取用户公开信息的爬虫要格外敏感</li>
-<li>识别出合法爬虫 对http头agent进行验证，是否标记为、百度的spider，严格一点的话应该判别来源IP是否为、baidu的爬虫IP，这些IP在网上都可以找到。校验出来IP不在白名单就可以阻止访问内容。</li>
-<li>蜜罐资源 爬虫解析离不开正则匹配，适当在页面添加一些正常浏览器浏览访问不到的资源，一旦有ip访问，过滤下头部是不是搜素引擎的蜘蛛，不是就可以直接封了。比如说隐式链接。</li>
-</ul>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/b748ddafe7954541bab175b6ae4b6f76/q183d3ozzp.jpeg" alt="img"></p>
-<p>破解反爬虫机制的几种方法</p>
-<ul>
-<li>策略1：设置下载延迟，比如数字设置为5秒，越大越安全</li>
-<li>策略2：禁止Cookie，某些网站会通过Cookie识别用户身份，禁用后使得服务器无法识别爬虫轨迹</li>
-<li>策略3：使用user agent池。也就是每次发送的时候随机从池中选择不一样的浏览器头信息，防止暴露爬虫身份</li>
-<li>策略4：使用IP池，这个需要大量的IP资源，可以通过抓取网上免费公开的IP建成自有的IP代理池。</li>
-<li>策略5：分布式爬取，这个是针对大型爬虫系统的，实现一个分布式的爬虫，主要为以下几个步骤：  1、基本的http抓取工具，如scrapy；  2、避免重复抓取网页，如Bloom Filter；  3、维护一个所有集群机器能够有效分享的分布式队列；  4、将分布式队列和Scrapy的结合；  5、后续处理，网页析取(如python-goose)，存储(如Mongodb)。</li>
-<li>策略6：模拟登录—浏览器登录的爬取 设置一个cookie处理对象，它负责将cookie添加到http请求中，并能从http响应中得到cookie，向网站登录页面发送一个请求Request, 包括登录url，POST请求的数据，Http header利用urllib2.urlopen发送请求，接收WEB服务器的Response。</li>
-</ul>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/fa7eb8b17f214498ad0eead8d20cd771/mhc2gk0bc3.jpeg" alt="img"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/13/Scrapy/">展开全文 >></a>
         </p>
       
 

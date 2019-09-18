@@ -152,6 +152,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-hexo博客问题汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用hexo搭建的博客常见问题及方法"><a href="#使用hexo搭建的博客常见问题及方法" class="headerlink" title="使用hexo搭建的博客常见问题及方法"></a>使用hexo搭建的博客常见问题及方法</h2><ul>
+<li><p>关于图片展示的问题</p>
+<p>不能使用正常的MD格式图片展示，在网页上并不会展示，资源无法正常加载。我们使用如下方法：</p>
+<p>1.在根目录下的配置文件    <strong>_config.yml **  中的  **post_asset_folder</strong>   改为  true 。</p>
+<p>这样在建立文件时，<code>Hexo</code>会自动建立一个与文章同名的文件夹，这样就可以把与该文章相关的所有资源（图片）都放到那个文件夹里方便后面引用。</p>
+<p>2.在根目录打开git bash安装插件  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/<span class="number">7</span>ym0n/hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+
+<p>（这是个修改过的插件，经测试无问题），使用这个插件来引入图片，而不是用传统md语法相对路径的方法。 </p>
+<p>3.插入图片使用如下格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img 月.jpg This <span class="keyword">is</span> an test image %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解读：月.jpg 是你要引用的图片，  后面的This is an test image是对于图片的描述，可以自行更改。</p>
+<p>接下来就进行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean </span><br><span class="line"></span><br><span class="line">hexo g </span><br><span class="line"></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>是不是很神奇，图片能出来了，哈哈哈哈哈哈哈哈！</p>
+</li>
+</ul>
+<ul>
+<li><p>关于文章下面显示的标签问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: <span class="number">123</span></span><br><span class="line">date: <span class="number">2019</span><span class="number">-09</span><span class="number">-03</span> <span class="number">21</span>:<span class="number">13</span>:<span class="number">29</span></span><br><span class="line">tags:</span><br><span class="line">    - 随记</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>​    创建的文章都会有这样的头部，在tags中写入你想选择的分类即可。</p>
+<ul>
+<li><p><strong>所有文章</strong>  功能不可用，不显示。</p>
+<p>1、确保自己的node版本大于9</p>
+<p>2、在博客根目录执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-generator-json-content --save</span><br></pre></td></tr></table></figure>
+
+<p>3、在根目录的配置文件   *<em>_config.yml *</em>  加入以下内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">jsonContent:</span><br><span class="line">    meta: false</span><br><span class="line">    pages: false</span><br><span class="line">    posts:</span><br><span class="line">      title: true</span><br><span class="line">      date: true</span><br><span class="line">      path: true</span><br><span class="line">      text: false</span><br><span class="line">      raw: false</span><br><span class="line">      content: false</span><br><span class="line">      slug: false</span><br><span class="line">      updated: false</span><br><span class="line">      comments: false</span><br><span class="line">      link: false</span><br><span class="line">      permalink: false</span><br><span class="line">      excerpt: false</span><br><span class="line">      categories: false</span><br><span class="line">      tags: true</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/18/hexo博客问题汇总/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MyResume" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1447,188 +1531,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/08/30/localhostID/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-fastDfs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/29/fastDfs/">阿里云服务器docker搭建fastDfs</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/29/fastDfs/" class="archive-article-date">
-  	<time datetime="2019-08-29T11:58:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前写过了在win系统下使用docker搭建fastDfs，这篇讲一下如何在阿里云服务器部署。</p>
-<ul>
-<li>首先在阿里云服务器上开放端口  </li>
-</ul>
-<p>阿里云首页点击控制台，在最近使用中选择云服务器ECS，跳转新的页面，点击我的资源里的云服务器，跳转实例列表页面，最右边有一个更多，选择网络和安全组里的安全组配置，点击配置规则，上面有一个添加安全组规则，添加要开放的端口。</p>
-<p>端口范围例子：8888/8888</p>
-<p>授权对象列例子：0.0.0.0/0</p>
-<ul>
-<li><ul>
-<li>8000    tornado或者django默认端口</li>
-<li>22122     docker fastdfs容器端口</li>
-<li>8888        nignx默认端口</li>
-<li>80             tornado端口</li>
-<li>3306         mysql端口</li>
-<li>6379         redis端口</li>
-<li>8080         vue端口</li>
-</ul>
-</li>
-<li><p>安装docker</p>
-</li>
-<li><ul>
-<li>升级yum</li>
-</ul>
-</li>
-</ul>
-<p>sudo yum update</p>
-<p>卸载旧版本docker</p>
-<p>sudo yum remove docker docker-common docker-selinux docker-engine</p>
-<p>安装依赖</p>
-<p>sudo yum install -y yum-utils device-mapper-persistent-data lvm2</p>
-<p>设置源</p>
-<p>sudo yum-config-manager –add-repo <a href="https://download.docker.com/linux/centos/docker-ce.repo" target="_blank" rel="noopener">https://download.docker.com/linux/centos/docker-ce.repo</a></p>
-<p>安装docker</p>
-<p>sudo yum install docker-ce</p>
-<p>启动服务</p>
-<p>sudo systemctl start docker</p>
-<p>查看docker版本</p>
-<p>docker version</p>
-<p>如果以上不成功的话 执行：</p>
-<p>sudo yum install -y yum-utils device-mapper-persistent-data lvm2</p>
-<p>sudo yum-config-manager –add-repo <a href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p>
-<p>sudo yum makecache fast</p>
-<p>sudo yum -y install docker-ce</p>
-<p>在docker中将fastdfs镜像下载</p>
-<p>docker pull delron/fastdfs</p>
-<p>第一种：在docker容器内下载图片</p>
-<p>​    </p>
-<p>step1:</p>
-<p>  使用docker镜像构建tracker容器（跟踪服务器，起到调度的作用），这里tracker服务将会自动映射到宿主机上 </p>
-<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
-<p>step2:</p>
-<p>使用docker镜像构建storage容器（存储服务器，提供容量和备份服务），这里storage容器需要依赖tracker服务，传入你的tracker服务的ip地址，端口默认是22122，ip地址也就是你宿主机的ip </p>
-<p>这里的172.16.187.153是服务器centos的ip地址  通过ipconfig即可查看</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.187.153:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p>此时，命令行输入 docker ps 就可以看到两套服务都已经启动 </p>
-<p>step3:</p>
-<p>进入正在后台运行的storage容器</p>
-<p>docker exec -it storage /bin/bash</p>
-<p>随便下载一张图片,这个不用担心，因为在容器中如果不提交仓库的话，该图片是不会保存的 </p>
-<p>wget <a href="https://v3u.cn/v3u/Public/images/logo.png" target="_blank" rel="noopener">https://v3u.cn/v3u/Public/images/logo.png</a></p>
-<p>将该图片通过命令上传到分布式系统中 </p>
-<p>/usr/bin/fdfs_upload_file /etc/fdfs/client.conf logo.png</p>
-<p>这时该图片已上传至文件系统，并在执行该语句后返回图片存储的网络地址 </p>
-<p>最后通过浏览器访问以下存储在Fastdfs的图片，这张图片是通过nginx代理的静态资源，默认nginx监听8888端口，所以需要加上端口号，如果是在阿里云上部署，则需要暴露外部端口8888 </p>
-<p>注意：此时查看访问图片的IP地址是自己阿里云服务器提供的  公  IP + 8888</p>
-<p>第二种：在容器外部上传图片文件</p>
-<p>step1：</p>
-<p>利用docker的特性，我们知道docker 的 -v 参数，可以自动挂载宿主机的文件件到容器中去，这样宿主和容器就可以进行无障碍的文件共享，我们通过-v参数，把宿主机的root目录自动挂载到docker容器中的/var/root目录中去。</p>
-<p>这里的172.16.187.153是服务器centos的ip地址  通过ipconfig即可查看</p>
-<p># 创建tracker</p>
-<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
-<p># 创建storage</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.187.153:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p>我们可以利用docker的exec命令不进入容器，直接在宿主机的环境下调用容器内的命令，因为文件夹已经共享，所以我们输入的文件目录虽然是容器中的/var/root目录，但是实际上该上传的文件就在宿主的/root目录中 。</p>
-<p>注意：</p>
-<p>​    1、上传的图片路径不再是/var/root/文件名  而是/tmp/nginx/nginx-1.12.2/logo.png  这个就要自己进入容器查看一下决定，可能每个人不一样  使用 docker exec -it storage /bin/bash命令进入容器，进入后最左面的路径就是你要写的图片路径。</p>
-<p>​    2、这个要上传的文件必须已经存在于你的路径下，也就是说本地要确实存在这个图片或者视频等文件，否则会报错。</p>
-<p>docker exec -i storage /usr/bin/fdfs_upload_file /etc/fdfs/client.conf /tmp/nginx/nginx-1.12.2/logo.png</p>
-<p>上传成功后，fastdfs将会网络地址 </p>
-<p>然后在服务器访问即可，参照上一种的方法！</p>
-<p>docker拉取镜像</p>
-<p>docker pull delron/fastdfs</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/5cb7a13101e24457ad7258391b5b208b/edc2de1a233c4258908c3b4153ddceff.jpg" alt="img"></p>
-<p> docker images</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/45b5d3c920d14e82aae8abd309eb7e90/5ed0b040264a4ea3ac4b12cb9240d4c8.jpg" alt="img"></p>
-<p>docker save -o d:/redis.tar redis         存盘</p>
-<p>docker save -o d:/fastdfs.tar delron/fastdfs     （ 路径 镜像下的名字）</p>
-<p>docker load -i ‘d:/redis.tar’                   读盘</p>
-<p>docker load -i ‘d:/fastdfs.tar’</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/882a71a8a6d9466e83dc0408441136bc/f24751351235497bbbae5cd62a7f363d.jpg" alt="img"></p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/a859ce618bfb48a2bcd1dfdb89eb9b09/71da4769c6844ebe9a7f8bd6e9496c30.jpg" alt="img"></p>
-<p>#停止容器</p>
-<p>docker stop $(docker ps -a -q)</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/51ebd532760f45839b8f993815ea0c80/b58d7c35df6c42de84d3b75db951719b.jpg" alt="img"></p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/4e8808accc1249eeaecd627480de3fe1/7f46d575cf264f718b1a83f56f879f09.jpg" alt="img"></p>
-<p>#删除容器</p>
-<p>docker rm $(docker ps -a -q)</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/6e2b06499bda4bcca220fba7b928cfd0/0ecbbe4c48fc4fbb94c65a1a0061e602.jpg" alt="img"></p>
-<p>docker run -d –network=host –name tracker -v /root:/var/root delron/fastdfs tracker</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/dea7f17563114522a3435982cd567523/fa4bd93681214c69b67c9a5ff8cf2b56.jpg" alt="img"></p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=192.168.99.100:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p>docker下的：</p>
-<p>116.62.145.139</p>
-<p>密码：wangyifei0607.</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=172.16.51.0:22122 -v /root:/var/root -e GROUP_NAME=group1 delron/fastdfs storage</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/d3e6f9c75265486696ef426109135011/4cac88aa70df46208aa46ad3f2b31a3d.jpg" alt="img"></p>
-<p>docker exec -it storage /bin/bash                       进入容器</p>
-<p>wget <a href="https://v3u.cn/v3u/Public/images/logo.png" target="_blank" rel="noopener">https://v3u.cn/v3u/Public/images/logo.png</a></p>
-<p>ls</p>
-<p>/usr/bin/fdfs_upload_file /etc/fdfs/client.conf logo.png</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/08d751e51cfd4632be4655b142584790/61f04e9fbb85406484e547d1c0588580.jpg" alt="img"></p>
-<p>exit;</p>
-<p>浏览器访问：</p>
-<p><a href="http://192.168.99.100:8888/group1/M00/00/00/wKhjZF1bXXWADunAAAAS9iNyoDo725.png" target="_blank" rel="noopener">http://192.168.99.100:8888/group1/M00/00/00/wKhjZF1bXXWADunAAAAS9iNyoDo725.png</a></p>
-<p>docker ps -a          查看所有</p>
-<p>docker run -d –network=host –name tracker -v /c/Users:/var/root delron/fastdfs tracker</p>
-<p>docker run -d –network=host –name storage -e TRACKER_SERVER=192.168.99.100:22122 -v /c/Users:/var/root -e GROUP_NAM</p>
-<p>E=group1 delron/fastdfs storage</p>
-<p>docker exec -i        在外部调用容器内部的服务</p>
-<p>docker exec -i storage /usr/bin/fdfs_upl·oad_file /etc/fdfs/client.conf /var/root/test.mp4</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/29/fastDfs/">展开全文 >></a>
         </p>
       
 
