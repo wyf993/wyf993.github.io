@@ -152,6 +152,148 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-PeopleCount" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/08/PeopleCount/">在线人数的统计</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/08/PeopleCount/" class="archive-article-date">
+  	<time datetime="2019-08-08T06:23:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在线人数的统计逻辑：</p>
+<p>​    获取web登录用户的IP，存入redis数据库中，获取key的个数，就是登录访问web的人数，返回前端，前端使用组件传值，展示人数。</p>
+<p>直接上代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新写一个函数，作用如下：</span></span><br><span class="line"><span class="comment"># 存储IP到redis</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_ip</span><span class="params">(ip)</span>:</span></span><br><span class="line">    <span class="comment"># 存入redis</span></span><br><span class="line">    conn = redis.Redis(host=<span class="string">"localhost"</span>, port=<span class="number">6379</span>, db=<span class="number">4</span>)</span><br><span class="line">    <span class="comment"># scard 返回元素个数</span></span><br><span class="line">    count = conn.scard(<span class="string">'ip'</span>)</span><br><span class="line">    <span class="comment"># 如果获取的IP，数据库中不存在，说明未访问过，加入一条新的key，过期时间60s</span></span><br><span class="line">    <span class="keyword">if</span> count == <span class="number">0</span>:</span><br><span class="line">        conn.sadd(<span class="string">'ip'</span>, ip)</span><br><span class="line">        conn.expire(<span class="string">'ip'</span>, <span class="number">60</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        conn.sadd(<span class="string">'ip'</span>, ip)</span><br><span class="line">    <span class="keyword">return</span> conn.scard(<span class="string">'ip'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在接口中调用上面的函数，返回给前端</span></span><br><span class="line"><span class="comment"># 获取访问web的用户IP</span></span><br><span class="line">ip = self.request.remote_ip</span><br><span class="line"><span class="comment"># 调用函数</span></span><br><span class="line">count = count_ip(ip)</span><br></pre></td></tr></table></figure>
+
+<p>具体前端在哪使用，根据需求决定，使用组件传值即可。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/08/PeopleCount/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Page" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/04/Page/">tornado和vue.js结合实现分页：</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/04/Page/" class="archive-article-date">
+  	<time datetime="2019-08-04T12:43:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>分页的主要逻辑就是：每次从数据库查出数据发送前端，但是全部查出来一是压力过大，二来页面也不好看，所以每页展示的数量做一下文章，解决这个问题。就是每次从数据库调取数据时，根据页码和每页展示的个数来决定查询的数据。</p>
+<p>不多说还是直接代码：</p>
+<p>index.js为例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;myheader :total_price="total" :count='count' &gt;&lt;/myheader&gt;</span><br><span class="line">        </span><br><span class="line"><span class="comment"># 组件传值         </span></span><br><span class="line">&lt;page v-if="changestatus" :dataAll="all_page" :dataCur="current_page" :datanum="page_size" :dataDatanum="page_count" @change="pageChange"&gt;&lt;/page&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> page <span class="keyword">from</span> <span class="string">'./page.vue'</span>                </span><br><span class="line">                </span><br><span class="line"><span class="comment"># 前端 vue文件  定义四个变量 分页需要使用！！！</span></span><br><span class="line">// 当前页码</span><br><span class="line">current_page:<span class="number">1</span>,</span><br><span class="line">// 总条数</span><br><span class="line">page_count:<span class="number">0</span>,</span><br><span class="line">// 总页数</span><br><span class="line">all_page:<span class="number">0</span>,</span><br><span class="line">// 每页展示的个数</span><br><span class="line">page_size:<span class="number">3</span>,</span><br><span class="line">          </span><br><span class="line"> <span class="comment"># 将当前页和每页个数发给后端接口   </span></span><br><span class="line">this.axios.post(url,this.qs.stringify(&#123;current_page:this.current_page,page_size:this.page_size&#125;))</span><br><span class="line">                .then(function(result) &#123;</span><br><span class="line"></span><br><span class="line">                    console.log(result.data);</span><br><span class="line">                        </span><br><span class="line">                    //将值返回给model</span><br><span class="line">                    _this.goodslist = result.data.goods_list;</span><br><span class="line">                    _this.cate = result.data.cate;</span><br><span class="line">                    _this.page_count = result.data.len_num</span><br><span class="line">                    _this.ip_count = result.data.ip_count</span><br><span class="line">					// 向上取整 算出共分多少页</span><br><span class="line">					_this.all_page = Math.ceil(_this.page_count / _this.page_size)		</span><br><span class="line">					_this.changestatus = true</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 接着上面的vue文件继续写</span></span><br><span class="line">            pageChange: function(page) &#123;</span><br><span class="line">                this.current_page = page</span><br><span class="line">                let cate_id = this.$route.query.id</span><br><span class="line">				this.getData()</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 后端接口</span></span><br><span class="line"><span class="comment"># 向前台发送数据   首页展示的所有产品</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetGoodsHandler</span><span class="params">(BaseHandler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 当前页码</span></span><br><span class="line">        current_page = int(self.get_argument(<span class="string">'current_page'</span>))</span><br><span class="line">        <span class="comment"># 每页展示的个数</span></span><br><span class="line">        page_size = int(self.get_argument(<span class="string">'page_size'</span>))</span><br><span class="line">        <span class="comment"># 查出分页具体展示的数据</span></span><br><span class="line">        goods = sess.query(Goods).all()</span><br><span class="line">        num = (current_page - <span class="number">1</span>) * page_size</span><br><span class="line">        cate = sess.query(Category).filter(Category.parent_id == <span class="number">0</span>).all()</span><br><span class="line">        ip = self.request.remote_ip</span><br><span class="line">        count = count_ip(ip)</span><br><span class="line">        <span class="comment"># 查出的所有分类下产品的数量  用于分页查询使用</span></span><br><span class="line">        len_num = len(goods)</span><br><span class="line">        <span class="comment"># 查分页展示的数据  limit截取多少条   offset 从哪开始查</span></span><br><span class="line">        <span class="comment"># goods = sess.query(Goods.goods_name, Goods.id, Goods.price, Goods_img.img_name, Goods_img.order)\</span></span><br><span class="line">        <span class="comment">#     .join(Goods_img, Goods_img.goods_img == Goods.id).all()</span></span><br><span class="line">        goods = sess.query(Goods.goods_name, Goods.id, Goods.price, Goods_img.img_name, Goods_img.order) \</span><br><span class="line">            .join(Goods_img, Goods_img.goods_img == Goods.id).filter(Goods_img.order == <span class="number">0</span>) \</span><br><span class="line">            .limit(page_size).offset(num).all()</span><br><span class="line">        self.write(json.dumps(&#123;<span class="string">'status'</span>: <span class="number">200</span>, <span class="string">'msg'</span>: <span class="string">'返回成功'</span>, <span class="string">'goods_list'</span>: goods, <span class="string">'cate'</span>: cate, <span class="string">'len_num'</span>: len_num,</span><br><span class="line">                               <span class="string">'ip_count'</span>: count&#125;,</span><br><span class="line">                              cls=AlchemyEncoder, ensure_ascii=<span class="literal">False</span>, indent=<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+
+<p><strong>搞定下班！</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/04/Page/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Email" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1293,220 +1435,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/05/03/Tornado/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MemCache" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/01/MemCache/">MemCache是什么</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/01/MemCache/" class="archive-article-date">
-  	<time datetime="2019-05-01T12:43:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MemCache是一个自由、源码开放、高性能、分布式的分布式内存对象缓存系统，用于动态Web应用以减轻数据库的负载。</p>
-<p>它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高了网站访问的速度。</p>
-<p>MemCaChe与Redis相比在使用简单的key-value存储时memcached的内存利用率更高；而Redis在使用哈希结构来做key-value存储时，采用组合式压缩，</p>
-<p>内存利用率高于Memcache</p>
-<p>缓存：</p>
-<p>将要调用的对象存在内存中，使用时可以快速调用，不必再去创建新的重复的实例。可以减少系统开销，提高系统效率。</p>
-<p>MemCache被称为”分布式缓存”，但是不具备分布式的功能，因此只能在客户端通过像一致性哈希这样的分布式算法来实现MemCache分布式缓存。</p>
-<p>MemCache实现原理</p>
-<p>MemCache的数据存放在内存中，存放在内存中个人认为意味着几点：</p>
-<p>1、访问数据的速度比传统的关系型数据库要快，因为Oracle、MySQL这些传统的关系型数据库为了保持数据的持久性，数据存放在硬盘中，IO操作速度慢</p>
-<p>2、MemCache的数据存放在内存中同时意味着只要MemCache重启了，数据就会消失</p>
-<p>3、既然MemCache的数据存放在内存中，那么会受到机器位数的限制，32位机器最多只能使用2GB的内存空间，64位机器没有上限</p>
-<p>MemCache的原理，MemCache最重要的莫不是内存分配的内容了，MemCache采用的内存分配方式是固定空间分配，还是自己画一张图说明：</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/df9e5b79156f4429ab9af738de937383/31-851678818.png" alt="img"></p>
-<p>这张图片里面涉及了slab_class、slab、page、chunk四个概念，</p>
-<p>Slab Class  </p>
-<p>相同大小的chunk组成的组。</p>
-<p>Slab  </p>
-<p>是linux操作系统的一种内存分配机制</p>
-<p>Page</p>
-<p>分配给Slab的内存空间，默认是1MB。分配给Slab之后根据slab的大小切分成chunk。</p>
-<p>Chunk</p>
-<p>用于缓存记录的内存空间。  </p>
-<p>它们之间的关系是：</p>
-<p>1、MemCache将内存空间分为一组slab</p>
-<p>2、每个slab下又有若干个page，每个page默认是1M，如果一个slab占用100M内存的话，那么这个slab下应该有100个page</p>
-<p>3、每个page里面包含一组chunk，chunk是真正存放数据的地方，同一个slab里面的chunk的大小是固定的</p>
-<p>4、有相同大小chunk的slab被组织在一起，称为slab_class</p>
-<p>MemCache内存分配的方式称为allocator，slab的数量是有限的，几个、十几个或者几十个，这个和启动参数的配置相关。</p>
-<p>MemCache中的value过来存放的地方是由value的大小决定的，value总是会被存放到与chunk大小最接近的一个slab中，比如slab[1]的chunk大小为80字节、slab[2]的chunk大小为100字节、slab[3]的chunk大小为128字节（相邻slab内的chunk基本以1.25为比例进行增长，MemCache启动时可以用-f指定这个比例），那么过来一个88字节的value，这个value将被放到2号slab中。放slab的时候，首先slab要申请内存，申请内存是以page为单位的，所以在放入第一个数据的时候，无论大小为多少，都会有1M大小的page被分配给该slab。申请到page后，slab会将这个page的内存按chunk的大小进行切分，这样就变成了一个chunk数组，最后从这个chunk数组中选择一个用于存储数据。</p>
-<p>如果这个slab中没有chunk可以分配了怎么办，如果MemCache启动没有追加-M（禁止LRU，这种情况下内存不够会报Out Of Memory错误），那么MemCache会把这个slab中最近最少使用的chunk中的数据清理掉，然后放上最新的数据。针对MemCache的内存分配及回收算法，总结三点：</p>
-<p>1、MemCache的内存分配chunk里面会有内存浪费，88字节的value分配在128字节（紧接着大的用）的chunk中，就损失了30字节，但是这也避免了管理内存碎片的问题</p>
-<p>2、MemCache的LRU算法不是针对全局的，是针对slab的</p>
-<p>3、应该可以理解为什么MemCache存放的value大小是限制的，因为一个新数据过来，slab会先以page为单位申请一块内存，申请的内存最多就只有1M，所以value大小自然不能大于1M了</p>
-<p>再总结MemCache的特性和限制</p>
-<p>上面已经对于MemCache做了一个比较详细的解读，这里再次总结MemCache的限制和特性：</p>
-<p>1、MemCache中可以保存的item数据量是没有限制的，只要内存足够</p>
-<p>2、MemCache单进程在32位机中最大使用内存为2G，这个之前的文章提了多次了，64位机则没有限制</p>
-<p>3、Key最大为250个字节，超过该长度无法存储</p>
-<p>4、单个item最大数据是1MB，超过1MB的数据不予存储</p>
-<p>5、MemCache服务端是不安全的，比如已知某个MemCache节点，可以直接telnet过去，并通过flush_all让已经存在的键值对立即失效</p>
-<p>6、不能够遍历MemCache中所有的item，因为这个操作的速度相对缓慢且会阻塞其他的操作</p>
-<p>7、MemCache的高性能源自于两阶段哈希结构：第一阶段在客户端，通过Hash算法根据Key值算出一个节点；第二阶段在服务端，通过一个内部的Hash算法，查找真正的item并返回给客户端。从实现的角度看，MemCache是一个非阻塞的、基于事件的服务器程序</p>
-<p>8、MemCache设置添加某一个Key值的时候，传入expiry为0表示这个Key值永久有效，这个Key值也会在30天之后失效。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/01/MemCache/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/22/Mysql/">阿里云服务器Centos7.3安装Mysql数据库</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/22/Mysql/" class="archive-article-date">
-  	<time datetime="2019-04-22T12:35:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>## </p>
-<p>工作中项目会在本地进行开发，在开发完毕后，将项目上线部署，本次使用的是阿里云的服务器，那么就需要在服务器中安装项目用到的程序和服务等。</p>
-<p>本文介绍的是：如何安装Mysql数据库并测试运行。</p>
-<blockquote>
-<p>CentOS下自带mariadb    可以通过下面命令删除</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove mariadb-libs.x86_64</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>下载Mysql57的源文件</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /</span><br><span class="line">cd tmp</span><br><span class="line">wget https://repo.mysql.com/mysql57-community-release-el7-8.noarch.rpm</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>安装Mysql57</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum localinstall mysql57-community-release-el7-8.noarch.rpm</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>安装数据库服务</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-community-server</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>开启数据库</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
-
-<p>开启数据库会需要密码，但是默认密码不知道，接着看下面</p>
-<h1 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start    //启动数据库服务</span><br><span class="line">第一次启动过程中</span><br><span class="line">ps -ef |frep mysql                  //这条命令查看是否存在Mysql服务</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>查看mysql 密码</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/mysqld.log |grep <span class="string">"password"</span> </span><br><span class="line"><span class="comment"># 输入上面的命令会出现如下的结果 其中第一行 root@localhost: 后面的就是默认密码  </span></span><br><span class="line"><span class="comment"># cv使用 进入数据库修改密码</span></span><br><span class="line">[root@iz2zedrblb61bvhoe2yl7qz /]<span class="comment"># cat /var/log/mysqld.log |grep "password"</span></span><br><span class="line"><span class="number">2019</span><span class="number">-08</span><span class="number">-16</span>T09:<span class="number">02</span>:<span class="number">23.203191</span>Z <span class="number">1</span> [Note] A temporary password <span class="keyword">is</span> generated <span class="keyword">for</span> root@localhost: <span class="number">8</span>m2.(Mmjp3ad</span><br><span class="line"><span class="number">2019</span><span class="number">-08</span><span class="number">-16</span>T09:<span class="number">11</span>:<span class="number">32.856910</span>Z <span class="number">0</span> [Note] Shutting down plugin <span class="string">'validate_password'</span></span><br><span class="line"><span class="number">2019</span><span class="number">-08</span><span class="number">-16</span>T09:<span class="number">11</span>:<span class="number">34.068720</span>Z <span class="number">0</span> [Note] Shutting down plugin <span class="string">'sha256_password'</span></span><br><span class="line"><span class="number">2019</span><span class="number">-08</span><span class="number">-16</span>T09:<span class="number">11</span>:<span class="number">34.068722</span>Z <span class="number">0</span> [Note] Shutting down plugin <span class="string">'mysql_native_passwor '</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改Mysql数据库密码</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/mysqld.log |grep &quot;password&quot;      //首先查看mysql数据库密码并赋值</span><br><span class="line">mysql -u root -p              //进入数据库</span><br><span class="line">password                         //输入密码之后在修改密码</span><br><span class="line">set password = password(&quot;123456&quot;);          //修改密码为123456</span><br><span class="line">	- 如果显示 OK 证明修改密码成果</span><br><span class="line">	- 如果提示 Your password does not satisfy the current policy requirements</span><br><span class="line">	- 他的意思是告诉你你密码不符合当前策略要求</span><br><span class="line">set global validate_password_policy=0;       //密码安全策略为0</span><br><span class="line">set global validate_password_length=1;        //密码长度为1</span><br><span class="line">alter user &apos;root&apos;@&apos;localhost&apos; password expire never;  //root密码永不过期</span><br><span class="line">flush privileges;                 //重新加载权限列表</span><br><span class="line">set password = password(&quot;123456&quot;);          //修改密码为123456</span><br><span class="line"> - 这时候就可以成功了</span><br><span class="line">exit;        //退出</span><br><span class="line"> - 可以尝试使用新的密码重新登陆</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>使用Mysql命令进行测试</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show databases; </span><br><span class="line">exit;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/22/Mysql/">展开全文 >></a>
         </p>
       
 
