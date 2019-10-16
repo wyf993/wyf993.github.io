@@ -152,58 +152,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Thrift-RPC/微服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>微服务 低耦合高内聚 现在比较火的技术，我们公司提倡解耦用thrift架构，对传统http接口进行重构，http数据传输使用json/xml ，thrift框架二进制/xml 传输速度快  传统json使用 key/value传输，thrift省去key所占内存。 thrift框架里有一个.thrift文件，这个文件前后端各有一套，它可以定位value ，使前后端一致， 使用thrift框架，要改接口改功能的话，还必须要改.thrift文件，这样前端就能看到我改的数据，这就是接口文件的好处：定义接口名称 参数 接口返回值  string/list/ </p>
-<p>应用场景：</p>
-<p>1.用户认证 使功能模块服务化</p>
-<p>2.单点登录 </p>
-<p>​    同源策略:域名 协议 端口</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/16/Thrift-RPC/微服务/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Thrift-RPC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1473,6 +1421,113 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/03/docker2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-MysqlRW" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/01/MysqlRW/">在阿里云Centos7.6上面配置Mysql主从数据库(master/slave)，实现读写分离</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/01/MysqlRW/" class="archive-article-date">
+  	<time datetime="2019-09-01T02:05:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​    在之前的一篇文章中，阐述了如何在高并发高负载的场景下使用nginx做后台服务的负载均衡:<a href="https://v3u.cn/a_id_77" target="_blank" rel="noopener">在阿里云Centos上配置nginx+uwsgi+负载均衡配置</a>,但是不要以为这样做了就是一劳永逸的，到了数据业务层、数据访问层，如果还是传统的数据结构，或者只是单单靠一台服务器负载，如此多的数据库连接操作，数据库必然会崩溃，数据库如果宕机的话，后果更是不堪设想。这时候，我们会考虑如何减少数据库的连接，一方面采用优秀的代码框架，进行代码的优化，采用优秀的数据缓存技术如：redis,如果资金丰厚的话，必然会想到架设mysql服务集群，来分担主数据库的压力。今天总结一下利用MySQL主从配置，实现读写分离，减轻数据库压力。</p>
+<p>​    明确目的，部署mysql集群，采用一主一从的策略，写入操作使用主库，从库实时同步主库的数据，从库负责读取的业务，从而完成读写分离的目的。</p>
+<p>​    mysql主从同步的原理很简单，从库生成两个线程，一个I/O线程，一个SQL线程；i/o线程去请求主库 的binlog（二进制日志），并将得到的binlog日志写到relay log（中继日志） 文件中；主库会生成一个 log dump 线程，用来给从库 i/o线程传binlog；</p>
+<p>​    SQL 线程，会读取relay log文件中的日志，并解析成具体操作，来实现主从的操作一致，而最终数据一致。</p>
+<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190529/20190529071516_23557.png" alt="img"></p>
+<p>​    首先准备两台阿里云服务器，一台作为主机(master)，一台作为从机(slave)，都安装好mysql5.7，具体怎样安装mysql服务请移步：<a href="https://v3u.cn/a_id_72" target="_blank" rel="noopener">https://v3u.cn/a_id_72</a></p>
+<p>​    进入master服务器</p>
+<p>​    修改mysql配置文件 vim /etc/my.cnf，加入如下配置</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server-id=1</span><br><span class="line">innodb_flush_log_at_trx_commit=2</span><br><span class="line">sync_binlog=1</span><br><span class="line">log-bin=mysql-bin-1</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p>配置说明：</p>
+<p>保存后，重启mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart mysqld</span><br></pre></td></tr></table></figure>
+
+<p>进入mysql命令行 mysql -uroot -p你的密码</p>
+<p>输入授权命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT REPLICATION SLAVE ON *.* to &apos;repl&apos;@&apos;%&apos; identified by &apos;Admin123!&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>意思是所有slave都可以通过账号repl和密码Admin123!来同步master的数据</p>
+<p>然后查看master的状态:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show master status;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190529/20190529072527_35767.png" alt="img"></p>
+<p>把file列和Position列记录下来，一会配置slave要用到</p>
+<p>此时Master的配置已经搞定，登录一下从机(slave)</p>
+<p>同理修改slave服务器的mysql配置 vim /etc/my.cnf 加入下面的配置，需要注意的是server-id不要和master一样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server-id=201 </span><br><span class="line">innodb_flush_log_at_trx_commit=2 </span><br><span class="line">sync_binlog=1 </span><br><span class="line">log-bin=mysql-bin-201</span><br></pre></td></tr></table></figure>
+
+<p>保存后重启服务 systemctl restart mysqld</p>
+<p>进入mysql命令行 mysql -uroot -p你的密码</p>
+<p>输入命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">change master to master_host=&apos;39.106.228.179&apos;,master_user=&apos;repl&apos; ,master_password=&apos;Admin123!&apos;, master_log_file=&apos;mysql-bin.000002&apos; ,master_log_pos=154</span><br></pre></td></tr></table></figure>
+
+<p>命令说明：</p>
+<p>master_host: 主机的ip<br>master_user : 主机授权的用户.<br>master_password : 主机授权时候填写的密码<br>master_log_file : 主机show master status;中的File<br>master_log_pos: 主机show master status;中的Position.</p>
+<p>输入命令启动slave</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start slave;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show slave status G;   （show slave status;）</span><br></pre></td></tr></table></figure>
+
+<p>然后我们就可以测试一下对master进行写入，看看salve是否可以同步数据了</p>
+<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190529/20190529073320_84778.png" alt="img"></p>
+<p>当然了，mysql的读写分离主从配置并不是万能的，根据不同的应用场景选择不同的策略，MySQL的主从复制功能有一定的延迟性，如果对数据实时一致性的要求比较高的场景不推荐使用。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/01/MysqlRW/">展开全文 >></a>
         </p>
       
 

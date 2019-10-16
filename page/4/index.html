@@ -152,112 +152,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-MemCache" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/01/MemCache/">MemCache是什么</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/01/MemCache/" class="archive-article-date">
-  	<time datetime="2019-05-01T12:43:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MemCache是一个自由、源码开放、高性能、分布式的分布式内存对象缓存系统，用于动态Web应用以减轻数据库的负载。</p>
-<p>它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高了网站访问的速度。</p>
-<p>MemCaChe与Redis相比在使用简单的key-value存储时memcached的内存利用率更高；而Redis在使用哈希结构来做key-value存储时，采用组合式压缩，</p>
-<p>内存利用率高于Memcache</p>
-<p>缓存：</p>
-<p>将要调用的对象存在内存中，使用时可以快速调用，不必再去创建新的重复的实例。可以减少系统开销，提高系统效率。</p>
-<p>MemCache被称为”分布式缓存”，但是不具备分布式的功能，因此只能在客户端通过像一致性哈希这样的分布式算法来实现MemCache分布式缓存。</p>
-<p>MemCache实现原理</p>
-<p>MemCache的数据存放在内存中，存放在内存中个人认为意味着几点：</p>
-<p>1、访问数据的速度比传统的关系型数据库要快，因为Oracle、MySQL这些传统的关系型数据库为了保持数据的持久性，数据存放在硬盘中，IO操作速度慢</p>
-<p>2、MemCache的数据存放在内存中同时意味着只要MemCache重启了，数据就会消失</p>
-<p>3、既然MemCache的数据存放在内存中，那么会受到机器位数的限制，32位机器最多只能使用2GB的内存空间，64位机器没有上限</p>
-<p>MemCache的原理，MemCache最重要的莫不是内存分配的内容了，MemCache采用的内存分配方式是固定空间分配，还是自己画一张图说明：</p>
-<p><img src="/.com//%E8%BD%AF%E4%BB%B6/weixinobU7VjvZX2x2_m1Xzg8_du3vYdcU/df9e5b79156f4429ab9af738de937383/31-851678818.png" alt="img"></p>
-<p>这张图片里面涉及了slab_class、slab、page、chunk四个概念，</p>
-<p>Slab Class  </p>
-<p>相同大小的chunk组成的组。</p>
-<p>Slab  </p>
-<p>是linux操作系统的一种内存分配机制</p>
-<p>Page</p>
-<p>分配给Slab的内存空间，默认是1MB。分配给Slab之后根据slab的大小切分成chunk。</p>
-<p>Chunk</p>
-<p>用于缓存记录的内存空间。  </p>
-<p>它们之间的关系是：</p>
-<p>1、MemCache将内存空间分为一组slab</p>
-<p>2、每个slab下又有若干个page，每个page默认是1M，如果一个slab占用100M内存的话，那么这个slab下应该有100个page</p>
-<p>3、每个page里面包含一组chunk，chunk是真正存放数据的地方，同一个slab里面的chunk的大小是固定的</p>
-<p>4、有相同大小chunk的slab被组织在一起，称为slab_class</p>
-<p>MemCache内存分配的方式称为allocator，slab的数量是有限的，几个、十几个或者几十个，这个和启动参数的配置相关。</p>
-<p>MemCache中的value过来存放的地方是由value的大小决定的，value总是会被存放到与chunk大小最接近的一个slab中，比如slab[1]的chunk大小为80字节、slab[2]的chunk大小为100字节、slab[3]的chunk大小为128字节（相邻slab内的chunk基本以1.25为比例进行增长，MemCache启动时可以用-f指定这个比例），那么过来一个88字节的value，这个value将被放到2号slab中。放slab的时候，首先slab要申请内存，申请内存是以page为单位的，所以在放入第一个数据的时候，无论大小为多少，都会有1M大小的page被分配给该slab。申请到page后，slab会将这个page的内存按chunk的大小进行切分，这样就变成了一个chunk数组，最后从这个chunk数组中选择一个用于存储数据。</p>
-<p>如果这个slab中没有chunk可以分配了怎么办，如果MemCache启动没有追加-M（禁止LRU，这种情况下内存不够会报Out Of Memory错误），那么MemCache会把这个slab中最近最少使用的chunk中的数据清理掉，然后放上最新的数据。针对MemCache的内存分配及回收算法，总结三点：</p>
-<p>1、MemCache的内存分配chunk里面会有内存浪费，88字节的value分配在128字节（紧接着大的用）的chunk中，就损失了30字节，但是这也避免了管理内存碎片的问题</p>
-<p>2、MemCache的LRU算法不是针对全局的，是针对slab的</p>
-<p>3、应该可以理解为什么MemCache存放的value大小是限制的，因为一个新数据过来，slab会先以page为单位申请一块内存，申请的内存最多就只有1M，所以value大小自然不能大于1M了</p>
-<p>再总结MemCache的特性和限制</p>
-<p>上面已经对于MemCache做了一个比较详细的解读，这里再次总结MemCache的限制和特性：</p>
-<p>1、MemCache中可以保存的item数据量是没有限制的，只要内存足够</p>
-<p>2、MemCache单进程在32位机中最大使用内存为2G，这个之前的文章提了多次了，64位机则没有限制</p>
-<p>3、Key最大为250个字节，超过该长度无法存储</p>
-<p>4、单个item最大数据是1MB，超过1MB的数据不予存储</p>
-<p>5、MemCache服务端是不安全的，比如已知某个MemCache节点，可以直接telnet过去，并通过flush_all让已经存在的键值对立即失效</p>
-<p>6、不能够遍历MemCache中所有的item，因为这个操作的速度相对缓慢且会阻塞其他的操作</p>
-<p>7、MemCache的高性能源自于两阶段哈希结构：第一阶段在客户端，通过Hash算法根据Key值算出一个节点；第二阶段在服务端，通过一个内部的Hash算法，查找真正的item并返回给客户端。从实现的角度看，MemCache是一个非阻塞的、基于事件的服务器程序</p>
-<p>8、MemCache设置添加某一个Key值的时候，传入expiry为0表示这个Key值永久有效，这个Key值也会在30天之后失效。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/01/MemCache/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1009,6 +903,142 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/03/03/SessionCookie/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ALiYun1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/11/ALiYun1/">ALiYun1</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/11/ALiYun1/" class="archive-article-date">
+  	<time datetime="2018-02-11T01:53:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="在centos7-6上部署前后端分离项目Nginx反向代理vue-js2-6-Tornado5-1-1，使用supervisor统一管理服务"><a href="#在centos7-6上部署前后端分离项目Nginx反向代理vue-js2-6-Tornado5-1-1，使用supervisor统一管理服务" class="headerlink" title="在centos7.6上部署前后端分离项目Nginx反向代理vue.js2.6+Tornado5.1.1，使用supervisor统一管理服务"></a>在centos7.6上部署前后端分离项目Nginx反向代理vue.js2.6+Tornado5.1.1，使用supervisor统一管理服务</h1><p> 这一次使用vue.js+tornado的组合来部署前后端分离的web项目，vue.js不用说了，前端当红炸子鸡，泛用性非常广，无论是单页应用，还是混合式开发app，亦或是微信小程序开发，样样得心应手，tornado最近的风头有点被新锐框架sanic抢走了，但是作为老牌的异步非阻塞框架，其内置了支持epoll/kqueue 等高效网络库，而具备了处理高并发的能力并且开发效率也不低，这一次tornado作为承载后端压力的角色。</p>
+<p>​    首先部署前端，将测试好的vue.js2.6项目打包，值得一提的是，在生产环境并不需要node.js服务，因为利用vue.js的特性可以对前端页面进行打包，使其成为一个纯静态页包，上线后利用nginx对其代理即可，既方便又安全。在项目目录下执行npm run build命令，在执行之前，先把conifg目录下index.js中的bulid配置../dist改成./dist</p>
+<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190822/20190822125312_62859.png" alt="img"></p>
+<p>​    执行命令后，会在项目的config目录下的dist目录生成静态页，将dist目录上传到服务器的/root目录下</p>
+<p>​    运行 chmod 755 /root/dist 对项目文件授权</p>
+<p>​    然后，在线上安装nginx</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#设置源</span><br><span class="line">sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</span><br><span class="line"></span><br><span class="line">#安装</span><br><span class="line">yum install -y nginx</span><br><span class="line"></span><br><span class="line">#启动服务</span><br><span class="line">systemctl start nginx.service</span><br></pre></td></tr></table></figure>
+
+<p>​    服务器需要暴露80端口，此时，测试一下，看看能否显示欢迎页</p>
+<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190822/20190822125636_42282.png" alt="img"></p>
+<p>​    没有问题，这时修改一下nginx 配置文件 vim /etc/nginx/conf.d/default.conf  增加下面的配置，这里前端服务默认监听80端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    access_log      /root/md_vue_access.log;</span><br><span class="line">    error_log       /root/md_vue_error.log;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    client_max_body_size 75M;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line"></span><br><span class="line">        root /root/dist;</span><br><span class="line">        index index.html;</span><br><span class="line">        try_files $uri $uri/ /index.html;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    error_log    /root/dist/error.log    error;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#继续修改配置</span><br><span class="line">vim /etc/nginx/nginx.conf</span><br><span class="line">将第一行改为 user root;</span><br></pre></td></tr></table></figure>
+
+<p>改好后，重启nginx服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl reload nginx.service</span><br></pre></td></tr></table></figure>
+
+<p>每次修改nginx配置一定要重启服务，否则修改不会生效</p>
+<p>访问一下，看看效果</p>
+<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190822/20190822131209_18271.png" alt="img"></p>
+<p>​    至此，前端就部署好了，是不是很简单呢？这一次我们摒弃了老美多商城丑陋而原始的模板，采用响应式设计的新模板，兼容任意大小屏幕，并且还可以打包成apk，简直棒</p>
+<p>​    接着，我们来部署后端，首先安装python3，需要注意的是centos自带python2.7，当装软件的时候千万不要影响这个python2.7，因为系统很多东西都依赖python2，所以我们只要python2和python3共存就可以了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line"></span><br><span class="line">yum install python36</span><br><span class="line"></span><br><span class="line">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span><br><span class="line"></span><br><span class="line">python3 get-pip.py</span><br><span class="line"></span><br><span class="line">pip3 install pymysql</span><br><span class="line"></span><br><span class="line">pip3 install pillow</span><br><span class="line"></span><br><span class="line">pip3 install pycryptodome</span><br><span class="line"></span><br><span class="line">pip3 install tornado==5.1.1</span><br><span class="line"></span><br><span class="line">pip3 install sqlalchemy</span><br></pre></td></tr></table></figure>
+
+<p>​    将tornado项目上传到/root/mytornado下，修改项目权限:chmod -R 755 /root/mytornado 然后将项目的debug模式关闭，并且修改端口号为8001，同时阿里云暴露8001端口，进行项目根目录，启动服务:python3 server.py，检查一下</p>
+<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190823/20190823013951_52792.png" alt="img"></p>
+<p>​    没有问题，此时修改nginx配置文件，用nginx对tornado进行反向代理，新建一个配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/conf.d/tornado.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">upstream tornado &#123;</span><br><span class="line">    server 127.0.0.1:8001;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen   8000;</span><br><span class="line">    root /root/mytornado;</span><br><span class="line">    index server.py index.html;</span><br><span class="line"></span><br><span class="line">    server_name server;</span><br><span class="line"></span><br><span class="line">        # 静态文件直接由Nginx处理</span><br><span class="line">    location /static/&#123;</span><br><span class="line">        alias /root/mytornado/static/;</span><br><span class="line">        expires 24h;</span><br><span class="line">    &#125;</span><br><span class="line">    location /&#123;</span><br><span class="line">        proxy_pass_header Server;</span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        proxy_redirect off;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        # 把请求方向代理传给tornado服务器，负载均衡</span><br><span class="line">        proxy_pass http://tornado;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该配置的意思就是由nginx监听8000端口，并且将请求反向代理至tornado服务，这里我们只起了一个8001的服务，还可以启动更多，这就是传统意义上的负载均衡</p>
+<p>重启一下nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart nginx.service</span><br></pre></td></tr></table></figure>
+
+<p>访问服务器的8000端口，阿里云也别忘了暴露一下8000</p>
+<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190823/20190823022030_20802.png" alt="img"></p>
+<p>​    最后，每次手动在命令行启动应用是比较麻烦的，我们还需要一个能够方便的管理服务进程的工具，包括自动重启进程等，而Supervisor的作用在这里就可以体现了。我们使用它来管理这个Tornado web server相关的进程</p>
+<p>​    安装supervisor</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line">yum install -y supervisor</span><br></pre></td></tr></table></figure>
+
+<p>​    生成配置文件</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">supervisord -c /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
+
+<p>​    修改配置文件</p>
+<p>​    然后修改配置文件 vim /etc/supervisord.conf   将下面几行的注释解开</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[inet_http_server]         ; inet (TCP) server disabled by default</span><br><span class="line">port=*:9001        ; (ip_address:port specifier, *:port for all iface)</span><br><span class="line">username=user              ; (default is no username (open server))</span><br><span class="line">password=123               ; (default is no password (open server))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>​    然后在配置文件末尾加上tornado的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[program:mytornado]</span><br><span class="line">command=python3 /root/mytornado/server.py --port=8001</span><br><span class="line">directory=/root/mytornado</span><br><span class="line">autorestart=true</span><br><span class="line">redirect_stderr=true</span><br></pre></td></tr></table></figure>
+
+<p>​    保存文件退出后，启动supervisor服务</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">supervisord -c /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
+
+<p>​    此时，将刚刚手动启动的tornado服务关闭，然后访问服务器的9001端口，用配置文件中的账号和密码登录</p>
+<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190823/20190823024429_56609.png" alt="img"></p>
+<p>​    这样就可以在管理页面中控制tornado服务了，同时supervisor还赋予了守护进程模式，方便服务拉起</p>
+<p>​    需要注意的是，当修改了supervisor的配置，想要生效就得重启supervisor服务，终止服务命令是：</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall -s INT /usr/bin/python</span><br></pre></td></tr></table></figure>
+
+<p>​    因为supervisor是基于python2的，所以不用担心python3的进程</p>
+<p>​    另外如果只想在命令行中控制tornado也是可以的</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#停止tornado服务</span><br><span class="line">supervisorctl stop mytornado</span><br><span class="line"></span><br><span class="line">#启动tornado服务</span><br><span class="line">supervisorctl start mytornado</span><br></pre></td></tr></table></figure>
+
+<p>至此，我们通过nginx反向代理tornado负载均衡，并且通过supervisor管理就部署好了，简直太简单了</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/11/ALiYun1/">展开全文 >></a>
         </p>
       
 
