@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | Hexo</title>
+  <title>进程线程协程 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2019/page/2/index.html">
+  <meta name="description" content="为什么要使用进程，线程，协程   目的是为了节约时间，提高效率 进程线程协程终极本质 是多任务 进程是  multiprocessing模块  多进程适用于CPU密集型任务 缺点：进程无法资源共享，进程之间互不影响  ， 是并行，每一条进程执行自己的任务   进程通过队列、管道进行通信 训练模型时候用到多进程，深度学习，切分数据集，验证集，测试集，训练集( sklearn)科学计算的时候 ， 起t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程线程协程">
+<meta property="og:url" content="http://yoursite.com/2019/10/17/JinXianXiecheng/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="为什么要使用进程，线程，协程   目的是为了节约时间，提高效率 进程线程协程终极本质 是多任务 进程是  multiprocessing模块  多进程适用于CPU密集型任务 缺点：进程无法资源共享，进程之间互不影响  ， 是并行，每一条进程执行自己的任务   进程通过队列、管道进行通信 训练模型时候用到多进程，深度学习，切分数据集，验证集，测试集，训练集( sklearn)科学计算的时候 ， 起t">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-17T14:37:14.861Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="进程线程协程">
+<meta name="twitter:description" content="为什么要使用进程，线程，协程   目的是为了节约时间，提高效率 进程线程协程终极本质 是多任务 进程是  multiprocessing模块  多进程适用于CPU密集型任务 缺点：进程无法资源共享，进程之间互不影响  ， 是并行，每一条进程执行自己的任务   进程通过队列、管道进行通信 训练模型时候用到多进程，深度学习，切分数据集，验证集，测试集，训练集( sklearn)科学计算的时候 ， 起t">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,295 +154,192 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JinXianXiecheng" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      进程线程协程
+    </h1>
+  
+
+        
+        <a href="/2019/10/17/JinXianXiecheng/" class="archive-article-date">
+  	<time datetime="2019-10-17T14:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-17</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>为什么要使用进程，线程，协程   目的是为了节约时间，提高效率</p>
+<p>进程线程协程终极本质 是多任务</p>
+<p>进程是  multiprocessing模块  多进程适用于CPU密集型任务 缺点：进程无法资源共享，进程之间互不影响  ， 是并行，每一条进程执行自己的任务   进程通过队列、管道进行通信</p>
+<p>训练模型时候用到多进程，深度学习，切分数据集，验证集，测试集，训练集(</p>
+<p>sklearn)科学计算的时候 ， 起tornado服务的时候ioloop单进程用到多进程形式  用来抗高并发</p>
+<p>线程是 threading模块  多用于IO密集型 ，线程特点 资源共享，是并发的，正因为资源共享，一个线程死亡会影响其他的线程，相互影响</p>
+<p>(io密集型  就是文件读写、 网络请求    爬虫跟写文件   涉及磁盘的就是io 密集型)</p>
+<p>由资源共享问题延展出线程安全问题，两个线程操作一个资源就需要上锁了</p>
+<p>协程 ： 又称为微线程，协程基于单线程，单进程， 线程基于进程的，协程就是一个线程，如果遇到多任务可以随时切换，如果遇到了IO阻塞，立刻切干别的事情了，这就是IO多处复用，遇到阻塞来回切换。避免了上下文切换，造成资源消耗</p>
+<p>协成是基于greenlet、gevent机制，greenlet机制就是生成器函数，协成底层是由生成器实现的</p>
+<p>生成器： python3.4  出了自己的原生协程， async 声明一个方法为异步方法  。await  声明挂起，当我遇到IO阻塞的时候挂起 。 多任务考虑协程，声明异步方法使用协程。</p>
+<p>生成器是特殊的迭代器，迭代器内部封装了next方法和iter方法，能保存状态一步一步的返回遍历结果，只要可遍历的就是可迭代的。使用yield关键字，写功能的时候效率非常高 ，性能好，节约代码量</p>
+<p>应用场景：1.遍历一个列表，返回结果；</p>
+<p>2.用于爬虫中 能够挂载 不让任务结束   最终返回状态</p>
+<p>3.文件读写 </p>
+<p>4.epoll</p>
+<p>5.四大高阶函数</p>
+<p>6.async  await  协程底层就是生成器</p>
+<p>7.greenlet gevent 第三方库</p>
+<p>可迭代对象  s = ‘abc’  通过加iter(s)就成为迭代器对象</p>
+<p>为什么用迭代器： range   2.7 返回是一个list  3.0 返回的的是一个迭代器对象，</p>
+<p>迭代器的缺点就是迭代器枯竭：不知道长度是多少，不能判断到最后，用try except  捕获异常就行 ，迭代器本身可以循环  </p>
+<p>return 和 yield 的区别  一个返回结果，一个返回状态</p>
+<p>send需要传参数，第一次不需要传参，第二次必须传参  唤醒 返回状态</p>
+<p>可以上传大量文件用切片分割成若干个小文件上传用到了fastdfs，IO密集型</p>
+<p>tornado核心是ioloop  底层基于epoll模型（多路复用）    select poll epoll网络模型  epoll是在poll基础上封装的</p>
+<p>select、poll区别就是有长度限制，没有epoll性能高</p>
+<p>select 是最原始的 如果有小孩闹，需要停下来（缺陷）床有限制   底层是无差别轮询</p>
+<p>poll（池子），单进程，单线程无法挨个并发，处理高并发，把所有请求放到池子里，</p>
+<p>有一个循环，是个闭环，池子里所有任务挨个执行，例如：育婴史例子，护士看小孩生命体制有没有问题，一个一个检查，无限制</p>
+<p>epoll是在poll基础上封装的，本质是轮询，但加了一套机制，监听幻想机制，把有问题的孩子单独拎出来，放到另一个房间（小池子里）轮询，性能高，把需要有需求的优先解决</p>
+<p>是单进程单线程</p>
+<p>ioloop底层基于epoll网络模型</p>
+<p>iostream处理请求读写</p>
+<p>httpserver服务器模块</p>
+<p>application 请求路由</p>
+<p>requesthandler  控制器模块</p>
+<p>authoreload检测代码修改 调节debug模式开关</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/03/docker2/" class="archive-article-date">
-  	<time datetime="2019-09-03T12:07:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/03/docker2/">Docker快速入门-Compose</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/17/JinXianXiecheng/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/01/MysqlRW/" class="archive-article-date">
-  	<time datetime="2019-09-01T02:05:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/16/WeiFuWu/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微服务</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/01/MysqlRW/">在阿里云Centos7.6上面配置Mysql主从数据库(master/slave)，实现读写分离</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/30/localhostID/" class="archive-article-date">
-  	<time datetime="2019-08-30T06:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/30/localhostID/">修改localhost地址为对外ID</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/29/fastDfs/" class="archive-article-date">
-  	<time datetime="2019-08-29T11:58:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/29/fastDfs/">阿里云服务器docker搭建fastDfs</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/28/Thrift/" class="archive-article-date">
-  	<time datetime="2019-08-28T07:06:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/28/Thrift/">Thrift</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/26/RPC/" class="archive-article-date">
-  	<time datetime="2019-08-26T12:42:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/26/RPC/">RPC简介及框架选择</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/26/Docker3/" class="archive-article-date">
-  	<time datetime="2019-08-26T01:56:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/26/Docker3/">Docker三要素</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/22/JWT/" class="archive-article-date">
-  	<time datetime="2019-08-22T07:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/22/JWT/">JWT</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/22/hello-world/" class="archive-article-date">
-  	<time datetime="2019-08-22T00:45:41.330Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/20/Phone/" class="archive-article-date">
-  	<time datetime="2019-08-20T06:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/20/Phone/">手机短信验证</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="page-number" href="/archives/2019/page/4/">4</a><a class="extend next" rel="next" href="/archives/2019/page/3/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +363,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

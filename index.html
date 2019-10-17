@@ -152,6 +152,106 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JinXianXiecheng" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/17/JinXianXiecheng/">进程线程协程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/17/JinXianXiecheng/" class="archive-article-date">
+  	<time datetime="2019-10-17T14:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>为什么要使用进程，线程，协程   目的是为了节约时间，提高效率</p>
+<p>进程线程协程终极本质 是多任务</p>
+<p>进程是  multiprocessing模块  多进程适用于CPU密集型任务 缺点：进程无法资源共享，进程之间互不影响  ， 是并行，每一条进程执行自己的任务   进程通过队列、管道进行通信</p>
+<p>训练模型时候用到多进程，深度学习，切分数据集，验证集，测试集，训练集(</p>
+<p>sklearn)科学计算的时候 ， 起tornado服务的时候ioloop单进程用到多进程形式  用来抗高并发</p>
+<p>线程是 threading模块  多用于IO密集型 ，线程特点 资源共享，是并发的，正因为资源共享，一个线程死亡会影响其他的线程，相互影响</p>
+<p>(io密集型  就是文件读写、 网络请求    爬虫跟写文件   涉及磁盘的就是io 密集型)</p>
+<p>由资源共享问题延展出线程安全问题，两个线程操作一个资源就需要上锁了</p>
+<p>协程 ： 又称为微线程，协程基于单线程，单进程， 线程基于进程的，协程就是一个线程，如果遇到多任务可以随时切换，如果遇到了IO阻塞，立刻切干别的事情了，这就是IO多处复用，遇到阻塞来回切换。避免了上下文切换，造成资源消耗</p>
+<p>协成是基于greenlet、gevent机制，greenlet机制就是生成器函数，协成底层是由生成器实现的</p>
+<p>生成器： python3.4  出了自己的原生协程， async 声明一个方法为异步方法  。await  声明挂起，当我遇到IO阻塞的时候挂起 。 多任务考虑协程，声明异步方法使用协程。</p>
+<p>生成器是特殊的迭代器，迭代器内部封装了next方法和iter方法，能保存状态一步一步的返回遍历结果，只要可遍历的就是可迭代的。使用yield关键字，写功能的时候效率非常高 ，性能好，节约代码量</p>
+<p>应用场景：1.遍历一个列表，返回结果；</p>
+<p>2.用于爬虫中 能够挂载 不让任务结束   最终返回状态</p>
+<p>3.文件读写 </p>
+<p>4.epoll</p>
+<p>5.四大高阶函数</p>
+<p>6.async  await  协程底层就是生成器</p>
+<p>7.greenlet gevent 第三方库</p>
+<p>可迭代对象  s = ‘abc’  通过加iter(s)就成为迭代器对象</p>
+<p>为什么用迭代器： range   2.7 返回是一个list  3.0 返回的的是一个迭代器对象，</p>
+<p>迭代器的缺点就是迭代器枯竭：不知道长度是多少，不能判断到最后，用try except  捕获异常就行 ，迭代器本身可以循环  </p>
+<p>return 和 yield 的区别  一个返回结果，一个返回状态</p>
+<p>send需要传参数，第一次不需要传参，第二次必须传参  唤醒 返回状态</p>
+<p>可以上传大量文件用切片分割成若干个小文件上传用到了fastdfs，IO密集型</p>
+<p>tornado核心是ioloop  底层基于epoll模型（多路复用）    select poll epoll网络模型  epoll是在poll基础上封装的</p>
+<p>select、poll区别就是有长度限制，没有epoll性能高</p>
+<p>select 是最原始的 如果有小孩闹，需要停下来（缺陷）床有限制   底层是无差别轮询</p>
+<p>poll（池子），单进程，单线程无法挨个并发，处理高并发，把所有请求放到池子里，</p>
+<p>有一个循环，是个闭环，池子里所有任务挨个执行，例如：育婴史例子，护士看小孩生命体制有没有问题，一个一个检查，无限制</p>
+<p>epoll是在poll基础上封装的，本质是轮询，但加了一套机制，监听幻想机制，把有问题的孩子单独拎出来，放到另一个房间（小池子里）轮询，性能高，把需要有需求的优先解决</p>
+<p>是单进程单线程</p>
+<p>ioloop底层基于epoll网络模型</p>
+<p>iostream处理请求读写</p>
+<p>httpserver服务器模块</p>
+<p>application 请求路由</p>
+<p>requesthandler  控制器模块</p>
+<p>authoreload检测代码修改 调节debug模式开关</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/17/JinXianXiecheng/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-WeiFuWu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -201,6 +301,86 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/10/16/WeiFuWu/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Celery" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/15/Celery/">Celery分布式任务队列</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/15/Celery/" class="archive-article-date">
+  	<time datetime="2019-10-15T14:25:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Celery分布式任务队列，同步写法实现异步消息队列（也可以推送消息）</p>
+<p>有两个任务模块： 异步任务（并发发往消息队列）</p>
+<p>​                定时任务（定时将任务发往消息队列）</p>
+<p>架构由三部分组成：消息中间件（message broker）：支持RabbitMQ、Redis、Mongodb、Memcached</p>
+<p>​                  任务执行单元（worker）</p>
+<p>​                  任务执行结果存储（Backend）:存在方式RabbitMQ、Redis、Memcached</p>
+<p>Celery建议的消息队列是RabbitMQ，为了简单可以都使用 redis或者rabbitmq</p>
+<p>redis的作为消息中间件可谓是差强人意，功能和性能上都不如RabbitMQ，消息中间件使用RabbitMQ来实现异步发邮件，监控任务队列。</p>
+<p>任务重复执行：</p>
+<p>celery执行定时任务的时候遇到了重复执行的问题，当时是用redis做broker和backend。</p>
+<p>解决方法是在每次定时任务执行完就在redis中写入一个唯一的key对应一个时间戳，当下次任务执行前去获取redis中的这个key对应的value值，和当前的时间做比较，当满足我们的定时频率要求时才执行，这样保证了同一个任务在规定的时间内只会执行一次。</p>
+<p>消息丢失问题：</p>
+<p>rabbitmq和redis都可以持久化，并且工作的很良好，我维护过的一个rabbitmq消息队列运行一年左右时间也没有出现过丢消息之类的问题，并且还可以做热备如果你的订单量不大，或者说，目前这个惯用的轮询的方式已经工作的非常良好，那也不失为一个好方案。多引入一个rabbitmq或者redis，一方面，你程序的配置会变得更加复杂（意味着上线也会多步骤，比如要检查你消息队列中的消息是否要延后处理），另一方面，运维需要多一个东西要关注和监控，这是实实在在增加的成本</p>
+<p>能在性能，开发便利性还有运维便利性之间做一个良好的平衡，才是一个好的技术方案</p>
+<p>生产者消费者模型</p>
+<p>生产者-消费者模式是一个十分经典的多线程并发协作的模式，弄懂生产者-消费者问题能够让我们对并发编程的理解加深。所谓生产者-消费者问题，实际上主要是包含了两类线程，一种是生产者线程用于生产数据，另一种是消费者线程用于消费数据，为了解耦生产者和消费者的关系，通常会采用共享的数据区域，就像是一个仓库，生产者生产数据之后直接放置在共享数据区中，并不需要关心消费者的行为；而消费者只需要从共享数据区中去获取数据，就不再需要关心生产者的行为。但是，这个共享数据区域中应该具备这样的线程间并发协作的功能：</p>
+<p>如果共享数据区已满的话，阻塞生产者继续生产数据放置入内； 如果共享数据区为空的话，阻塞消费者继续消费数据；</p>
+<p>生产者和消费者彼此之间不直接通讯，而通过阻塞队列来进行通讯，所以生产者生产完数据之后不用等待消费者处理，直接扔给阻塞队列，消费者不找生产者要数据，而是直接从阻塞队列里取，阻塞队列就相当于一个缓冲区，平衡了生产者和消费者的处理能力。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/15/Celery/">展开全文 >></a>
         </p>
       
 
@@ -1228,322 +1408,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/04/Docker-compose/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-docker2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/docker2/">Docker快速入门-Compose</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/03/docker2/" class="archive-article-date">
-  	<time datetime="2019-09-03T12:07:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p># </p>
-<h2 id="一、Docker-Compose简介"><a href="#一、Docker-Compose简介" class="headerlink" title="一、Docker-Compose简介"></a>一、Docker-Compose简介</h2><h3 id="1、Docker-Compose简介"><a href="#1、Docker-Compose简介" class="headerlink" title="1、Docker-Compose简介"></a>1、Docker-Compose简介</h3><p>Docker-Compose项目是Docker官方的开源项目，负责实现对Docker容器集群的快速编排。<br>Docker-Compose将所管理的容器分为三层，分别是工程（project），服务（service）以及容器（container）。Docker-Compose运行目录下的所有文件（docker-compose.yml，extends文件或环境变量文件等）组成一个工程，若无特殊指定工程名即为当前目录名。一个工程当中可包含多个服务，每个服务中定义了容器运行的镜像，参数，依赖。一个服务当中可包括多个容器实例，Docker-Compose并没有解决负载均衡的问题，因此需要借助其它工具实现服务发现及负载均衡。<br>Docker-Compose的工程配置文件默认为docker-compose.yml，可通过环境变量COMPOSE_FILE或-f参数自定义配置文件，其定义了多个有依赖关系的服务及每个服务运行的容器。<br>使用一个Dockerfile模板文件，可以让用户很方便的定义一个单独的应用容器。在工作中，经常会碰到需要多个容器相互配合来完成某项任务的情况。例如要实现一个Web项目，除了Web服务容器本身，往往还需要再加上后端的数据库服务容器，甚至还包括负载均衡容器等。<br>Compose允许用户通过一个单独的docker-compose.yml模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）。<br>Docker-Compose项目由Python编写，调用Docker服务提供的API来对容器进行管理。因此，只要所操作的平台支持Docker API，就可以在其上利用Compose来进行编排管理。</p>
-<h3 id="2、Docker-Compose安装"><a href="#2、Docker-Compose安装" class="headerlink" title="2、Docker-Compose安装"></a>2、Docker-Compose安装</h3><p>安装方法一：<br>下载Docker-Compose：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://github.com/docker/compose/releases/download/1.23.0-rc3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
-
-<p>安装Docker-Compose：<br><code>sudo chmod +x /usr/local/bin/docker-compose</code><br>查看版本 :<br><code>docker-compose version</code><br>安装方法二：<br>安装pip</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br><span class="line">yum -y install python-pip</span><br></pre></td></tr></table></figure>
-
-<p>确认版本<br><code>pip --version</code><br>更新pip<br><code>pip install --upgrade pip</code><br>安装docker-compose<br><code>pip install docker-compose</code><br>查看版本<br><code>docker-compose version</code><br>安装补全工具：<br>为了方便输入命令，也可以安装Docker的补全提示工具帮忙快速输入命令：<br>安装<br><code>yum install bash-completion</code><br>下载docker-compose脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose &gt; /etc/bash_completion.d/docker-compose</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、Docker-Compose卸载"><a href="#3、Docker-Compose卸载" class="headerlink" title="3、Docker-Compose卸载"></a>3、Docker-Compose卸载</h3><p>如果是二进制包方式安装的，删除二进制文件即可：<br><code>sudo rm /usr/local/bin/docker-compose</code><br>如果通过Python pip工具安装的，则执行如下命令删除：<br><code>sudo pip uninstall docker-compose</code></p>
-<h2 id="二、Docker-Compose常用命令"><a href="#二、Docker-Compose常用命令" class="headerlink" title="二、Docker-Compose常用命令"></a>二、Docker-Compose常用命令</h2><h3 id="1、Docker-Compose命令格式"><a href="#1、Docker-Compose命令格式" class="headerlink" title="1、Docker-Compose命令格式"></a>1、Docker-Compose命令格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose [-f &lt;arg&gt;...] [options] [COMMAND] [ARGS...]</span><br></pre></td></tr></table></figure>
-
-<p>命令选项如下：<br>-f，–file FILE指定Compose模板文件，默认为docker-compose.yml，可以多次指定。<br>-p，–project-name NAME指定项目名称，默认将使用所在目录名称作为项目名。<br>-x-network-driver 使用Docker的可拔插网络后端特性（需要Docker 1.9+版本）<br>-x-network-driver DRIVER指定网络后端的驱动，默认为bridge（需要Docker 1.9+版本）<br>-verbose输出更多调试信息<br>-v，–version打印版本并退出</p>
-<h3 id="2、docker-compose-up"><a href="#2、docker-compose-up" class="headerlink" title="2、docker-compose up"></a>2、docker-compose up</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up [options] [--scale SERVICE=NUM...] [SERVICE...]</span><br></pre></td></tr></table></figure>
-
-<p>选项包括：<br>-d 在后台运行服务容器<br>–no-color 不使用颜色来区分不同的服务的控制输出<br>–no-deps 不启动服务所链接的容器<br>–force-recreate 强制重新创建容器，不能与–no-recreate同时使用<br>–no-recreate 如果容器已经存在，则不重新创建，不能与–force-recreate同时使用<br>–no-build 不自动构建缺失的服务镜像<br>–build 在启动容器前构建服务镜像<br>–abort-on-container-exit 停止所有容器，如果任何一个容器被停止，不能与-d同时使用<br>-t, –timeout TIMEOUT 停止容器时候的超时（默认为10秒）<br>–remove-orphans 删除服务中没有在compose文件中定义的容器<br>–scale SERVICE=NUM 设置服务运行容器的个数，将覆盖在compose中通过scale指定的参数<br><code>docker-compose up</code><br>启动所有服务<br><code>docker-compose up -d</code><br>在后台所有启动服务<br>-f 指定使用的Compose模板文件，默认为docker-compose.yml，可以多次指定。<br><code>docker-compose -f docker-compose.yml up -d</code></p>
-<h3 id="3、docker-compose-ps"><a href="#3、docker-compose-ps" class="headerlink" title="3、docker-compose ps"></a>3、docker-compose ps</h3><p><code>docker-compose ps [options] [SERVICE...]</code><br><code>docker-compose ps</code><br>列出项目中目前的所有容器</p>
-<h3 id="4、docker-compose-stop"><a href="#4、docker-compose-stop" class="headerlink" title="4、docker-compose stop"></a>4、docker-compose stop</h3><p><code>docker-compose stop [options] [SERVICE...]</code><br>选项包括：<br>-t, –timeout TIMEOUT 停止容器时候的超时（默认为10秒）<br><code>docker-compose stop</code><br>停止正在运行的容器，可以通过docker-compose start 再次启动</p>
-<h3 id="5、docker-compose-h"><a href="#5、docker-compose-h" class="headerlink" title="5、docker-compose -h"></a>5、docker-compose -h</h3><p><code>docker-compose -h</code><br>查看帮助</p>
-<h3 id="6、docker-compose-down"><a href="#6、docker-compose-down" class="headerlink" title="6、docker-compose down"></a>6、docker-compose down</h3><p><code>docker-compose down [options]</code><br>停止和删除容器、网络、卷、镜像。<br>选项包括：<br>–rmi type，删除镜像，类型必须是：all，删除compose文件中定义的所有镜像；local，删除镜像名为空的镜像<br>-v, –volumes，删除已经在compose文件中定义的和匿名的附在容器上的数据卷<br>–remove-orphans，删除服务中没有在compose中定义的容器<br><code>docker-compose down</code><br>停用移除所有容器以及网络相关</p>
-<h3 id="7、docker-compose-logs"><a href="#7、docker-compose-logs" class="headerlink" title="7、docker-compose logs"></a>7、docker-compose logs</h3><p><code>docker-compose logs [options] [SERVICE...]</code><br>查看服务容器的输出。默认情况下，docker-compose将对不同的服务输出使用不同的颜色来区分。可以通过–no-color来关闭颜色。<br><code>docker-compose logs</code><br>查看服务容器的输出</p>
-<h3 id="8、docker-compose-build"><a href="#8、docker-compose-build" class="headerlink" title="8、docker-compose build"></a>8、docker-compose build</h3><p><code>docker-compose build [options] [--build-arg key=val...] [SERVICE...]</code><br>构建（重新构建）项目中的服务容器。<br>选项包括：<br>–compress 通过gzip压缩构建上下环境<br>–force-rm 删除构建过程中的临时容器<br>–no-cache 构建镜像过程中不使用缓存<br>–pull 始终尝试通过拉取操作来获取更新版本的镜像<br>-m, –memory MEM为构建的容器设置内存大小<br>–build-arg key=val为服务设置build-time变量<br>服务容器一旦构建后，将会带上一个标记名。可以随时在项目目录下运行docker-compose build来重新构建服务</p>
-<h3 id="9、docker-compose-pull"><a href="#9、docker-compose-pull" class="headerlink" title="9、docker-compose pull"></a>9、docker-compose pull</h3><p><code>docker-compose pull [options] [SERVICE...]</code><br>拉取服务依赖的镜像。<br>选项包括：<br>–ignore-pull-failures，忽略拉取镜像过程中的错误<br>–parallel，多个镜像同时拉取<br>–quiet，拉取镜像过程中不打印进度信息<br><code>docker-compose pull</code><br>拉取服务依赖的镜像</p>
-<h3 id="10、docker-compose-restart"><a href="#10、docker-compose-restart" class="headerlink" title="10、docker-compose restart"></a>10、docker-compose restart</h3><p><code>docker-compose restart [options] [SERVICE...]</code><br>重启项目中的服务。<br>选项包括：<br>-t, –timeout TIMEOUT，指定重启前停止容器的超时（默认为10秒）<br><code>docker-compose restart</code><br>重启项目中的服务</p>
-<h3 id="11、docker-compose-rm"><a href="#11、docker-compose-rm" class="headerlink" title="11、docker-compose rm"></a>11、docker-compose rm</h3><p><code>docker-compose rm [options] [SERVICE...]</code><br>删除所有（停止状态的）服务容器。<br>选项包括：<br>–f, –force，强制直接删除，包括非停止状态的容器<br>-v，删除容器所挂载的数据卷<br><code>docker-compose rm</code><br>删除所有（停止状态的）服务容器。推荐先执行docker-compose stop命令来停止容器。</p>
-<h3 id="12、docker-compose-start"><a href="#12、docker-compose-start" class="headerlink" title="12、docker-compose start"></a>12、docker-compose start</h3><p><code>docker-compose start [SERVICE...]</code><br><code>docker-compose start</code><br>启动已经存在的服务容器。</p>
-<h3 id="13、docker-compose-run"><a href="#13、docker-compose-run" class="headerlink" title="13、docker-compose run"></a>13、docker-compose run</h3><p><code>docker-compose run [options] [-v VOLUME...] [-p PORT...] [-e KEY=VAL...] SERVICE [COMMAND] [ARGS...]</code><br>在指定服务上执行一个命令。<br><code>docker-compose run ubuntu ping www.baidu.com</code><br>在指定容器上执行一个ping命令。</p>
-<h3 id="14、docker-compose-scale"><a href="#14、docker-compose-scale" class="headerlink" title="14、docker-compose scale"></a>14、docker-compose scale</h3><p><code>docker-compose scale web=3 db=2</code><br>设置指定服务运行的容器个数。通过service=num的参数来设置数量</p>
-<h3 id="15、docker-compose-pause"><a href="#15、docker-compose-pause" class="headerlink" title="15、docker-compose pause"></a>15、docker-compose pause</h3><p><code>docker-compose pause [SERVICE...]</code><br>暂停一个服务容器</p>
-<h3 id="16、docker-compose-kill"><a href="#16、docker-compose-kill" class="headerlink" title="16、docker-compose kill"></a>16、docker-compose kill</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker-compose kill [options] [SERVICE...]`</span><br><span class="line">通过发送SIGKILL信号来强制停止服务容器。 </span><br><span class="line">支持通过-s参数来指定发送的信号，例如通过如下指令发送SIGINT信号：</span><br><span class="line">`docker-compose kill -s SIGINT</span><br></pre></td></tr></table></figure>
-
-<h3 id="17、dokcer-compose-config"><a href="#17、dokcer-compose-config" class="headerlink" title="17、dokcer-compose config"></a>17、dokcer-compose config</h3><p><code>docker-compose config [options]</code><br>验证并查看compose文件配置。<br>选项包括：<br>–resolve-image-digests 将镜像标签标记为摘要<br>-q, –quiet 只验证配置，不输出。 当配置正确时，不输出任何内容，当文件配置错误，输出错误信息<br>–services 打印服务名，一行一个<br>–volumes 打印数据卷名，一行一个</p>
-<h3 id="18、docker-compose-create"><a href="#18、docker-compose-create" class="headerlink" title="18、docker-compose create"></a>18、docker-compose create</h3><p><code>docker-compose create [options] [SERVICE...]</code><br>为服务创建容器。<br>选项包括：<br>–force-recreate：重新创建容器，即使配置和镜像没有改变，不兼容–no-recreate参数<br>–no-recreate：如果容器已经存在，不需要重新创建，不兼容–force-recreate参数<br>–no-build：不创建镜像，即使缺失<br>–build：创建容器前，生成镜像</p>
-<h3 id="19、docker-compose-exec"><a href="#19、docker-compose-exec" class="headerlink" title="19、docker-compose exec"></a>19、docker-compose exec</h3><p><code>docker-compose exec [options] SERVICE COMMAND [ARGS...]</code><br>选项包括：<br>-d 分离模式，后台运行命令。<br>–privileged 获取特权。<br>–user USER 指定运行的用户。<br>-T 禁用分配TTY，默认docker-compose exec分配TTY。<br>–index=index，当一个服务拥有多个容器时，可通过该参数登陆到该服务下的任何服务，例如：docker-compose exec –index=1 web /bin/bash ，web服务中包含多个容器</p>
-<h3 id="20、docker-compose-port"><a href="#20、docker-compose-port" class="headerlink" title="20、docker-compose port"></a>20、docker-compose port</h3><p><code>docker-compose port [options] SERVICE PRIVATE_PORT</code><br>显示某个容器端口所映射的公共端口。<br>选项包括：<br>–protocol=proto，指定端口协议，TCP（默认值）或者UDP<br>–index=index，如果同意服务存在多个容器，指定命令对象容器的序号（默认为1）</p>
-<h3 id="21、docker-compose-push"><a href="#21、docker-compose-push" class="headerlink" title="21、docker-compose push"></a>21、docker-compose push</h3><p><code>docker-compose push [options] [SERVICE...]</code><br>推送服务依的镜像。<br>选项包括：<br>–ignore-push-failures 忽略推送镜像过程中的错误</p>
-<h3 id="22、docker-compose-stop"><a href="#22、docker-compose-stop" class="headerlink" title="22、docker-compose stop"></a>22、docker-compose stop</h3><p><code>docker-compose stop [options] [SERVICE...]</code><br>显示各个容器运行的进程情况。</p>
-<h3 id="23、docker-compose-unpause"><a href="#23、docker-compose-unpause" class="headerlink" title="23、docker-compose unpause"></a>23、docker-compose unpause</h3><p><code>docker-compose unpause [SERVICE...]</code><br>恢复处于暂停状态中的服务。</p>
-<h3 id="24、docker-compose-version"><a href="#24、docker-compose-version" class="headerlink" title="24、docker-compose version"></a>24、docker-compose version</h3><p><code>docker-compose version</code><br>打印版本信息。</p>
-<h2 id="三、Docker-Compose模板文件"><a href="#三、Docker-Compose模板文件" class="headerlink" title="三、Docker-Compose模板文件"></a>三、Docker-Compose模板文件</h2><h3 id="1、Docker-Compose模板文件简介"><a href="#1、Docker-Compose模板文件简介" class="headerlink" title="1、Docker-Compose模板文件简介"></a>1、Docker-Compose模板文件简介</h3><p>Compose允许用户通过一个docker-compose.yml模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）。<br>Compose模板文件是一个定义服务、网络和卷的YAML文件。Compose模板文件默认路径是当前目录下的docker-compose.yml，可以使用.yml或.yaml作为文件扩展名。<br>Docker-Compose标准模板文件应该包含version、services、networks 三大部分，最关键的是services和networks两个部分。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    image: dockercloud/hello-world</span><br><span class="line">    ports:</span><br><span class="line">      - 8080</span><br><span class="line">    networks:</span><br><span class="line">      - front-tier</span><br><span class="line">      - back-tier</span><br><span class="line"></span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br><span class="line">    links:</span><br><span class="line">      - web</span><br><span class="line">    networks:</span><br><span class="line">      - back-tier</span><br><span class="line"></span><br><span class="line">  lb:</span><br><span class="line">    image: dockercloud/haproxy</span><br><span class="line">    ports:</span><br><span class="line">      - 80:80</span><br><span class="line">    links:</span><br><span class="line">      - web</span><br><span class="line">    networks:</span><br><span class="line">      - front-tier</span><br><span class="line">      - back-tier</span><br><span class="line">    volumes:</span><br><span class="line">      - /var/run/docker.sock:/var/run/docker.sock </span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  front-tier:</span><br><span class="line">    driver: bridge</span><br><span class="line">  back-tier:</span><br><span class="line">    driver: bridge</span><br></pre></td></tr></table></figure>
-
-<p>Compose目前有三个版本分别为Version 1，Version 2，Version 3，Compose区分Version 1和Version 2（Compose 1.6.0+，Docker Engine 1.10.0+）。Version 2支持更多的指令。Version 1将来会被弃用。</p>
-<h3 id="2、image"><a href="#2、image" class="headerlink" title="2、image"></a>2、image</h3><p>image是指定服务的镜像名称或镜像ID。如果镜像在本地不存在，Compose将会尝试拉取镜像。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">services: </span><br><span class="line">    web: </span><br><span class="line">        image: hello-world</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、build"><a href="#3、build" class="headerlink" title="3、build"></a>3、build</h3><p>服务除了可以基于指定的镜像，还可以基于一份Dockerfile，在使用up启动时执行构建任务，构建标签是build，可以指定Dockerfile所在文件夹的路径。Compose将会利用Dockerfile自动构建镜像，然后使用镜像启动服务容器。<br><code>build: /path/to/build/dir</code><br>也可以是相对路径，只要上下文确定就可以读取到Dockerfile。<br><code>build: ./dir</code><br>设定上下文根目录，然后以该目录为准指定Dockerfile。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">build:</span><br><span class="line">  context: ../</span><br><span class="line">  dockerfile: path/of/Dockerfile</span><br></pre></td></tr></table></figure>
-
-<p>build都是一个目录，如果要指定Dockerfile文件需要在build标签的子级标签中使用dockerfile标签指定。<br>如果同时指定image和build两个标签，那么Compose会构建镜像并且把镜像命名为image值指定的名字。</p>
-<h3 id="4、context"><a href="#4、context" class="headerlink" title="4、context"></a>4、context</h3><p>context选项可以是Dockerfile的文件路径，也可以是到链接到git仓库的url，当提供的值是相对路径时，被解析为相对于撰写文件的路径，此目录也是发送到Docker守护进程的context</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">build:</span><br><span class="line">  context: ./dir</span><br></pre></td></tr></table></figure>
-
-<h3 id="5、dockerfile"><a href="#5、dockerfile" class="headerlink" title="5、dockerfile"></a>5、dockerfile</h3><p>使用dockerfile文件来构建，必须指定构建路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">build:</span><br><span class="line">  context: .</span><br><span class="line">  dockerfile: Dockerfile-alternate</span><br></pre></td></tr></table></figure>
-
-<p>dockerfile指令不能跟image同时使用，否则Compose将不确定根据哪个指令来生成最终的服务镜像。</p>
-<h3 id="6、command"><a href="#6、command" class="headerlink" title="6、command"></a>6、command</h3><p>使用command可以覆盖容器启动后默认执行的命令。<br><code>command: bundle exec thin -p 3000</code></p>
-<h3 id="7、container-name"><a href="#7、container-name" class="headerlink" title="7、container_name"></a>7、container_name</h3><p>Compose的容器名称格式是：&lt;项目名称&gt;&lt;服务名称&gt;&lt;序号&gt;<br>可以自定义项目名称、服务名称，但如果想完全控制容器的命名，可以使用标签指定：<br><code>container_name: app</code></p>
-<h3 id="8、depends-on"><a href="#8、depends-on" class="headerlink" title="8、depends_on"></a>8、depends_on</h3><p>在使用Compose时，最大的好处就是少打启动命令，但一般项目容器启动的顺序是有要求的，如果直接从上到下启动容器，必然会因为容器依赖问题而启动失败。例如在没启动数据库容器的时候启动应用容器，应用容器会因为找不到数据库而退出。depends_on标签用于解决容器的依赖、启动先后的问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    build: .</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">      - redis</span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br><span class="line">  db:</span><br><span class="line">    image: postgres</span><br></pre></td></tr></table></figure>
-
-<p>上述YAML文件定义的容器会先启动redis和db两个服务，最后才启动web 服务。</p>
-<h3 id="9、pid"><a href="#9、pid" class="headerlink" title="9、pid"></a>9、pid</h3><p><code>pid: &quot;host&quot;</code><br>将PID模式设置为主机PID模式，跟主机系统共享进程命名空间。容器使用pid标签将能够访问和操纵其他容器和宿主机的名称空间。</p>
-<h3 id="10、ports"><a href="#10、ports" class="headerlink" title="10、ports"></a>10、ports</h3><p>ports用于映射端口的标签。<br>使用HOST:CONTAINER格式或者只是指定容器的端口，宿主机会随机映射端口。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ports:</span><br><span class="line"> - &quot;3000&quot;</span><br><span class="line"> - &quot;8000:8000&quot;</span><br><span class="line"> - &quot;49100:22&quot;</span><br><span class="line"> - &quot;127.0.0.1:8001:8001&quot;</span><br></pre></td></tr></table></figure>
-
-<p>当使用HOST:CONTAINER格式来映射端口时，如果使用的容器端口小于60可能会得到错误得结果，因为YAML将会解析xx:yy这种数字格式为60进制。所以建议采用字符串格式。</p>
-<h3 id="11、extra-hosts"><a href="#11、extra-hosts" class="headerlink" title="11、extra_hosts"></a>11、extra_hosts</h3><p>添加主机名的标签，会在/etc/hosts文件中添加一些记录。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extra_hosts:</span><br><span class="line"> - &quot;somehost:162.242.195.82&quot;</span><br><span class="line"> - &quot;otherhost:50.31.209.229&quot;</span><br></pre></td></tr></table></figure>
-
-<p>启动后查看容器内部hosts：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">162.242.195.82  somehost</span><br><span class="line">50.31.209.229   otherhost</span><br></pre></td></tr></table></figure>
-
-<h3 id="12、volumes"><a href="#12、volumes" class="headerlink" title="12、volumes"></a>12、volumes</h3><p>挂载一个目录或者一个已存在的数据卷容器，可以直接使用 [HOST:CONTAINER]格式，或者使用[HOST:CONTAINER:ro]格式，后者对于容器来说，数据卷是只读的，可以有效保护宿主机的文件系统。<br>Compose的数据卷指定路径可以是相对路径，使用 . 或者 .. 来指定相对目录。<br>数据卷的格式可以是下面多种形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">volumes:</span><br><span class="line">  // 只是指定一个路径，Docker 会自动在创建一个数据卷（这个路径是容器内部的）。</span><br><span class="line">  - /var/lib/mysql</span><br><span class="line">  // 使用绝对路径挂载数据卷</span><br><span class="line">  - /opt/data:/var/lib/mysql</span><br><span class="line">  // 以 Compose 配置文件为中心的相对路径作为数据卷挂载到容器。</span><br><span class="line">  - ./cache:/tmp/cache</span><br><span class="line">  // 使用用户的相对路径（~/ 表示的目录是 /home/&lt;用户目录&gt;/ 或者 /root/）。</span><br><span class="line">  - ~/configs:/etc/configs/:ro</span><br><span class="line">  // 已经存在的命名的数据卷。</span><br><span class="line">  - datavolume:/var/lib/mysql</span><br></pre></td></tr></table></figure>
-
-<p>如果不使用宿主机的路径，可以指定一个volume_driver。<br><code>volume_driver: mydriver</code></p>
-<h3 id="13、volumes-from"><a href="#13、volumes-from" class="headerlink" title="13、volumes_from"></a>13、volumes_from</h3><p>从另一个服务或容器挂载其数据卷：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">volumes_from:</span><br><span class="line">   - service_name    </span><br><span class="line">     - container_name</span><br></pre></td></tr></table></figure>
-
-<h3 id="14、dns"><a href="#14、dns" class="headerlink" title="14、dns"></a>14、dns</h3><p>自定义DNS服务器。可以是一个值，也可以是一个列表。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dns：8.8.8.8</span><br><span class="line">dns：</span><br><span class="line">    - 8.8.8.8    </span><br><span class="line">      - 9.9.9.9</span><br></pre></td></tr></table></figure>
-
-<h3 id="15、dns-search"><a href="#15、dns-search" class="headerlink" title="15、dns_search"></a>15、dns_search</h3><p>配置DNS搜索域。可以是一个值，也可以是一个列表。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dns_search：example.com</span><br><span class="line">dns_search：</span><br><span class="line">    - domain1.example.com</span><br><span class="line">    - domain2.example.com</span><br></pre></td></tr></table></figure>
-
-<h3 id="16、entrypoint"><a href="#16、entrypoint" class="headerlink" title="16、entrypoint"></a>16、entrypoint</h3><p>在Dockerfile中有一个指令叫做ENTRYPOINT指令，用于指定接入点。<br>在docker-compose.yml中可以定义接入点，覆盖Dockerfile中的定义：<br><code>entrypoint: /code/entrypoint.sh</code></p>
-<h3 id="17、env-file"><a href="#17、env-file" class="headerlink" title="17、env_file"></a>17、env_file</h3><p>在docker-compose.yml中可以定义一个专门存放变量的文件。<br>如果通过docker-compose -f FILE指定配置文件，则env_file中路径会使用配置文件路径。<br>如果有变量名称与environment指令冲突，则以后者为准。格式如下：<br><code>env_file: .env</code><br>或者根据docker-compose.yml设置多个：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">env_file:</span><br><span class="line">  - ./common.env</span><br><span class="line">  - ./apps/web.env</span><br><span class="line">  - /opt/secrets.env</span><br></pre></td></tr></table></figure>
-
-<p>如果在配置文件中有build操作，变量并不会进入构建过程中。</p>
-<h3 id="18、cap-add"><a href="#18、cap-add" class="headerlink" title="18、cap_add"></a>18、cap_add</h3><p>增加指定容器的内核能力（capacity）。<br>让容器具有所有能力可以指定：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cap_add:</span><br><span class="line">    - ALL</span><br></pre></td></tr></table></figure>
-
-<h3 id="19、cap-drop"><a href="#19、cap-drop" class="headerlink" title="19、cap_drop"></a>19、cap_drop</h3><p>去掉指定容器的内核能力（capacity）。<br>去掉NET_ADMIN能力可以指定：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cap_drop:</span><br><span class="line">    - NET_ADMIN</span><br></pre></td></tr></table></figure>
-
-<h3 id="20、cgroup-parent"><a href="#20、cgroup-parent" class="headerlink" title="20、cgroup_parent"></a>20、cgroup_parent</h3><p>创建了一个cgroup组名称为cgroups_1:<br><code>cgroup_parent: cgroups_1</code></p>
-<h3 id="21、devices"><a href="#21、devices" class="headerlink" title="21、devices"></a>21、devices</h3><p>指定设备映射关系，例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">devices:</span><br><span class="line">    - &quot;/dev/ttyUSB1:/dev/ttyUSB0&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="22、expose"><a href="#22、expose" class="headerlink" title="22、expose"></a>22、expose</h3><p>暴露端口，但不映射到宿主机，只允许能被连接的服务访问。仅可以指定内部端口为参数，如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">expose:</span><br><span class="line">    - &quot;3000&quot;</span><br><span class="line">    - &quot;8000&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="23、extends"><a href="#23、extends" class="headerlink" title="23、extends"></a>23、extends</h3><p>基于其它模板文件进行扩展。例如，对于webapp服务定义了一个基础模板文件为common.yml：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># common.yml</span><br><span class="line">webapp:</span><br><span class="line">    build: ./webapp</span><br><span class="line">    environment:</span><br><span class="line">        - DEBUG=false</span><br><span class="line">        - SEND_EMAILS=false</span><br></pre></td></tr></table></figure>
-
-<p>再编写一个新的development.yml文件，使用common.yml中的webapp服务进行扩展：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># development.yml</span><br><span class="line">web:</span><br><span class="line">    extends:</span><br><span class="line">        file: common.yml</span><br><span class="line">        service: webapp</span><br><span class="line">    ports:</span><br><span class="line">        - &quot;8000:8000&quot;</span><br><span class="line">    links:</span><br><span class="line">        - db</span><br><span class="line">    environment:</span><br><span class="line">        - DEBUG=true</span><br><span class="line">db:</span><br><span class="line">    image: mysql</span><br></pre></td></tr></table></figure>
-
-<p>后者会自动继承common.yml中的webapp服务及环境变量定义。<br>extends限制如下：<br>A、要避免出现循环依赖<br>B、extends不会继承links和volumes_from中定义的容器和数据卷资源<br>推荐在基础模板中只定义一些可以共享的镜像和环境变量，在扩展模板中具体指定应用变量、链接、数据卷等信息</p>
-<h3 id="24、external-links"><a href="#24、external-links" class="headerlink" title="24、external_links"></a>24、external_links</h3><p>链接到docker-compose.yml外部的容器，可以是非Compose管理的外部容器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">external_links:</span><br><span class="line">    - redis_1</span><br><span class="line">    - project_db_1:mysql</span><br><span class="line">    - project_db_1:postgresql</span><br></pre></td></tr></table></figure>
-
-<h3 id="25、labels"><a href="#25、labels" class="headerlink" title="25、labels"></a>25、labels</h3><p>为容器添加Docker元数据（metadata）信息。例如，可以为容器添加辅助说明信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">labels：</span><br><span class="line">    com.startupteam.description: &quot;webapp for a strtup team&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="26、links"><a href="#26、links" class="headerlink" title="26、links"></a>26、links</h3><p>链接到其它服务中的容器。使用服务名称（同时作为别名），或者“服务名称:服务别名”（如 SERVICE:ALIAS），例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">links:</span><br><span class="line">    - db</span><br><span class="line">    - db:database</span><br><span class="line">    - redis</span><br></pre></td></tr></table></figure>
-
-<p>使用别名将会自动在服务容器中的/etc/hosts里创建。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">172.17.2.186  db</span><br><span class="line">172.17.2.186  database</span><br><span class="line">172.17.2.187  redis</span><br></pre></td></tr></table></figure>
-
-<h3 id="27、log-driver"><a href="#27、log-driver" class="headerlink" title="27、log_driver"></a>27、log_driver</h3><p>指定日志驱动类型。目前支持三种日志驱动类型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_driver: &quot;json-file&quot;</span><br><span class="line">log_driver: &quot;syslog&quot;</span><br><span class="line">log_driver: &quot;none&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="28、log-opt"><a href="#28、log-opt" class="headerlink" title="28、log_opt"></a>28、log_opt</h3><p>日志驱动的相关参数。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log_driver: &quot;syslog&quot;log_opt: </span><br><span class="line">    syslog-address: &quot;tcp://192.168.0.42:123&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="29、net"><a href="#29、net" class="headerlink" title="29、net"></a>29、net</h3><p>设置网络模式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net: &quot;bridge&quot;</span><br><span class="line">net: &quot;none&quot;</span><br><span class="line">net: &quot;host&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="30、security-opt"><a href="#30、security-opt" class="headerlink" title="30、security_opt"></a>30、security_opt</h3><p>指定容器模板标签（label）机制的默认属性（用户、角色、类型、级别等）。例如，配置标签的用户名和角色名：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">security_opt:</span><br><span class="line">    - label:user:USER</span><br><span class="line">    - label:role:ROLE</span><br></pre></td></tr></table></figure>
-
-<h3 id="31、环境变量"><a href="#31、环境变量" class="headerlink" title="31、环境变量"></a>31、环境变量</h3><p>环境变量可以用来配置Docker-Compose的行为。<br>COMPOSE_PROJECT_NAME<br>设置通过Compose启动的每一个容器前添加的项目名称，默认是当前工作目录的名字。<br>COMPOSE_FILE<br>设置docker-compose.yml模板文件的路径。默认路径是当前工作目录。<br>DOCKER_HOST<br>设置Docker daemon的地址。默认使用unix:///var/run/docker.sock。 DOCKER_TLS_VERIFY<br>如果设置不为空，则与Docker daemon交互通过TLS进行。<br>DOCKER_CERT_PATH<br>配置TLS通信所需要的验证(ca.pem、cert.pem 和 key.pem)文件的路径，默认是 ~/.docker 。</p>
-<h2 id="四、Docker-Compose模板文件示例"><a href="#四、Docker-Compose模板文件示例" class="headerlink" title="四、Docker-Compose模板文件示例"></a>四、Docker-Compose模板文件示例</h2><h3 id="1、docker-compose模板文件编写"><a href="#1、docker-compose模板文件编写" class="headerlink" title="1、docker-compose模板文件编写"></a>1、docker-compose模板文件编写</h3><p>docker-compose.yaml文件如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  web1:</span><br><span class="line">    image: nginx</span><br><span class="line">    ports: </span><br><span class="line">      - &quot;6061:80&quot;</span><br><span class="line">    container_name: &quot;web1&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - dev</span><br><span class="line">  web2:</span><br><span class="line">    image: nginx</span><br><span class="line">    ports: </span><br><span class="line">      - &quot;6062:80&quot;</span><br><span class="line">    container_name: &quot;web2&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - dev</span><br><span class="line">      - pro</span><br><span class="line">  web3:</span><br><span class="line">    image: nginx</span><br><span class="line">    ports: </span><br><span class="line">      - &quot;6063:80&quot;</span><br><span class="line">    container_name: &quot;web3&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - pro</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  dev:</span><br><span class="line">    driver: bridge</span><br><span class="line">  pro:</span><br><span class="line">    driver: bridge</span><br><span class="line"></span><br><span class="line">#volumes:</span><br></pre></td></tr></table></figure>
-
-<p>docker-compose.yaml文件指定了三个web服务。</p>
-<h3 id="2、启动应用"><a href="#2、启动应用" class="headerlink" title="2、启动应用"></a>2、启动应用</h3><p>创建一个webapp目录，将docker-compose.yaml文件拷贝到webapp目录下，使用docker-compose启动应用。<br><code>docker-compose up -d</code></p>
-<h3 id="3、服务访问"><a href="#3、服务访问" class="headerlink" title="3、服务访问"></a>3、服务访问</h3><p>通过浏览器访问web1，web2，web3服务:<br><a href="http://127.0.0.1:6061/" target="_blank" rel="noopener">http://127.0.0.1:6061</a><br><a href="http://127.0.0.1:6062/" target="_blank" rel="noopener">http://127.0.0.1:6062</a><br><a href="http://127.0.0.1:6063/" target="_blank" rel="noopener">http://127.0.0.1:6063</a></p>
-<p>©著作权归作者所有：来自51CTO博客作者天山老妖S的原创作品，如需转载，请注明出处，否则将追究法律责任</p>
-<p>文章来源：<a href="https://blog.51cto.com/9291927/2310444" target="_blank" rel="noopener">https://blog.51cto.com/9291927/2310444</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/03/docker2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MysqlRW" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/01/MysqlRW/">在阿里云Centos7.6上面配置Mysql主从数据库(master/slave)，实现读写分离</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/01/MysqlRW/" class="archive-article-date">
-  	<time datetime="2019-09-01T02:05:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​    在之前的一篇文章中，阐述了如何在高并发高负载的场景下使用nginx做后台服务的负载均衡:<a href="https://v3u.cn/a_id_77" target="_blank" rel="noopener">在阿里云Centos上配置nginx+uwsgi+负载均衡配置</a>,但是不要以为这样做了就是一劳永逸的，到了数据业务层、数据访问层，如果还是传统的数据结构，或者只是单单靠一台服务器负载，如此多的数据库连接操作，数据库必然会崩溃，数据库如果宕机的话，后果更是不堪设想。这时候，我们会考虑如何减少数据库的连接，一方面采用优秀的代码框架，进行代码的优化，采用优秀的数据缓存技术如：redis,如果资金丰厚的话，必然会想到架设mysql服务集群，来分担主数据库的压力。今天总结一下利用MySQL主从配置，实现读写分离，减轻数据库压力。</p>
-<p>​    明确目的，部署mysql集群，采用一主一从的策略，写入操作使用主库，从库实时同步主库的数据，从库负责读取的业务，从而完成读写分离的目的。</p>
-<p>​    mysql主从同步的原理很简单，从库生成两个线程，一个I/O线程，一个SQL线程；i/o线程去请求主库 的binlog（二进制日志），并将得到的binlog日志写到relay log（中继日志） 文件中；主库会生成一个 log dump 线程，用来给从库 i/o线程传binlog；</p>
-<p>​    SQL 线程，会读取relay log文件中的日志，并解析成具体操作，来实现主从的操作一致，而最终数据一致。</p>
-<p>​    <img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190529/20190529071516_23557.png" alt="img"></p>
-<p>​    首先准备两台阿里云服务器，一台作为主机(master)，一台作为从机(slave)，都安装好mysql5.7，具体怎样安装mysql服务请移步：<a href="https://v3u.cn/a_id_72" target="_blank" rel="noopener">https://v3u.cn/a_id_72</a></p>
-<p>​    进入master服务器</p>
-<p>​    修改mysql配置文件 vim /etc/my.cnf，加入如下配置</p>
-<p>​    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server-id=1</span><br><span class="line">innodb_flush_log_at_trx_commit=2</span><br><span class="line">sync_binlog=1</span><br><span class="line">log-bin=mysql-bin-1</span><br></pre></td></tr></table></figure>
-
-<p>​    </p>
-<p>配置说明：</p>
-<p>保存后，重启mysql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart mysqld</span><br></pre></td></tr></table></figure>
-
-<p>进入mysql命令行 mysql -uroot -p你的密码</p>
-<p>输入授权命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT REPLICATION SLAVE ON *.* to &apos;repl&apos;@&apos;%&apos; identified by &apos;Admin123!&apos;;</span><br></pre></td></tr></table></figure>
-
-<p>意思是所有slave都可以通过账号repl和密码Admin123!来同步master的数据</p>
-<p>然后查看master的状态:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show master status;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190529/20190529072527_35767.png" alt="img"></p>
-<p>把file列和Position列记录下来，一会配置slave要用到</p>
-<p>此时Master的配置已经搞定，登录一下从机(slave)</p>
-<p>同理修改slave服务器的mysql配置 vim /etc/my.cnf 加入下面的配置，需要注意的是server-id不要和master一样</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server-id=201 </span><br><span class="line">innodb_flush_log_at_trx_commit=2 </span><br><span class="line">sync_binlog=1 </span><br><span class="line">log-bin=mysql-bin-201</span><br></pre></td></tr></table></figure>
-
-<p>保存后重启服务 systemctl restart mysqld</p>
-<p>进入mysql命令行 mysql -uroot -p你的密码</p>
-<p>输入命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">change master to master_host=&apos;39.106.228.179&apos;,master_user=&apos;repl&apos; ,master_password=&apos;Admin123!&apos;, master_log_file=&apos;mysql-bin.000002&apos; ,master_log_pos=154</span><br></pre></td></tr></table></figure>
-
-<p>命令说明：</p>
-<p>master_host: 主机的ip<br>master_user : 主机授权的用户.<br>master_password : 主机授权时候填写的密码<br>master_log_file : 主机show master status;中的File<br>master_log_pos: 主机show master status;中的Position.</p>
-<p>输入命令启动slave</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start slave;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show slave status G;   （show slave status;）</span><br></pre></td></tr></table></figure>
-
-<p>然后我们就可以测试一下对master进行写入，看看salve是否可以同步数据了</p>
-<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190529/20190529073320_84778.png" alt="img"></p>
-<p>当然了，mysql的读写分离主从配置并不是万能的，根据不同的应用场景选择不同的策略，MySQL的主从复制功能有一定的延迟性，如果对数据实时一致性的要求比较高的场景不推荐使用。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/01/MysqlRW/">展开全文 >></a>
         </p>
       
 
