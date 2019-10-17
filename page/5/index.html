@@ -152,6 +152,168 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-dabaoVUE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/20/dabaoVUE/">dabaoVUE</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/20/dabaoVUE/" class="archive-article-date">
+  	<time datetime="2018-04-20T11:30:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打包vue项目</p>
+<p>1.找到vue项目中找到config下面的index.js</p>
+<p>2.在index.js下找到第39行 将原来的 “../dist/index.html”     改成下方代码所示  需两处修改。</p>
+<p>build: {</p>
+<p>​    // Template for index.html</p>
+<p>​    index: path.resolve(__dirname, ‘./dist/index.html’),  #此处需要修改</p>
+<p>​    </p>
+<p>​    // Paths</p>
+<p>​        assetsRoot: path.resolve(__dirname, ‘./dist’),   #此处需要修改</p>
+<p>​        assetsSubDirectory: ‘static’,</p>
+<p>​        assetsPublicPath: ‘/‘,</p>
+<p>​        /**</p>
+<p>​         * Source Maps</p>
+<p>​         */</p>
+<p>​        productionSourceMap: true,</p>
+<p>​        // <a href="https://webpack.js.org/configuration/devtool/#production" target="_blank" rel="noopener">https://webpack.js.org/configuration/devtool/#production</a></p>
+<p>​        devtool: ‘#source-map’,</p>
+<p>原理：这个理解为 当你运行npm run vue的时候  它会将你所有vue中的服务，所有的组件，所有的网页，打包成静态页， 这个静态页的位置，是跟config同级的dist。</p>
+<p>3.将gitignore 第三行 “/dist/”  把前面那个“/”去掉    最后结果成  “dist/”</p>
+<p>4.在上述工作完成后到你的vue项目根路径下  运行   npm run build 进行打包</p>
+<p>5.执行下面两条命令，可以进到里面看有没有dist  </p>
+<p>cd config </p>
+<p>cd dist</p>
+<p>npm install http-server -g   安装hs</p>
+<p>6 . 当 cd 进去之后  可以执行hs  自启一个web服务  访问一个纯静态一个网页 </p>
+<p>hs执行访问不了执行一下</p>
+<p>python -m http.server</p>
+<p>如果服务器nginx访问阿里云公ip无法访问：</p>
+<p>添加安全规则80端口要开放</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/20/dabaoVUE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/Docker/">Docker</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/Docker/" class="archive-article-date">
+  	<time datetime="2018-04-10T07:15:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="在Centos7-6上部署Docker环境以及安装docker-compose"><a href="#在Centos7-6上部署Docker环境以及安装docker-compose" class="headerlink" title="在Centos7.6上部署Docker环境以及安装docker-compose"></a>在Centos7.6上部署Docker环境以及安装docker-compose</h1><p>​    毫无疑问，Docker目前是现阶段最为火爆的容器技术了，它在业务解耦和拆分业务层面有着不可忽视的作用，而使用 Docker Compose 可以轻松、高效的管理容器，它是一个用于定义和运行多容器 Docker 的应用程序工具，这里记录一下如何在centos7.6上部署Docker以及docker-compose。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#升级yum</span><br><span class="line">sudo yum update</span><br><span class="line">#卸载旧版本docker</span><br><span class="line">sudo yum remove docker  docker-common docker-selinux docker-engine</span><br><span class="line">#安装依赖</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">#设置源</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">#安装docker</span><br><span class="line">sudo yum install docker-ce</span><br><span class="line">#启动服务</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">#查看版本</span><br><span class="line">docker version</span><br><span class="line">#拉取镜像</span><br><span class="line">docker pull hello-world</span><br><span class="line">#启动容器</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p>启动容器后，如果出现下面的输出则表示安装成功</p>
+<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190821/20190821094924_49629.png" alt="img"></p>
+<p>下面安装docker-compose，运行下面的脚本可以自动安装，并且授权</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>安装成功后，检查版本号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -v</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/Docker/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SessionCookie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1388,93 +1550,9 @@
 
 
   
-    <article id="post-Yi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/08/22/Yi/">Yi</a>
-    </h1>
-  
-
-        
-        <a href="/2011/08/22/Yi/" class="archive-article-date">
-  	<time datetime="2011-08-22T05:51:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>GIT</p>
-<p>到码云上创建仓库  (建议设置共有)</p>
-<p>在计算机上</p>
-<ol>
-<li>新建文件夹</li>
-<li>到该文件夹目录</li>
-<li>初始化  </li>
-</ol>
-<p>$ git init </p>
-<p>$ git remote add origin <a href="https://gitee.com/xxx/xxx.git" target="_blank" rel="noopener">https://gitee.com/xxx/xxx.git</a> (你的远程项目地址)</p>
-<p>2.克隆一下</p>
-<p>$ git clone https://.git (你的远程项目地址)</p>
-<ol>
-<li>拉取仓库数据</li>
-</ol>
-<p>$ git pull origin master</p>
-<p>4.添加到暂存区</p>
-<p>$ git add .</p>
-<p>5.添加到仓库区</p>
-<p>$ git commit -m “你的第一次提交”</p>
-<p>6.push到你的码云仓库</p>
-<p>$ git push origin master</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2011/08/22/Yi/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 

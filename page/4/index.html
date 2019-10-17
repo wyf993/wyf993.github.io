@@ -152,6 +152,368 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MongoDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/21/MongoDB/">MongoDB和MySQL的区别</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/21/MongoDB/" class="archive-article-date">
+  	<time datetime="2019-05-21T12:40:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MySQL与MongoDB都是开源的常用数据库，但是MySQL是传统的关系型数据库，MongoDB则是非关系型数据库，也叫文档型数据库，是一种NoSQL的数据库。它们各有各的优点，关键是看用在什么地方。所以我们所熟知的那些SQL语句就不适用于MongoDB了，因为SQL语句是关系型数据库的标准语言。</p>
+<p>一、关系型数据库-MySQL</p>
+<p>1、在不同的引擎上有不同的存储方式。</p>
+<p>2、查询语句是使用传统的sql语句，拥有较为成熟的体系，成熟度很高。</p>
+<p>3、开源数据库的份额在不断增加，mysql的份额页在持续增长。</p>
+<p>4、缺点就是在海量数据处理的时候效率会显著变慢。</p>
+<p>二、非关系型数据库-MongoDB</p>
+<p>非关系型数据库(nosql ),属于文档型数据库。先解释一下文档的数据库，即可以存放xml、json、bson类型系那个的数据。这些数据具备自述性，呈现分层的树状数据结构。数据结构由键值(key=&gt;value)对组成。</p>
+<p>1、存储方式：虚拟内存+持久化。</p>
+<p>2、查询语句：是独特的MongoDB的查询方式。</p>
+<p>3、适合场景：事件的记录，内容管理或者博客平台等等。</p>
+<p>4、架构特点：可以通过副本集，以及分片来实现高可用。</p>
+<p>5、数据处理：数据是存储在硬盘上的，只不过需要经常读取的数据会被加载到内存中，将数据存储在物理内存中，从而达到高速读写。</p>
+<p>6、成熟度与广泛度：新兴数据库，成熟度较低，Nosql数据库中最为接近关系型数据库，比较完善的DB之一，适用人群不断在增长。</p>
+<p>三、MongoDB优势与劣势</p>
+<p>优势：</p>
+<p>1、在适量级的内存的MongoDB的性能是非常迅速的，它将热数据存储在物理内存中，使得热数据的读写变得十分快。</p>
+<p>2、MongoDB的高可用和集群架构拥有十分高的扩展性。</p>
+<p>3、在副本集中，当主库遇到问题，无法继续提供服务的时候，副本集将选举一个新的主库继续提供服务。</p>
+<p>4、MongoDB的Bson和JSon格式的数据十分适合文档格式的存储与查询。</p>
+<p>劣势：</p>
+<p>1、 不支持事务操作。MongoDB本身没有自带事务机制，若需要在MongoDB中实现事务机制，需通过一个额外的表，从逻辑上自行实现事务。</p>
+<p>2、 应用经验少，由于NoSQL兴起时间短，应用经验相比关系型数据库较少。</p>
+<p>3、MongoDB占用空间过大。</p>
+<p>四、对比</p>
+<table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>MongoDB</th>
+<th>MySQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据库模型</td>
+<td>非关系型</td>
+<td>关系型</td>
+</tr>
+<tr>
+<td>存储方式</td>
+<td>以类JSON的文档的格式存储</td>
+<td>不同引擎有不同的存储方式</td>
+</tr>
+<tr>
+<td>查询语句</td>
+<td>MongoDB查询方式（类似JavaScript的函数）</td>
+<td>SQL语句</td>
+</tr>
+<tr>
+<td>数据处理方式</td>
+<td>基于内存，将热数据存放在物理内存中，从而达到高速读写</td>
+<td>不同引擎有自己的特点</td>
+</tr>
+<tr>
+<td>成熟度</td>
+<td>新兴数据库，成熟度较低</td>
+<td>成熟度高</td>
+</tr>
+<tr>
+<td>广泛度</td>
+<td>NoSQL数据库中，比较完善且开源，使用人数在不断增长</td>
+<td>开源数据库，市场份额不断增长</td>
+</tr>
+<tr>
+<td>事务性</td>
+<td>仅支持单文档事务操作，弱一致性</td>
+<td>支持事务操作</td>
+</tr>
+<tr>
+<td>占用空间</td>
+<td>占用空间大</td>
+<td>占用空间小</td>
+</tr>
+<tr>
+<td>join操作</td>
+<td>MongoDB没有join</td>
+<td>MySQL支持join</td>
+</tr>
+</tbody></table>
+<p><a href="https://www.cnblogs.com/qlqwjy/p/8652555.html" target="_blank" rel="noopener">MongoDB 聚合(管道与表达式)</a></p>
+<p>　　MongoDB中聚合(aggregate)主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。</p>
+<p>下表展示了一些聚合的表达式:</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$sum</td>
+<td>计算总和。</td>
+<td>db.mycol.aggregate([{$group : {_id : “$by_user”, num_tutorial : {$sum : “$likes”}}}])</td>
+</tr>
+<tr>
+<td>$avg</td>
+<td>计算平均值</td>
+<td>db.mycol.aggregate([{$group : {_id : “$by_user”, num_tutorial : {$avg : “$likes”}}}])</td>
+</tr>
+<tr>
+<td>$min</td>
+<td>获取集合中所有文档对应值得最小值。</td>
+<td>db.mycol.aggregate([{$group : {_id : “$by_user”, num_tutorial : {$min : “$likes”}}}])</td>
+</tr>
+<tr>
+<td>$max</td>
+<td>获取集合中所有文档对应值得最大值。</td>
+<td>db.mycol.aggregate([{$group : {_id : “$by_user”, num_tutorial : {$max : “$likes”}}}])</td>
+</tr>
+<tr>
+<td>$push</td>
+<td>在结果文档中插入值到一个数组中。</td>
+<td>db.mycol.aggregate([{$group : {_id : “$by_user”, url : {$push: “$url”}}}])</td>
+</tr>
+<tr>
+<td>$addToSet</td>
+<td>在结果文档中插入值到一个数组中，但不创建副本。</td>
+<td>db.mycol.aggregate([{$group : {_id : “$by_user”, url : {$addToSet : “$url”}}}])</td>
+</tr>
+<tr>
+<td>$first</td>
+<td>根据资源文档的排序获取第一个文档数据。</td>
+<td>db.mycol.aggregate([{$group : {_id : “$by_user”, first_url : {$first : “$url”}}}])</td>
+</tr>
+<tr>
+<td>$last</td>
+<td>根据资源文档的排序获取最后一个文档数据</td>
+<td>db.mycol.aggregate([{$group : {_id : “$by_user”, last_url : {$last : “$url”}}}])</td>
+</tr>
+</tbody></table>
+<p>1.MongoDB成为最好NoSQL数据库的原因是什么?</p>
+<p>以下特点使得MongoDB成为最好的NoSQL数据库：</p>
+<ul>
+<li><p>面向文件的</p>
+</li>
+<li><p>高性能</p>
+</li>
+<li><p>高可用性</p>
+</li>
+<li><p>易扩展性</p>
+</li>
+<li><p>丰富的查询语言</p>
+<p>2.NoSQL数据库有哪些类型?</p>
+</li>
+</ul>
+<p><a href="http://theprofessionalspoint.blogspot.in/2014/01/types-and-examples-of-nosql-databases.html" target="_blank" rel="noopener">NoSQL数据库的类型</a></p>
+<p>例如：MongoDB, Cassandra, CouchDB, Hypertable, Redis, Riak, Neo4j, HBASE, Couchbase, MemcacheDB,redis mongodb  hbase</p>
+<p>\1. 你说的NoSQL数据库是什么意思?NoSQL与RDBMS直接有什么区别?为什么要使用和不使用NoSQL数据库?说一说NoSQL数据库的几个优点?</p>
+<p>我写了一篇完整的博客来回答这些问题，看<a href="http://theprofessionalspoint.blogspot.in/2014/01/nosql-vs-rdbms-why-and-why-not-to-use.html" target="_blank" rel="noopener">这里</a></p>
+<p>NoSQL是非关系型数据库，NoSQL = Not Only SQL。</p>
+<p>关系型数据库采用的结构化的数据，NoSQL采用的是键值对的方式存储数据。</p>
+<p>在处理非结构化/半结构化的大数据时；在水平方向上进行扩展时；随时应对动态增加的数据项时可以优先考虑使用NoSQL数据库。</p>
+<p>在考虑数据库的成熟度；支持；分析和商业智能；管理及专业性等问题时，应优先考虑关系型数据库。</p>
+<p>\2. NoSQL数据库有哪些类型?</p>
+<p><a href="http://theprofessionalspoint.blogspot.in/2014/01/types-and-examples-of-nosql-databases.html" target="_blank" rel="noopener">NoSQL数据库的类型</a></p>
+<p>例如：MongoDB, Cassandra, CouchDB, Hypertable, Redis, Riak, Neo4j, HBASE, Couchbase, MemcacheDB, RevenDB and Voldemort are the examples of NoSQL databases.<a href="http://theprofessionalspoint.blogspot.in/2014/01/12-best-free-and-open-source-nosql.html" target="_blank" rel="noopener">详细阅读</a>。</p>
+<p>\3. MySQL与MongoDB之间最基本的差别是什么?</p>
+<p>MySQL和MongoDB两者都是免费开源的数据库。MySQL和MongoDB有许多基本差别包括数据的表示(data representation)，查询，关系，事务，schema的设计和定义，标准化(normalization)，速度和性能。</p>
+<p>通过比较MySQL和MongoDB，实际上我们是在比较关系型和非关系型数据库，即数据存储结构不同。<a href="http://theprofessionalspoint.blogspot.in/2013/12/mysql-vs-mongodb-basic-differences.html" target="_blank" rel="noopener">详细阅读</a></p>
+<p>\4. 你怎么比较MongoDB、CouchDB及CouchBase?</p>
+<p>MongoDB和CouchDB都是面向文档的数据库。MongoDB和CouchDB都是开源NoSQL数据库的最典型代表。 除了都以文档形式存储外它们没有其他的共同点。MongoDB和CouchDB在数据模型实现、接口、对象存储以及复制方法等方面有很多不同。</p>
+<p>细节可以参见下面的链接：</p>
+<p><a href="http://theprofessionalspoint.blogspot.in/2014/01/couchdb-vs-couchbase-differences-and.html" target="_blank" rel="noopener">MongDB vs CouchDB</a></p>
+<p><a href="http://theprofessionalspoint.blogspot.in/2014/01/couchdb-vs-couchbase-differences-and.html" target="_blank" rel="noopener">CouchDB vs CouchBase</a></p>
+<p>\5. MongoDB成为最好NoSQL数据库的原因是什么?</p>
+<p>以下特点使得MongoDB成为最好的NoSQL数据库：</p>
+<ul>
+<li>面向文件的</li>
+<li>高性能</li>
+<li>高可用性</li>
+<li>易扩展性</li>
+<li>丰富的查询语言</li>
+</ul>
+<p>6.32位系统上有什么细微差别?</p>
+<p>journaling会激活额外的内存映射文件。这将进一步抑制32位版本上的数据库大小。因此，现在journaling在32位系统上默认是禁用的。</p>
+<p>\7. journal回放在条目(entry)不完整时(比如恰巧有一个中途故障了)会遇到问题吗?</p>
+<p>每个journal (group)的写操作都是一致的，除非它是完整的否则在恢复过程中它不会回放。</p>
+<p>\8. 分析器在MongoDB中的作用是什么?</p>
+<p>MongoDB中包括了一个可以显示数据库中每个操作性能特点的数据库分析器。通过这个分析器你可以找到比预期慢的查询(或写操作);利用这一信息，比如，可以确定是否需要添加索引。</p>
+<p>\9. 名字空间(namespace)是什么?</p>
+<p>MongoDB存储BSON对象在丛集(collection)中。数据库名字和丛集名字以句点连结起来叫做名字空间(namespace)。</p>
+<p>\10. 如果用户移除对象的属性，该属性是否从存储层中删除?</p>
+<p>是的，用户移除属性然后对象会重新保存(re-save())。</p>
+<p>\11. 能否使用日志特征进行安全备份?</p>
+<p>是的。</p>
+<p>\12. 允许空值null吗?</p>
+<p>对于对象成员而言，是的。然而用户不能够添加空值(null)到数据库丛集(collection)因为空值不是对象。然而用户能够添加空对象{}。</p>
+<p>\13. 更新操作立刻fsync到磁盘?</p>
+<p>不会，磁盘写操作默认是延迟执行的。写操作可能在两三秒(默认在60秒内)后到达磁盘。例如，如果一秒内数据库收到一千个对一个对象递增的操作，仅刷新磁盘一次。(注意，尽管fsync选项在命令行和经过getLastError_old是有效的)(译者：也许是坑人的面试题??)。</p>
+<p>\14. 如何执行事务/加锁?</p>
+<p>MongoDB没有使用传统的锁或者复杂的带回滚的事务，因为它设计的宗旨是轻量，快速以及可预计的高性能。可以把它类比成MySQL MylSAM的自动提交模式。通过精简对事务的支持，性能得到了提升，特别是在一个可能会穿过多个服务器的系统里。</p>
+<p>\15. 为什么我的数据文件如此庞大?</p>
+<p>MongoDB会积极的预分配预留空间来防止文件系统碎片。</p>
+<p>\16. 启用备份故障恢复需要多久?</p>
+<p>从备份数据库声明主数据库宕机到选出一个备份数据库作为新的主数据库将花费10到30秒时间。这期间在主数据库上的操作将会失败–包括写入和强一致性读取(strong consistent read)操作。然而，你还能在第二数据库上执行最终一致性查询(eventually consistent query)(在slaveOk模式下)，即使在这段时间里。</p>
+<p>\17. 什么是master或primary?</p>
+<p>它是当前备份集群(replica set)中负责处理所有写入操作的主要节点/成员。在一个备份集群中，当失效备援(failover)事件发生时，一个另外的成员会变成primary。</p>
+<p>\18. 什么是secondary或slave?</p>
+<p>Seconday从当前的primary上复制相应的操作。它是通过跟踪复制oplog(local.oplog.rs)做到的。</p>
+<p>\19. 我必须调用getLastError来确保写操作生效了么?</p>
+<p>不用。不管你有没有调用getLastError(又叫”Safe Mode”)服务器做的操作都一样。调用getLastError只是为了确认写操作成功提交了。当然，你经常想得到确认，但是写操作的安全性和是否生效不是由这个决定的。</p>
+<p>\20. 我应该启动一个集群分片(sharded)还是一个非集群分片的 MongoDB 环境?</p>
+<p>为开发便捷起见，我们建议以非集群分片(unsharded)方式开始一个 MongoDB 环境，除非一台服务器不足以存放你的初始数据集。从非集群分片升级到集群分片(sharding)是无缝的，所以在你的数据集还不是很大的时候没必要考虑集群分片(sharding)。</p>
+<p>\21. 分片(sharding)和复制(replication)是怎样工作的?</p>
+<p>每一个分片(shard)是一个分区数据的逻辑集合。分片可能由单一服务器或者集群组成，我们推荐为每一个分片(shard)使用集群。</p>
+<p>\22. 数据在什么时候才会扩展到多个分片(shard)里?</p>
+<p>MongoDB 分片是基于区域(range)的。所以一个集合(collection)中的所有的对象都被存放到一个块(chunk)中。只有当存在多余一个块的时候，才会有多个分片获取数据的选项。现在，每个默认块的大小是 64Mb，所以你需要至少 64 Mb 空间才可以实施一个迁移。</p>
+<p>\23. 当我试图更新一个正在被迁移的块(chunk)上的文档时会发生什么?</p>
+<p>更新操作会立即发生在旧的分片(shard)上，然后更改才会在所有权转移(ownership transfers)前复制到新的分片上。</p>
+<p>\24. 如果在一个分片(shard)停止或者很慢的时候，我发起一个查询会怎样?</p>
+<p>如果一个分片(shard)停止了，除非查询设置了“Partial”选项，否则查询会返回一个错误。如果一个分片(shard)响应很慢，MongoDB则会等待它的响应。</p>
+<p>\25. 我可以把moveChunk目录里的旧文件删除吗?</p>
+<p>没问题，这些文件是在分片(shard)进行均衡操作(balancing)的时候产生的临时文件。一旦这些操作已经完成，相关的临时文件也应该被删除掉。但目前清理工作是需要手动的，所以请小心地考虑再释放这些文件的空间。</p>
+<p>\26. 我怎么查看 Mongo 正在使用的链接?</p>
+<p>db._adminCommand(“connPoolStats”);</p>
+<p>\27. 如果块移动操作(moveChunk)失败了，我需要手动清除部分转移的文档吗?</p>
+<p>不需要，移动操作是一致(consistent)并且是确定性的(deterministic);一次失败后，移动操作会不断重试;当完成后，数据只会出现在新的分片里(shard)。</p>
+<p>\28. 如果我在使用复制技术(replication)，可以一部分使用日志(journaling)而其他部分则不使用吗?</p>
+<p>可以。</p>
+<p>29.当更新一个正在被迁移的块（Chunk）上的文档时会发生什么？</p>
+<p>更新操作会立即发生在旧的块（Chunk）上，然后更改才会在所有权转移前复制到新的分片上。</p>
+<p>30.MongoDB在A:{B,C}上建立索引，查询A:{B,C}和A:{C,B}都会使用索引吗？</p>
+<p>不会，只会在A:{B,C}上使用索引。</p>
+<p>31.如果一个分片（Shard）停止或很慢的时候，发起一个查询会怎样？</p>
+<p>如果一个分片停止了，除非查询设置了“Partial”选项，否则查询会返回一个错误。如果一个分片响应很慢，MongoDB会等待它的响应。</p>
+<p>\32. MongoDB支持存储过程吗？如果支持的话，怎么用？</p>
+<p>MongoDB支持存储过程，它是javascript写的，保存在db.system.js表中。</p>
+<p>33.如何理解MongoDB中的GridFS机制，MongoDB为何使用GridFS来存储文件？</p>
+<p>GridFS是一种将大型文件存储在MongoDB中的文件规范。使用GridFS可以将大文件分隔成多个小文档存放，这样我们能够有效的保存大文档，而且解决了BSON对象有限制的问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/21/MongoDB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Number" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/04/Number/">vue关于数字的处理</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/04/Number/" class="archive-article-date">
+  	<time datetime="2019-05-04T06:10:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="（四舍五入，向上取整，向下取整。。）"><a href="#（四舍五入，向上取整，向下取整。。）" class="headerlink" title="（四舍五入，向上取整，向下取整。。）"></a>（四舍五入，向上取整，向下取整。。）</h4><p>1、向下取整的函数</p>
+<h4 id="Math-floor"><a href="#Math-floor" class="headerlink" title="Math.floor();"></a>Math.floor();</h4><p>例如：Math.floor( 23.2222222); // 23</p>
+<p>2、向上取整</p>
+<h4 id="Math-ceil"><a href="#Math-ceil" class="headerlink" title="Math.ceil();"></a>Math.ceil();</h4><p>例如： Math.ceil(23.333333）； // 24</p>
+<p>3、四舍五入</p>
+<h4 id="Math-round"><a href="#Math-round" class="headerlink" title="Math.round();"></a>Math.round();</h4><p>例如：Math.round(23.33333); // 23</p>
+<p>4、四舍五入取n位小数，运算后得到的是字符串</p>
+<h4 id="toFixed-n-取小数点后n位"><a href="#toFixed-n-取小数点后n位" class="headerlink" title="().toFixed(n); // 取小数点后n位"></a>().toFixed(n); // 取小数点后n位</h4><p>例如：(36.36498524).toFixed(3); // 36.365</p>
+<h2 id="ps-虽然写的是vue-但是不仅仅vue中可以使用哦"><a href="#ps-虽然写的是vue-但是不仅仅vue中可以使用哦" class="headerlink" title="ps:虽然写的是vue,但是不仅仅vue中可以使用哦"></a>ps:虽然写的是vue,但是不仅仅vue中可以使用哦</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/04/Number/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Tornado" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -929,171 +1291,9 @@
 
 
   
-    <article id="post-dabaoVUE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/20/dabaoVUE/">dabaoVUE</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/20/dabaoVUE/" class="archive-article-date">
-  	<time datetime="2018-04-20T11:30:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打包vue项目</p>
-<p>1.找到vue项目中找到config下面的index.js</p>
-<p>2.在index.js下找到第39行 将原来的 “../dist/index.html”     改成下方代码所示  需两处修改。</p>
-<p>build: {</p>
-<p>​    // Template for index.html</p>
-<p>​    index: path.resolve(__dirname, ‘./dist/index.html’),  #此处需要修改</p>
-<p>​    </p>
-<p>​    // Paths</p>
-<p>​        assetsRoot: path.resolve(__dirname, ‘./dist’),   #此处需要修改</p>
-<p>​        assetsSubDirectory: ‘static’,</p>
-<p>​        assetsPublicPath: ‘/‘,</p>
-<p>​        /**</p>
-<p>​         * Source Maps</p>
-<p>​         */</p>
-<p>​        productionSourceMap: true,</p>
-<p>​        // <a href="https://webpack.js.org/configuration/devtool/#production" target="_blank" rel="noopener">https://webpack.js.org/configuration/devtool/#production</a></p>
-<p>​        devtool: ‘#source-map’,</p>
-<p>原理：这个理解为 当你运行npm run vue的时候  它会将你所有vue中的服务，所有的组件，所有的网页，打包成静态页， 这个静态页的位置，是跟config同级的dist。</p>
-<p>3.将gitignore 第三行 “/dist/”  把前面那个“/”去掉    最后结果成  “dist/”</p>
-<p>4.在上述工作完成后到你的vue项目根路径下  运行   npm run build 进行打包</p>
-<p>5.执行下面两条命令，可以进到里面看有没有dist  </p>
-<p>cd config </p>
-<p>cd dist</p>
-<p>npm install http-server -g   安装hs</p>
-<p>6 . 当 cd 进去之后  可以执行hs  自启一个web服务  访问一个纯静态一个网页 </p>
-<p>hs执行访问不了执行一下</p>
-<p>python -m http.server</p>
-<p>如果服务器nginx访问阿里云公ip无法访问：</p>
-<p>添加安全规则80端口要开放</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/20/dabaoVUE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/Docker/">Docker</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/Docker/" class="archive-article-date">
-  	<time datetime="2018-04-10T07:15:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="在Centos7-6上部署Docker环境以及安装docker-compose"><a href="#在Centos7-6上部署Docker环境以及安装docker-compose" class="headerlink" title="在Centos7.6上部署Docker环境以及安装docker-compose"></a>在Centos7.6上部署Docker环境以及安装docker-compose</h1><p>​    毫无疑问，Docker目前是现阶段最为火爆的容器技术了，它在业务解耦和拆分业务层面有着不可忽视的作用，而使用 Docker Compose 可以轻松、高效的管理容器，它是一个用于定义和运行多容器 Docker 的应用程序工具，这里记录一下如何在centos7.6上部署Docker以及docker-compose。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#升级yum</span><br><span class="line">sudo yum update</span><br><span class="line">#卸载旧版本docker</span><br><span class="line">sudo yum remove docker  docker-common docker-selinux docker-engine</span><br><span class="line">#安装依赖</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">#设置源</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">#安装docker</span><br><span class="line">sudo yum install docker-ce</span><br><span class="line">#启动服务</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">#查看版本</span><br><span class="line">docker version</span><br><span class="line">#拉取镜像</span><br><span class="line">docker pull hello-world</span><br><span class="line">#启动容器</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<p>启动容器后，如果出现下面的输出则表示安装成功</p>
-<p><img src="https://v3u.cn/v3u/Public/js/editor/attached/image/20190821/20190821094924_49629.png" alt="img"></p>
-<p>下面安装docker-compose，运行下面的脚本可以自动安装，并且授权</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
-
-<p>安装成功后，检查版本号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -v</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/Docker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 
